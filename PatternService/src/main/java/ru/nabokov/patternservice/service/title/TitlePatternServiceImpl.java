@@ -1,0 +1,46 @@
+package ru.nabokov.patternservice.service.title;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import ru.nabokov.patternservice.dto.NewTextCenteredDto;
+import ru.nabokov.patternservice.dto.TitlePatternDto;
+import ru.nabokov.patternservice.dto.UpdateTitlePatternDto;
+import ru.nabokov.patternservice.exceptions.NotFoundException;
+import ru.nabokov.patternservice.mapper.TitlePatternMapper;
+import ru.nabokov.patternservice.model.TitlePattern;
+import ru.nabokov.patternservice.repository.TitlePatternRepository;
+import ru.nabokov.patternservice.service.ReportPatternService;
+
+@Service
+@RequiredArgsConstructor
+public class TitlePatternServiceImpl implements TitlePatternService {
+
+    private final TitlePatternRepository repository;
+    private final TitlePageDataService titlePageDataService;
+    private final TextCenteredService textCenteredService;
+    private final TitlePatternMapper mapper;
+    private final ReportPatternService reportPatternService;
+
+    @Override
+    public TitlePatternDto save(NewTextCenteredDto textCenteredDto) {
+        TitlePattern pattern = new TitlePattern();
+        pattern.setTextCentered(textCenteredService.save(mapper.mapToTextCentered(textCenteredDto)));
+        pattern.setTitlePageData(titlePageDataService.save());
+        TitlePattern titlePatternDb = repository.save(pattern);
+        reportPatternService.save(textCenteredDto.getTypeId(), titlePatternDb);
+        return mapper.mapToTitlePatternDto(titlePatternDb);
+    }
+
+    @Override
+    public TitlePatternDto update(UpdateTitlePatternDto titlePatternDto) {
+        if (!repository.existsById(titlePatternDto.getId())) {
+            throw new NotFoundException(
+                             String.format("Report pattern witch id=%s not found for update", titlePatternDto.getId())
+            );
+        }
+        TitlePattern pattern = new TitlePattern();
+        pattern.setTextCentered(textCenteredService.update(titlePatternDto.getTextCentered()));
+        pattern.setTitlePageData(titlePageDataService.get(titlePatternDto.getTitlePageDataId()));
+        return mapper.mapToTitlePatternDto(repository.save(pattern));
+    }
+}
