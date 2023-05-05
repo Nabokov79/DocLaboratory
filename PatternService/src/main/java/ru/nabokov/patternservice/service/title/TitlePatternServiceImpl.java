@@ -16,7 +16,6 @@ import ru.nabokov.patternservice.service.ReportPatternService;
 public class TitlePatternServiceImpl implements TitlePatternService {
 
     private final TitlePatternRepository repository;
-    private final TitlePageDataService titlePageDataService;
     private final TextCenteredService textCenteredService;
     private final TitlePatternMapper mapper;
     private final ReportPatternService reportPatternService;
@@ -25,7 +24,6 @@ public class TitlePatternServiceImpl implements TitlePatternService {
     public TitlePatternDto save(NewTextCenteredDto textCenteredDto) {
         TitlePattern pattern = new TitlePattern();
         pattern.setTextCentered(textCenteredService.save(mapper.mapToTextCentered(textCenteredDto)));
-        pattern.setTitlePageData(titlePageDataService.save());
         TitlePattern titlePatternDb = repository.save(pattern);
         reportPatternService.save(textCenteredDto.getTypeId(), titlePatternDb);
         return mapper.mapToTitlePatternDto(titlePatternDb);
@@ -40,7 +38,6 @@ public class TitlePatternServiceImpl implements TitlePatternService {
         }
         TitlePattern pattern = new TitlePattern();
         pattern.setTextCentered(textCenteredService.update(titlePatternDto.getTextCentered()));
-        pattern.setTitlePageData(titlePageDataService.get(titlePatternDto.getTitlePageDataId()));
         return mapper.mapToTitlePatternDto(repository.save(pattern));
     }
 }

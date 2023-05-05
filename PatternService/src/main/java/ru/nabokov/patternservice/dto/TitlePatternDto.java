@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ru.nabokov.patternservice.model.TextCentered;
-import ru.nabokov.patternservice.model.TitlePageData;
 
 @Setter
 @Getter
@@ -15,8 +14,6 @@ public class TitlePatternDto {
 
     @Schema(description = "Индентификатор")
     private Long id;
-    @Schema(description = "Данные заголовка титульной страницы")
-    private TitlePageData titlePageData;
     @Schema(description = "Данные текста по центру титульной страницы")
     private TextCentered textCentered;
 }
