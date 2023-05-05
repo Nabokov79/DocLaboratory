@@ -9,13 +9,15 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DivisionDto {
+public class BranchDto {
 
     private Long id;
-    private CityDto city;
-    private OrganizationDto organization;
-    private Integer index;
     private String branch;
     private String division;
-    private LicenseDto license;
+    private Address address;
+    private Integer index;
+    private String phone;
+    private String fax;
+    private String email;
+    private License license;
 }
