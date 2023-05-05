@@ -11,7 +11,7 @@ public interface BranchMapper {
 
     Branch mapToNewBranch(NewBranchDto branchDto);
 
-    BranchDto mapToDivisionDto(Branch branch);
+    BranchDto mapToBranchDto(Branch branch);
 
     Branch mapToUpdateBranch(UpdateBranchDto branchDto);
 
