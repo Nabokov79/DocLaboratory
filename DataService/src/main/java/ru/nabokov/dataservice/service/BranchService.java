@@ -10,5 +10,5 @@ public interface BranchService {
 
     BranchDto update(UpdateBranchDto branchDto);
 
-    BranchDto get(Long id);
+    BranchDto get();
 }
