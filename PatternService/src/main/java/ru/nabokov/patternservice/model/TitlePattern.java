@@ -19,9 +19,6 @@ public class TitlePattern {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "title_page_data_id", referencedColumnName = "id")
-    private TitlePageData titlePageData;
-    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "text_centered_id", referencedColumnName = "id")
     private TextCentered textCentered;
 }
