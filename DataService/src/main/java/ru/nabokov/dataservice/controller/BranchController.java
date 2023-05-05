@@ -41,8 +41,8 @@ public class BranchController {
     }
 
     @Operation(summary = "Получение данных падразделения")
-    @GetMapping("/{id}")
-    public ResponseEntity<BranchDto> get(@PathVariable @Parameter(description = "Индентификатор") Long id) {
-        return ResponseEntity.ok().body(service.get(id));
+    @GetMapping
+    public ResponseEntity<BranchDto> get() {
+        return ResponseEntity.ok().body(service.get());
     }
 }
