@@ -12,7 +12,6 @@ import ru.nabokov.dataservice.dto.application.UpdateApplicationDto;
 import ru.nabokov.dataservice.exceptions.NotFoundException;
 import ru.nabokov.dataservice.mapper.ApplicationMapper;
 import ru.nabokov.dataservice.mapper.ObjectDataMapper;
-import ru.nabokov.dataservice.mapper.TypeMapper;
 import ru.nabokov.dataservice.model.Application;
 import ru.nabokov.dataservice.model.QApplication;
 import ru.nabokov.dataservice.model.Type;
@@ -31,7 +30,6 @@ public class ApplicationServiceImpl implements ApplicationService {
     private final ObjectDataService objectDataService;
     private final ObjectDataMapper objectDataMapper;
     private final TypeService typeService;
-    private final TypeMapper typeMapper;
 
     @Override
     public ApplicationDto save(NewApplicationDto applicationDto) {
@@ -58,6 +56,12 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
+    public ApplicationDto get(Long id) {
+        return  mapper.mapToApplicationDto((repository.findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format("application with id=%s not found",id)))));
+    }
+
+    @Override
     public List<ApplicationDto> getAll(ApplicationSearchParam param) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if(param.getAddressId() != null) {
@@ -76,7 +80,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             booleanBuilder.and(QApplication.application.protocol.eq(param.getProtocol()));
         }
         if(param.getTypeId() != null) {
-            Type type = typeMapper.mapToType(typeService.get(param.getTypeId()));
+            Type type = typeService.get(param.getTypeId());
             booleanBuilder.and(QApplication.application.objectData.type.eq(type));
         }
         QApplication application = QApplication.application;

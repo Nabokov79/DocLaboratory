@@ -12,5 +12,7 @@ public interface ApplicationService {
 
    ApplicationDto update(UpdateApplicationDto applicationDto);
 
+    ApplicationDto get(Long id);
+
    List<ApplicationDto> getAll(ApplicationSearchParam param);
 }
