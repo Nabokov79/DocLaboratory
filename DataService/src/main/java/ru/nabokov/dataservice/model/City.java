@@ -19,4 +19,12 @@ public class City {
     private long id;
     @Column(name = "name")
     private String name;
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
