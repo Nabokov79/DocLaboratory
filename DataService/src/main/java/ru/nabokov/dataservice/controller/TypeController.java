@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.nabokov.dataservice.dto.type.NewTypeDto;
 import ru.nabokov.dataservice.dto.type.TypeDto;
 import ru.nabokov.dataservice.dto.type.UpdateTypeDto;
+import ru.nabokov.dataservice.mapper.TypeMapper;
 import ru.nabokov.dataservice.service.TypeService;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import java.util.List;
 public class TypeController {
 
     private final TypeService service;
+    private final TypeMapper mapper;
 
     @Operation(summary = "Добавление данных типа объекта")
     @PostMapping
@@ -42,7 +44,7 @@ public class TypeController {
     @Operation(summary = "Получение данных типа объекта")
     @GetMapping("/{id}")
     public ResponseEntity<TypeDto> get(@PathVariable @Parameter(description = "Индентификатор") Long id) {
-        return ResponseEntity.ok().body(service.get(id));
+        return ResponseEntity.ok().body(mapper.mapToTypeDto(service.get(id)));
     }
 
     @Operation(summary = "Получение данных типа объекта")
