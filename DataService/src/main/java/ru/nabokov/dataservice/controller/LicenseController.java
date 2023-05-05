@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.nabokov.dataservice.dto.license.LicenseDto;
 import ru.nabokov.dataservice.dto.license.NewLicenseDto;
 import ru.nabokov.dataservice.dto.license.UpdateLicenseDto;
+import ru.nabokov.dataservice.mapper.LicenseMapper;
 import ru.nabokov.dataservice.service.LicenseService;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -28,6 +29,7 @@ import java.util.List;
 public class LicenseController {
 
     private final LicenseService service;
+    private final LicenseMapper mapper;
 
     @Operation(summary = "Добавление данных лицензии")
     @PostMapping
@@ -46,7 +48,7 @@ public class LicenseController {
     @GetMapping("/{id}")
     public ResponseEntity<LicenseDto> get(
             @PathVariable @NotNull @Positive @Parameter(description = "Индентификатор лицензии") Long id) {
-        return ResponseEntity.ok().body(service.get(id));
+        return ResponseEntity.ok().body(mapper.mapToLicenseDto(service.get(id)));
     }
 
     @Operation(summary = "Получение данных всех лицензий подразделения")
