@@ -3,6 +3,7 @@ package ru.nabokov.dataservice.service;
 import ru.nabokov.dataservice.dto.license.LicenseDto;
 import ru.nabokov.dataservice.dto.license.NewLicenseDto;
 import ru.nabokov.dataservice.dto.license.UpdateLicenseDto;
+import ru.nabokov.dataservice.model.Licenses;
 import java.util.List;
 
 public interface LicenseService {
@@ -11,7 +12,7 @@ public interface LicenseService {
 
     LicenseDto update(UpdateLicenseDto licenseDto);
 
-    LicenseDto get(Long id);
+    Licenses get(Long id);
 
     List<LicenseDto> getAll();
 }
