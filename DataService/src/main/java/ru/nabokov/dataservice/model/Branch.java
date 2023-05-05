@@ -34,5 +34,8 @@ public class Branch {
     private String email;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "license_id", referencedColumnName = "id")
-    private License license;
+    private Licenses license;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "organization_id", referencedColumnName = "id")
+    private Organization organization;
 }
