@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.nabokov.dataservice.model.Address;
-import ru.nabokov.dataservice.model.License;
+import ru.nabokov.dataservice.model.Licenses;
+import ru.nabokov.dataservice.model.Organization;
 
 @Setter
 @Getter
@@ -32,5 +33,7 @@ public class BranchDto {
     @Schema(description = "Электронная почта")
     private String email;
     @Schema(description = "Лицензия")
-    private License license;
+    private Licenses license;
+    @Schema(description = "Организация")
+    private Organization organization;
 }
