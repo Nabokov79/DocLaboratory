@@ -48,4 +48,8 @@ public class UpdateBranchDto {
     @NotNull(message = "license id should not be blank")
     @Positive(message = "license id must be positive")
     private Long licenseId;
+    @Schema(description = "Индентификатор организации")
+    @NotNull(message = "organization id should not be blank")
+    @Positive(message = "organization id must be positive")
+    private Long organizationId;
 }
