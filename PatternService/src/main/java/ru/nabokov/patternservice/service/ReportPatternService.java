@@ -9,9 +9,9 @@ public interface ReportPatternService {
 
     void save(Long typeId, TitlePattern titlePattern);
 
-    ReportPatternDto get(Long patId);
+    ReportPatternDto get(Long id, Long typeId);
 
     List<ShortReportPatternDto> getAll();
 
-    void delete(Long patId);
+    void delete(Long id);
 }

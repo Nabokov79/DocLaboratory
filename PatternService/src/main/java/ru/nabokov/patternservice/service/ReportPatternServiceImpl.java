@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.nabokov.patternservice.client.PatternClient;
 import ru.nabokov.patternservice.dto.ReportPatternDto;
-import ru.nabokov.patternservice.dto.client.TypeDto;
+import ru.nabokov.patternservice.dto.client.Type;
 import ru.nabokov.patternservice.dto.ShortReportPatternDto;
 import ru.nabokov.patternservice.exceptions.BadRequestException;
 import ru.nabokov.patternservice.exceptions.NotFoundException;
@@ -34,10 +34,19 @@ public class ReportPatternServiceImpl implements ReportPatternService {
     }
 
     @Override
-    public ReportPatternDto get(Long patId) {
-        return mapper.mapToReportPatternDto(repository.findById(patId)
-                .orElseThrow(() -> new NotFoundException(String.format("Pattern witch id=%s not found", patId)))
-        );
+    public ReportPatternDto get(Long id, Long typeId) {
+        ReportPatternDto reportPatternDto;
+       if (id != null && id > 0) {
+           reportPatternDto = mapper.mapToReportPatternDto(repository.findById(id)
+                   .orElseThrow(() -> new NotFoundException(String.format("Pattern witch id=%s not found", id)))
+           );
+       } else {
+           reportPatternDto = mapper.mapToReportPatternDto(repository.findByTypeId(typeId));
+       }
+       if (reportPatternDto == null) {
+           throw new BadRequestException(String.format("id=%s and typeId=%s not correct", id, typeId));
+       }
+       return reportPatternDto;
     }
 
     @Override
@@ -47,8 +56,8 @@ public class ReportPatternServiceImpl implements ReportPatternService {
         if (patterns.isEmpty()) {
             throw new NotFoundException(String.format("reports patterns not found, patterns=%s", patterns));
         }
-        Map<Long, TypeDto> types = client.getType(patterns.keySet().toString())
-                                                            .stream().collect(Collectors.toMap(TypeDto::getId, t -> t));
+        Map<Long, Type> types = client.getType(patterns.keySet().toString())
+                                                            .stream().collect(Collectors.toMap(Type::getId, t -> t));
         if (types.isEmpty()) {
             throw new NotFoundException(String.format("types reports patterns with ids=%s not found", patterns.keySet()));
         }
