@@ -3,6 +3,8 @@ package ru.nabokov.dataservice.service;
 import ru.nabokov.dataservice.dto.organization.NewOrganizationDto;
 import ru.nabokov.dataservice.dto.organization.OrganizationDto;
 import ru.nabokov.dataservice.dto.organization.UpdateOrganizationDto;
+import ru.nabokov.dataservice.model.Organization;
+
 import java.util.List;
 
 public interface OrganizationService {
@@ -11,7 +13,7 @@ public interface OrganizationService {
 
     OrganizationDto update(UpdateOrganizationDto organizationDto);
 
-    OrganizationDto get(Long id);
+    Organization get(Long id);
 
     List<OrganizationDto> getAll(String ids);
 
