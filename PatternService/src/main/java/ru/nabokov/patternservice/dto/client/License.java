@@ -11,11 +11,11 @@ import java.time.LocalDate;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LicenseDto {
+public class License {
 
     private long id;
     private String document;
-    private OrganizationDto organization;
+    private Organization organization;
     private String number;
     private LocalDate date;
 }
