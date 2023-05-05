@@ -43,6 +43,12 @@ public class ApplicationController {
         return ResponseEntity.ok().body(service.update(applicationDto));
     }
 
+    @Operation(summary = "Получение данных заявки")
+    @GetMapping("/{id}")
+    public ResponseEntity<ApplicationDto> get(@PathVariable @Parameter(description = "Индентификатор") Long id) {
+        return ResponseEntity.ok().body(service.get(id));
+    }
+
     @Operation(summary = "Получение данных авторов проектов")
     @GetMapping
     public ResponseEntity<List<ApplicationDto>> getAll (
