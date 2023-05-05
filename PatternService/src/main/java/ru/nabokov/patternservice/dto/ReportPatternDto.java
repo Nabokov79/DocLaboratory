@@ -3,20 +3,22 @@ package ru.nabokov.patternservice.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.nabokov.patternservice.dto.client.TypeDto;
+import ru.nabokov.patternservice.dto.client.Type;
 import ru.nabokov.patternservice.model.TitlePattern;
 
 @Setter
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 @Schema(description = "Данные шаблона отчета")
 public class ReportPatternDto {
 
     @Schema(description = "Индентификатор")
     private Long Id;
     @Schema(description = "Тип объекта шаблона")
-    private TypeDto type;
+    private Type type;
     @Schema(description = "Данные титульной страницы")
     private TitlePattern titlePattern;
     @Schema(description = "Данные шаблона первого раздела отчета")
