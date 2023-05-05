@@ -22,6 +22,8 @@ public class TextCentered {
     private String reportName;
     @Column(name = "text_first")
     private String textFirst;
+    @Column(name = "object")
+    private String object;
     @Column(name = "text_second")
     private String textSecond;
     @Column(name = "signature")
