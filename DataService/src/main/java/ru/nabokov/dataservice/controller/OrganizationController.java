@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.nabokov.dataservice.dto.organization.NewOrganizationDto;
 import ru.nabokov.dataservice.dto.organization.OrganizationDto;
 import ru.nabokov.dataservice.dto.organization.UpdateOrganizationDto;
+import ru.nabokov.dataservice.mapper.OrganizationMapper;
 import ru.nabokov.dataservice.service.OrganizationService;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import java.util.List;
 public class OrganizationController {
 
     private final OrganizationService service;
+    private final OrganizationMapper mapper;
 
     @Operation(summary = "Добавление данных организации")
     @PostMapping
@@ -44,7 +46,7 @@ public class OrganizationController {
     @Operation(summary = "Получение данных организации")
     @GetMapping("/{id}")
     public ResponseEntity<OrganizationDto> get(@PathVariable @Parameter(description = "Индентификатор") Long id) {
-        return ResponseEntity.ok().body(service.get(id));
+        return ResponseEntity.ok().body(mapper.mapToOrganizationDto(service.get(id)));
     }
 
     @Operation(summary = "Получение данных организаций")
