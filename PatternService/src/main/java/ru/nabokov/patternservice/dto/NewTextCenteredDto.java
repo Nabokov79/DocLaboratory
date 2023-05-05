@@ -26,6 +26,9 @@ public class NewTextCenteredDto {
     @Schema(description = "Первая чать текста под названием документа")
     @NotBlank(message = "text first should not be blank")
     private String textFirst;
+    @Schema(description = "Название объекта обследования")
+    @NotBlank(message = "object should not be blank")
+    private String object;
     @Schema(description = "Вторая чать текста под названием документа")
     @NotBlank(message = "text second should not be blank")
     private String textSecond;
