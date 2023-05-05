@@ -4,19 +4,17 @@ import org.mapstruct.Mapper;
 import ru.nabokov.dataservice.dto.license.LicenseDto;
 import ru.nabokov.dataservice.dto.license.NewLicenseDto;
 import ru.nabokov.dataservice.dto.license.UpdateLicenseDto;
-import ru.nabokov.dataservice.model.License;
+import ru.nabokov.dataservice.model.Licenses;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface LicenseMapper {
 
-    License mapToNewLicense(NewLicenseDto licenseDto);
+    Licenses mapToNewLicense(NewLicenseDto licenseDto);
 
-    LicenseDto mapToLicenseDto(License license);
+    LicenseDto mapToLicenseDto(Licenses license);
 
-    License mapToUpdateLicense(UpdateLicenseDto licenseDto);
+    Licenses mapToUpdateLicense(UpdateLicenseDto licenseDto);
 
-    List<LicenseDto> mapToLicensesDto(List<License> licenses);
-
-    License mapToLicense(LicenseDto licenseDto);
+    List<LicenseDto> mapToLicensesDto(List<Licenses> licenses);
 }
