@@ -1,6 +1,7 @@
 package ru.nabokov.patternservice.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -28,9 +29,13 @@ public class ReportPatternController {
     private final ReportPatternService service;
 
     @Operation(summary = "Получение шаблона отчета")
-    @GetMapping("/{patId}")
-    public ResponseEntity<ReportPatternDto> get(@PathVariable @NotNull @Positive Long patId) {
-        return ResponseEntity.ok().body(service.get(patId));
+    @GetMapping
+    public ResponseEntity<ReportPatternDto> get(
+                                     @RequestParam(required = false)
+                                     @Parameter(description = "Индентификатор шаблона отчета") Long id,
+                                     @RequestParam(required = false)
+                                     @Parameter(description = "Индентификатор типа объекта обследования") Long typeId) {
+        return ResponseEntity.ok().body(service.get(id, typeId));
     }
 
     @Operation(summary = "Получение шаблонов титульных листов всех отчетов")
@@ -40,9 +45,9 @@ public class ReportPatternController {
     }
 
     @Operation(summary = "Удаление шаблона отчета")
-    @DeleteMapping("/{patId}")
-    public ResponseEntity<String> delete(@PathVariable @NotNull @Positive Long patId) {
-        service.delete(patId);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable @NotNull @Positive Long id) {
+        service.delete(id);
         return ResponseEntity.ok("Шаблон отчета удален");
     }
 }
