@@ -31,7 +31,7 @@ public class PatternSectionOneServiceImpl implements PatternSectionOneService {
         }
         PatternSectionOne pattern = new PatternSectionOne();
         pattern.setHeader(headerService.save(patternDto.getHeader()));
-        pattern.setSubheadings(subheadingService.saveAll(patternDto.getSubheadings()));
+        pattern.setSubheadings(subheadingService.saveAll(pattern.getSubheadings()));
         PatternSectionOne patternDb = repository.save(pattern);
         updateReportPattern(patternDto.getReportPatternId(), patternDb);
         return mapper.mapToPatternSectionOneDto(patternDb);
@@ -46,7 +46,7 @@ public class PatternSectionOneServiceImpl implements PatternSectionOneService {
         }
         PatternSectionOne pattern = mapper.mapToPatternSectionOne(patternDto);
         pattern.setHeader(headerService.update(patternDto.getHeader()));
-        pattern.setSubheadings(subheadingService.updateAll(patternDto.getSubheadings()));
+        pattern.setSubheadings(subheadingService.updateAll(pattern.getSubheadings()));
         return mapper.mapToPatternSectionOneDto(repository.save(pattern));
     }
 
