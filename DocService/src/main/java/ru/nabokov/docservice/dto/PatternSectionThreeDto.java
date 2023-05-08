@@ -12,13 +12,13 @@ import java.util.List;
 public class PatternSectionThreeDto {
 
     private HeaderDto header;
-    private List<PatternTableSectionThreeDto> patternTables;
+    private List<SubheadingThreeDto> subheadings;
 
     @Override
     public String toString() {
         return "PatternSectionThreeDto{" +
                 "header=" + header +
-                ", patternTables=" + patternTables +
+                ", subheadings=" + subheadings +
                 '}';
     }
 }
