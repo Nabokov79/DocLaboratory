@@ -8,13 +8,9 @@ import ru.nabokov.patternservice.dto.UpdatePatternSectionThreeDto;
 import ru.nabokov.patternservice.exceptions.NotFoundException;
 import ru.nabokov.patternservice.mapper.PatternSectionThreeMapper;
 import ru.nabokov.patternservice.model.PatternSectionThree;
-import ru.nabokov.patternservice.model.PatternTable;
 import ru.nabokov.patternservice.model.ReportPattern;
 import ru.nabokov.patternservice.repository.PatternSectionThreeRepository;
 import ru.nabokov.patternservice.repository.ReportPatternRepository;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,8 +19,8 @@ public class PatternSectionThreeServiceImpl implements PatternSectionThreeServic
     private final PatternSectionThreeRepository repository;
     private final PatternSectionThreeMapper mapper;
     private final ReportPatternRepository reportPatternRepository;
-    private final PatternTableService patternTableService;
     private final HeaderService headerService;
+    private final SubheadingService subheadingService;
 
     @Override
     public PatternSectionThreeDto save(NewPatternSectionThreeDto patternDto) {
@@ -33,13 +29,9 @@ public class PatternSectionThreeServiceImpl implements PatternSectionThreeServic
                     patternDto.getReportPatternId())
             );
         }
-        PatternSectionThree pattern = new PatternSectionThree();
-        pattern.setHeader(headerService.save(patternDto.getHeader()));
-        List<PatternTable> tables = new ArrayList<>();
-        for (PatternTable table : patternDto.getPatternTables()) {
-            tables.add(patternTableService.save(table));
-        }
-        pattern.setPatternTables(tables);
+        PatternSectionThree pattern = mapper.mapToNewPatternSectionThree(patternDto);
+        pattern.setHeader(headerService.save(pattern.getHeader()));
+        pattern.setSubheadings(subheadingService.saveAll(pattern.getSubheadings()));
         PatternSectionThree patternDb = repository.save(pattern);
         updateReportPattern(patternDto.getReportPatternId(), patternDb);
         return mapper.mapToPatternSectionThreeDto(patternDb);
@@ -52,13 +44,9 @@ public class PatternSectionThreeServiceImpl implements PatternSectionThreeServic
                     String.format("pattern section three witch id=%s not found for update", patternDto.getId())
             );
         }
-        PatternSectionThree pattern = mapper.mapToPatternSectionThree(patternDto);
+        PatternSectionThree pattern = mapper.mapToUpdatePatternSectionThree(patternDto);
         pattern.setHeader(headerService.update(patternDto.getHeader()));
-        List<PatternTable> tables = new ArrayList<>();
-        for (PatternTable table : patternDto.getPatternTables()) {
-            tables.add(patternTableService.update(table));
-        }
-        pattern.setPatternTables(tables);
+        pattern.setSubheadings(subheadingService.saveAll(pattern.getSubheadings()));
         return mapper.mapToPatternSectionThreeDto(repository.save(pattern));
     }
 
