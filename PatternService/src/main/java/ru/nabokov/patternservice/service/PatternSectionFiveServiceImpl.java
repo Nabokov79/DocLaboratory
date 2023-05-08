@@ -29,12 +29,11 @@ public class PatternSectionFiveServiceImpl implements PatternSectionFiveService 
                     patternDto.getReportPatternId())
             );
         }
-        PatternSectionFive pattern = new PatternSectionFive();
+        PatternSectionFive pattern = mapper.mapToNewPatternSectionFive(patternDto);
         pattern.setHeader(headerService.save(patternDto.getHeader()));
-        pattern.setSubheadings(subheadingService.saveAll(patternDto.getSubheadings()));
-        PatternSectionFive patternDb = repository.save(pattern);
-        updateReportPattern(patternDto.getReportPatternId(), patternDb);
-        return mapper.mapToPatternSectionFiveDto(patternDb);
+        pattern.setSubheadings(subheadingService.saveAll(pattern.getSubheadings()));
+        updateReportPattern(patternDto.getReportPatternId(), pattern);
+        return mapper.mapToPatternSectionFiveDto(repository.save(pattern));
     }
 
     @Override
@@ -44,9 +43,9 @@ public class PatternSectionFiveServiceImpl implements PatternSectionFiveService 
                     String.format("pattern section one witch id=%s not found for update", patternDto.getId())
             );
         }
-        PatternSectionFive pattern = mapper.mapToPatternSectionFive(patternDto);
+        PatternSectionFive pattern = mapper.mapToUpdatePatternSectionFive(patternDto);
         pattern.setHeader(headerService.update(patternDto.getHeader()));
-        pattern.setSubheadings(subheadingService.updateAll(patternDto.getSubheadings()));
+        pattern.setSubheadings(subheadingService.updateAll(pattern.getSubheadings()));
         return mapper.mapToPatternSectionFiveDto(repository.save(pattern));
     }
 
