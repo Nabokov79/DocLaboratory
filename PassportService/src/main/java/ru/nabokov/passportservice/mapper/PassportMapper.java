@@ -15,5 +15,4 @@ public interface PassportMapper {
     PassportDto mapToPassportDto(Passport passport);
 
     List<ShortPassportDto> mapToShortPassportDto(List<Passport> passports);
-
 }
