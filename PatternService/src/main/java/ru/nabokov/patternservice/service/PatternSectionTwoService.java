@@ -10,5 +10,5 @@ public interface PatternSectionTwoService {
 
     PatternSectionTwoDto update(UpdatePatternSectionTwoDto patternDto);
 
-   PatternSectionTwoDto get(Long patId);
+    PatternSectionTwoDto get(Long patId);
 }
