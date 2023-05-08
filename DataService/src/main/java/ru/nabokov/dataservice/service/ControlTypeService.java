@@ -18,5 +18,5 @@ public interface ControlTypeService {
 
     List<ControlTypeDto> getAll();
 
-    String delete(Long typId);
+    String delete(Long id);
 }

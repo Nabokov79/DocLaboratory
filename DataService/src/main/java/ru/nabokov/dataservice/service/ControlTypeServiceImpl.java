@@ -53,12 +53,12 @@ public class ControlTypeServiceImpl implements ControlTypeService {
     }
 
     @Override
-    public String delete(Long typId) {
-        ControlType typeControl = repository.findById(typId)
+    public String delete(Long id) {
+        ControlType typeControl = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException(
-                        String.format("control type with id=%s not found for delete.", typId))
+                        String.format("control type with id=%s not found for delete.", id))
                 );
-        repository.deleteById(typId);
+        repository.deleteById(id);
         return typeControl.getName();
     }
 }
