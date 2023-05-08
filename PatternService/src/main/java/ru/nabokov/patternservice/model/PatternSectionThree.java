@@ -21,9 +21,9 @@ public class PatternSectionThree {
     private Header header;
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "pattern_section_three_pattern_tables",
+            name = "pattern_section_three_subheadings",
             joinColumns = {@JoinColumn(name = "pattern_section_three_id")},
-            inverseJoinColumns = {@JoinColumn(name = "pattern_table_id")})
+            inverseJoinColumns = {@JoinColumn(name = "subheading_id")})
     @ToString.Exclude
-    private List<PatternTable> patternTables;
+    private List<Subheading> subheadings;
 }
