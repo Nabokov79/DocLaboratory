@@ -45,8 +45,8 @@ public class GeodesyProtocolPatternController {
     }
 
     @Operation(summary = "Получение шаблона протокола")
-    @GetMapping("/{proId}")
-    public ResponseEntity<GeodesyProtocolPatternDto> get(@PathVariable @NotNull @Positive Long proId) {
-        return ResponseEntity.ok().body(service.get(proId));
+    @GetMapping("/{id}")
+    public ResponseEntity<GeodesyProtocolPatternDto> get(@PathVariable @NotNull @Positive Long id) {
+        return ResponseEntity.ok().body(service.get(id));
     }
 }

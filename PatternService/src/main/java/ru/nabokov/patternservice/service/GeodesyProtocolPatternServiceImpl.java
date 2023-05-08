@@ -73,11 +73,11 @@ public class GeodesyProtocolPatternServiceImpl implements GeodesyProtocolPattern
     }
 
     @Override
-    public GeodesyProtocolPatternDto get(Long proId) {
+    public GeodesyProtocolPatternDto get(Long id) {
         return mapper.mapToGeodesyProtocolPattern(
-                repository.findById(proId)
+                repository.findById(id)
                         .orElseThrow(() -> new NotFoundException(
-                                String.format("Visual protocol pattern with id=%s not found for update", proId)))
+                                String.format("Visual protocol pattern with id=%s not found for update", id)))
         );
     }
 

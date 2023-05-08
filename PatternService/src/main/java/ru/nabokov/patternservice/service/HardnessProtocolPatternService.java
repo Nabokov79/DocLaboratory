@@ -10,5 +10,5 @@ public interface HardnessProtocolPatternService {
 
     HardnessProtocolPatternDto update(UpdateProtocolPatternDto protocolDto);
 
-    HardnessProtocolPatternDto get(Long proId);
+    HardnessProtocolPatternDto get(Long id);
 }

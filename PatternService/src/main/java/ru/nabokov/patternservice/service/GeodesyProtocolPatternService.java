@@ -10,5 +10,5 @@ public interface GeodesyProtocolPatternService {
 
     GeodesyProtocolPatternDto update(UpdateGeodesyProtocolPatternDto protocolDto);
 
-    GeodesyProtocolPatternDto get(Long proId);
+    GeodesyProtocolPatternDto get(Long id);
 }

@@ -61,11 +61,11 @@ public class HardnessProtocolPatternServiceImpl implements HardnessProtocolPatte
     }
 
     @Override
-    public HardnessProtocolPatternDto get(Long proId) {
+    public HardnessProtocolPatternDto get(Long id) {
         return mapper.mapFromHardnessProtocolPattern(
-                repository.findById(proId)
+                repository.findById(id)
                         .orElseThrow(() -> new NotFoundException(
-                                String.format("Hardness protocol pattern with id=%s not found for update", proId)))
+                                String.format("Hardness protocol pattern with id=%s not found for update", id)))
         );
     }
 
