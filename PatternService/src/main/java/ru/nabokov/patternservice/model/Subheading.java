@@ -1,9 +1,6 @@
 package ru.nabokov.patternservice.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,6 +22,13 @@ public class Subheading {
     private String heading;
     @Column(name = "text")
     private String text;
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "subheadings_column_headers",
+            joinColumns = {@JoinColumn(name = "subheading_id")},
+            inverseJoinColumns = {@JoinColumn(name = "column_header_id")})
+    @ToString.Exclude
+    private List<ColumnHeader> columnHeaders;
     @OneToMany(mappedBy = "subheading", fetch = FetchType.LAZY)
     private List<Documentation> documentations;
 }
