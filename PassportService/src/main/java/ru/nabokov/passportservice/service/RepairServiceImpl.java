@@ -2,15 +2,10 @@ package ru.nabokov.passportservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.passportservice.client.PassportClient;
-import ru.nabokov.passportservice.dto.client.OrganizationDto;
 import ru.nabokov.passportservice.dto.repair.NewRepairDto;
-import ru.nabokov.passportservice.dto.repair.RepairDto;
 import ru.nabokov.passportservice.dto.repair.UpdateRepairDto;
-import ru.nabokov.passportservice.exceptions.BadRequestException;
 import ru.nabokov.passportservice.exceptions.NotFoundException;
 import ru.nabokov.passportservice.mapper.RepairMapper;
-import ru.nabokov.passportservice.model.Passport;
 import ru.nabokov.passportservice.model.Repair;
 import ru.nabokov.passportservice.repository.RepairRepository;
 import java.util.ArrayList;
@@ -24,35 +19,16 @@ public class RepairServiceImpl implements RepairService {
 
     private final RepairRepository repository;
     private final RepairMapper mapper;
-    private final PassportClient client;
 
     @Override
-    public List<RepairDto> save(Passport passport, List<NewRepairDto> repairsDto) {
-        if (repository.existsAllByPassport(passport)) {
-            throw new BadRequestException(String.format("Repairs for passport=%s found", passport));
-        }
-        return setValues(repairsDto.stream().map(NewRepairDto::getOrganizationId).toString(),
-                repository.saveAll(mapper.mapToNewRepairs(repairsDto)));
+    public List<Repair> save(List<NewRepairDto> repairsDto) {
+        return repository.saveAll(mapper.mapToNewRepairs(repairsDto));
     }
 
     @Override
-    public List<RepairDto> update(Passport passport, List<UpdateRepairDto> repairsDto) {
+    public List<Repair> update(List<UpdateRepairDto> repairsDto) {
         validateIds(repairsDto.stream().map(UpdateRepairDto::getId).toList());
-        return setValues(repairsDto.stream().map(UpdateRepairDto::getOrganizationId).toString(),
-                repository.saveAll(mapper.mapToUpdateRepairs(repairsDto)));
-    }
-
-    private List<RepairDto> setValues(String organizationIds, List<Repair> repair) {
-        Map<Long, Repair> repairsDb = repair.stream().collect(Collectors.toMap(Repair::getOrganizationId, r -> r));
-        Map<Long, OrganizationDto> organizations = client.getOrganizations(organizationIds)
-                .stream().collect(Collectors.toMap(OrganizationDto::getId, o -> o));
-        List<RepairDto> repairs = new ArrayList<>();
-        for (Long organizationId : repairsDb.keySet()) {
-            RepairDto repairDto = mapper.mapToRepairsDto(repairsDb.get(organizationId));
-            repairDto.setOrganization(organizations.get(organizationId));
-            repairs.add(repairDto);
-        }
-        return repairs;
+        return repository.saveAll(mapper.mapToUpdateRepairs(repairsDto));
     }
 
     private void validateIds(List<Long> ids) {
