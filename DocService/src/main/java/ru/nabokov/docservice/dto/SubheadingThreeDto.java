@@ -8,17 +8,17 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
-public class PatternTableSectionThreeDto {
+public class SubheadingThreeDto {
 
-    private String name;
-    private String text;
+    private Double number;
+    private String heading;
     private List<ColumnHeaderDto> columnHeaders;
 
     @Override
     public String toString() {
         return "PatternTableSectionThreeDto{" +
-                "name='" + name + '\'' +
-                ", text='" + text + '\'' +
+                "number='" + number + '\'' +
+                ", text='" + heading + '\'' +
                 ", columnHeaders=" + columnHeaders +
                 '}';
     }
