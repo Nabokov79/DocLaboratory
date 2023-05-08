@@ -50,9 +50,9 @@ public class ControlTypeController {
     }
 
     @Operation(summary = "Удаление данных вида контроля")
-    @DeleteMapping("/{typId}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable
-                                         @Parameter(description = "Индентификатор вида контроля") Long typId) {
-        return ResponseEntity.ok(service.delete(typId) + " - удален.");
+                                         @Parameter(description = "Индентификатор вида контроля") Long id) {
+        return ResponseEntity.ok(service.delete(id) + " - удален.");
     }
 }
