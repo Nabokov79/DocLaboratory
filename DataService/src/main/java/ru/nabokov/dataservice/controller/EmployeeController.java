@@ -31,20 +31,22 @@ public class EmployeeController {
 
     @Operation(summary = "Добавление данных нового сотрудника")
     @PostMapping
-    public ResponseEntity<ShortEmployeeDto> save(@RequestBody @Parameter(description = "Сотрудник") NewEmployeeDto employeeDto) {
+    public ResponseEntity<ShortEmployeeDto> save(@RequestBody
+                                                     @Parameter(description = "Сотрудник") NewEmployeeDto employeeDto) {
         return ResponseEntity.ok().body(service.save(employeeDto));
     }
 
     @Operation(summary = "Изменение данных сотрудника")
     @PatchMapping
-    public ResponseEntity<ShortEmployeeDto> update(@RequestBody @Parameter(description = "Сотрудник") UpdateEmployeeDto employeeDto) {
+    public ResponseEntity<ShortEmployeeDto> update(@RequestBody
+                                                  @Parameter(description = "Сотрудник") UpdateEmployeeDto employeeDto) {
         return ResponseEntity.ok().body(service.update(employeeDto));
     }
 
     @Operation(summary = "Получение данных сотрудника")
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeDto> get(@PathVariable
-                                       @Parameter(description = "Индентификатор сотрудника") Long id) {
+                                           @Parameter(description = "Индентификатор") Long id) {
         return ResponseEntity.ok().body(service.get(id));
     }
 
@@ -57,7 +59,7 @@ public class EmployeeController {
     @Operation(summary = "Удаление данных сотрудника")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable
-                                         @Parameter(description = "Индентификатор сотрудника") Long id) {
+                                         @Parameter(description = "Индентификатор") Long id) {
         service.delete(id);
         return ResponseEntity.ok("Данные сотрудника удалены.");
     }
