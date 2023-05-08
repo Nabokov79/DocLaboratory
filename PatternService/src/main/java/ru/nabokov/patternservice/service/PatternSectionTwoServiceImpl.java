@@ -31,7 +31,7 @@ public class PatternSectionTwoServiceImpl implements PatternSectionTwoService {
         }
         PatternSectionTwo pattern = new  PatternSectionTwo();
         pattern.setHeader(headerService.save(patternDto.getHeader()));
-        pattern.setSubheadings(subheadingService.saveAll(patternDto.getSubheadings()));
+        pattern.setSubheadings(subheadingService.saveAll(pattern.getSubheadings()));
         PatternSectionTwo patternDb = repository.save(pattern);
         updateReportPattern(patternDto.getReportPatternId(), patternDb);
         return mapper.mapToPatternSectionTwoDto(patternDb);
@@ -46,7 +46,7 @@ public class PatternSectionTwoServiceImpl implements PatternSectionTwoService {
         }
         PatternSectionTwo pattern = mapper.mapToPatternSectionTwo(patternDto);
         pattern.setHeader(headerService.update(patternDto.getHeader()));
-        pattern.setSubheadings(subheadingService.updateAll(patternDto.getSubheadings()));
+        pattern.setSubheadings(subheadingService.updateAll(pattern.getSubheadings()));
         return mapper.mapToPatternSectionTwoDto(repository.save(pattern));
     }
 
