@@ -12,4 +12,5 @@ public class SubheadingDto {
     private long id;
     private Double number;
     private String heading;
+    private String text;
 }
