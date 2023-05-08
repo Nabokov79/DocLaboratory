@@ -18,8 +18,10 @@ public class Characteristic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "subheading_id")
-    private Long subheadingId;
+    @Column(name = "number")
+    private Double number;
+    @Column(name = "heading")
+    private String heading;
     @Column(name = "meaning")
     private String meaning;
     @ManyToOne
