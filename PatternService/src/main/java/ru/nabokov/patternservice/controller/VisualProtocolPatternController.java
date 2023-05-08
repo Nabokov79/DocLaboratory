@@ -43,8 +43,8 @@ public class VisualProtocolPatternController {
     }
 
     @Operation(summary = "Получение шаблона протокола")
-    @GetMapping("/{proId}")
-    public ResponseEntity<VisualProtocolPatternDto> get(@PathVariable @NotNull @Positive Long proId) {
-        return ResponseEntity.ok().body(service.get(proId));
+    @GetMapping("/{id}")
+    public ResponseEntity<VisualProtocolPatternDto> get(@PathVariable @NotNull @Positive Long id) {
+        return ResponseEntity.ok().body(service.get(id));
     }
 }

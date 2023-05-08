@@ -61,11 +61,11 @@ public class VisualProtocolPatternServiceImpl implements VisualProtocolPatternSe
     }
 
     @Override
-    public VisualProtocolPatternDto get(Long proId) {
+    public VisualProtocolPatternDto get(Long id) {
         return mapper.mapToVisualProtocolPatternDto(
-                repository.findById(proId)
+                repository.findById(id)
                           .orElseThrow(() -> new NotFoundException(
-                                  String.format("Visual protocol pattern with id=%s not found for update", proId)))
+                                  String.format("Visual protocol pattern with id=%s not found for update", id)))
         );
     }
 

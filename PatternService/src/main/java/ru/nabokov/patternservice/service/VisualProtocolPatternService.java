@@ -10,5 +10,5 @@ public interface VisualProtocolPatternService {
 
     VisualProtocolPatternDto update(UpdateProtocolPatternDto protocolDto);
 
-    VisualProtocolPatternDto get(Long proId);
+    VisualProtocolPatternDto get(Long id);
 }
