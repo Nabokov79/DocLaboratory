@@ -7,8 +7,7 @@ import lombok.Setter;
 import ru.nabokov.passportservice.dto.client.ObjectDataDto;
 import ru.nabokov.passportservice.dto.repair.RepairDto;
 import ru.nabokov.passportservice.dto.survey.SurveyDto;
-import ru.nabokov.passportservice.model.*;
-
+import ru.nabokov.passportservice.dto.сharacteristic.CharacteristicDto;
 import java.util.List;
 
 @Setter
@@ -21,7 +20,7 @@ public class PassportDto {
     @Schema(description = "Объект обследования")
     private ObjectDataDto objectData;
     @Schema(description = "Характеристики")
-    private List<Characteristic> characteristics;
+    private List<CharacteristicDto> characteristics;
     @Schema(description = "Список проведенных обследований")
     private List<SurveyDto> surveys;
     @Schema(description = "Список выполненных ремонтов")
