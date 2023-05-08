@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.nabokov.patternservice.model.Header;
-import ru.nabokov.patternservice.model.Subheading;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -28,5 +27,5 @@ public class NewPatternSectionFiveDto {
     private Header header;
     @Schema(description = "Список подзаголовоков раздела")
     @NotEmpty(message = "list of subheadings of the first section cannot be empty")
-    private List<Subheading> subheadings;
+    private List<NewSubheadingDto> subheadings;
 }
