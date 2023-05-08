@@ -29,11 +29,11 @@ public class PatternSectionSixServiceImpl implements PatternSectionSixService {
                     patternDto.getReportPatternId())
             );
         }
-        PatternSectionSix pattern = new PatternSectionSix();
+        PatternSectionSix pattern = mapper.mapToNewPatternSectionSix(patternDto);
         pattern.setHeader(headerService.save(patternDto.getHeader()));
-        pattern.setSubheadings(subheadingService.saveAll(patternDto.getSubheadings()));
+        pattern.setSubheadings(subheadingService.saveAll(pattern.getSubheadings()));
         PatternSectionSix patternDb = repository.save(pattern);
-        updateReportPattern(patternDto.getReportPatternId(), patternDb);
+        updateReportPattern(patternDto.getReportPatternId(), pattern);
         return mapper.mapToPatternSectionSixDto(patternDb);
     }
 
@@ -44,9 +44,9 @@ public class PatternSectionSixServiceImpl implements PatternSectionSixService {
                     String.format("pattern section six witch id=%s not found for update", patternDto.getId())
             );
         }
-        PatternSectionSix pattern = mapper.mapToPatternSectionSix(patternDto);
+        PatternSectionSix pattern = mapper.mapToUpdatePatternSectionSix(patternDto);
         pattern.setHeader(headerService.update(patternDto.getHeader()));
-        pattern.setSubheadings(subheadingService.updateAll(patternDto.getSubheadings()));
+        pattern.setSubheadings(subheadingService.updateAll(pattern.getSubheadings()));
         return mapper.mapToPatternSectionSixDto(repository.save(pattern));
     }
 
