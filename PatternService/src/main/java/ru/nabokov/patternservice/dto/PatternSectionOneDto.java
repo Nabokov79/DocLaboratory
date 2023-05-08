@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ru.nabokov.patternservice.model.Header;
-import ru.nabokov.patternservice.model.Subheading;
 import java.util.List;
 
 @Setter
@@ -19,5 +18,5 @@ public class PatternSectionOneDto {
     @Schema(description = "Заголовок раздела")
     private Header header;
     @Schema(description = "Список подзаголовоков раздела")
-    private List<Subheading> subheadings;
+    private List<SubheadingDto> subheadings;
 }
