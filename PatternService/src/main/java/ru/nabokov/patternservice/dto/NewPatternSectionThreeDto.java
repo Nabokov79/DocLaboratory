@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.nabokov.patternservice.model.Header;
-import ru.nabokov.patternservice.model.PatternTable;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -26,7 +25,7 @@ public class NewPatternSectionThreeDto {
     @Schema(description = "Заголовок раздела")
     @NotNull(message = "header template of the three section should not be blank")
     private Header header;
-    @Schema(description = "Таблицы раздела")
-    @NotEmpty(message = "pattern tables of the three section cannot be empty")
-    private List<PatternTable> patternTables;
+    @Schema(description = "Список подзаголовоков раздела")
+    @NotEmpty(message = "list of subheadings of the three section cannot be empty")
+    private List<NewSubheadingThreeDto> subheadings;
 }
