@@ -1,6 +1,5 @@
 package ru.nabokov.passportservice.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,8 +25,4 @@ public class Repair {
     private String description;
     @Column(name = "organization_id")
     private Long organizationId;
-    @ManyToOne
-    @JoinColumn(name = "passport_id")
-    @JsonIgnore
-    private Passport passport;
 }
