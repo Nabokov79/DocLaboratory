@@ -46,9 +46,9 @@ public class UltrasonicProtocolPatternController {
     }
 
     @Operation(summary = "Получение шаблона протокола")
-    @GetMapping("/{proId}/tank")
-    public ResponseEntity<TankProtocolPatternDto> getTankProtocol(@PathVariable @NotNull @Positive Long proId) {
-        return ResponseEntity.ok().body(mapper.mapToTankProtocolPatternDto(service.get(proId)));
+    @GetMapping("/{id}/tank")
+    public ResponseEntity<TankProtocolPatternDto> getTankProtocol(@PathVariable @NotNull @Positive Long id) {
+        return ResponseEntity.ok().body(mapper.mapToTankProtocolPatternDto(service.get(id)));
     }
 
     @Operation(summary = "Добавление данных нового шаблона протокола")
@@ -66,8 +66,8 @@ public class UltrasonicProtocolPatternController {
     }
 
     @Operation(summary = "Получение шаблона протокола")
-    @GetMapping("/{proId}/pipeline")
-    public ResponseEntity<PipelineProtocolPatternDto> getPipelineProtocol(@PathVariable @NotNull @Positive Long proId) {
-        return ResponseEntity.ok().body(mapper.mapToPipelineProtocolPatternDto(service.get(proId)));
+    @GetMapping("/{id}/pipeline")
+    public ResponseEntity<PipelineProtocolPatternDto> getPipelineProtocol(@PathVariable @NotNull @Positive Long id) {
+        return ResponseEntity.ok().body(mapper.mapToPipelineProtocolPatternDto(service.get(id)));
     }
 }

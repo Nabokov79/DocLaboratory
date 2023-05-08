@@ -10,5 +10,5 @@ public interface UltrasonicProtocolPatternService {
 
     UltrasonicProtocolPattern update(UpdateProtocolPatternDto protocolDto);
 
-    UltrasonicProtocolPattern get(Long proId);
+    UltrasonicProtocolPattern get(Long id);
 }

@@ -58,9 +58,9 @@ public class UltrasonicProtocolPatternServiceImpl implements UltrasonicProtocolP
     }
 
     @Override
-    public UltrasonicProtocolPattern get(Long proId) {
-        return repository.findById(proId).orElseThrow(() -> new NotFoundException(
-                                    String.format("Ultrasonic protocol pattern with id=%s not found for update", proId))
+    public UltrasonicProtocolPattern get(Long id) {
+        return repository.findById(id).orElseThrow(() -> new NotFoundException(
+                                    String.format("Ultrasonic protocol pattern with id=%s not found for update", id))
         );
     }
 
