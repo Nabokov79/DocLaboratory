@@ -2,7 +2,6 @@ package ru.nabokov.docservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.docservice.dto.DocumentationDto;
 import ru.nabokov.docservice.dto.SubheadingDto;
 import ru.nabokov.docservice.dto.title.BranchDto;
 import ru.nabokov.docservice.mapper.SectionMapper;
@@ -21,6 +20,5 @@ public class DataFirstSectionServiceImpl implements DataFirstSectionService {
     @Override
     public void save(FirstSection section, List<SubheadingDto> subheadings, BranchDto branch) {
         List<DataFirstSection> dataSection = mapper.mapToDataFirstSection(subheadings);
-        List<DocumentationDto> documentations = subheadings.stream().filter(d -> !d.getDocumentations().isEmpty()).map(SubheadingDto::getDocumentations).toList();
     }
 }
