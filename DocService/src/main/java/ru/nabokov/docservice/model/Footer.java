@@ -18,8 +18,10 @@ public class Footer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "signature")
-    private String signature;
+    @Column(name = "post")
+    private String post;
+    @Column(name = "initials")
+    private String initials;
     @Column(name = "city")
     private String city;
     @Column(name = "year")
