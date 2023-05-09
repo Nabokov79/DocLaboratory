@@ -18,6 +18,8 @@ public class Certificate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(name = "document_type")
+    private String documentType;
     @Column(name = "number")
     private String number;
     @ManyToOne(cascade = CascadeType.ALL)
