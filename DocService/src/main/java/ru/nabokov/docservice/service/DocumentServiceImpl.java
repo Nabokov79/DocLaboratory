@@ -22,7 +22,8 @@ public class DocumentServiceImpl implements DocumentService {
         ApplicationDto application = client.getApplication(applicationId);
         BranchDto branch = client.getBranch();
         ReportPatternDto pattern = client.getReportPatternDto(application.getObjectData().getType().getId());
-        firstSectionService.save(branch, pattern.getPatternSectionOne());
-        return titleService.save(application.getObjectData(), branch, pattern.getTitlePattern());
+        Title title = titleService.save(application.getObjectData(), branch, pattern.getTitlePattern());
+        firstSectionService.save(branch, pattern.getPatternSectionOne(), application.getEmployees(), title.getLicense().getLicense());
+        return title;
     }
 }
