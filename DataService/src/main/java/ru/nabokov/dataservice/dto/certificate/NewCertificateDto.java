@@ -15,6 +15,9 @@ import java.time.LocalDate;
 @Schema(description = "Данные нового сертификата сотрудника")
 public class NewCertificateDto {
 
+    @Schema(description = "Тип документа")
+    @NotBlank(message = "document type should not be blank")
+    private String documentType;
     @Schema(description = "Номер сертификата")
     @NotBlank(message = "number should not be blank")
     private String number;
