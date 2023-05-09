@@ -37,7 +37,7 @@ public class DataFirstSection {
             joinColumns = {@JoinColumn(name = "data_first_section_id")},
             inverseJoinColumns = {@JoinColumn(name = "document_id")})
     @ToString.Exclude
-    private List<Document> documents;
+    private List<Document> documentations;
     @ManyToOne
     @JoinColumn(name = "section_id")
     @JsonIgnore
