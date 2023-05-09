@@ -13,6 +13,7 @@ import java.time.LocalDate;
 public class CertificateDto {
 
     private long id;
+    private String documentType;
     private String number;
     private ControlTypeDto type;
     private Integer level;

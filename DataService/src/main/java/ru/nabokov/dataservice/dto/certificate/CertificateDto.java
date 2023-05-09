@@ -16,6 +16,8 @@ public class CertificateDto {
 
     @Schema(description = "Индентификатор")
     private long id;
+    @Schema(description = "Тип документа")
+    private String documentType;
     @Schema(description = "Номер сертификата")
     private String number;
     @Schema(description = "Вид контроля соглано сертификата")
