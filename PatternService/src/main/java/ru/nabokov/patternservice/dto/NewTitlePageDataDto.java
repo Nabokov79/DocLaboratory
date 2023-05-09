@@ -14,7 +14,7 @@ import javax.validation.constraints.Positive;
 @AllArgsConstructor
 @NoArgsConstructor
 @Schema(description = "Данные нового титульного листа")
-public class NewTextCenteredDto {
+public class NewTitlePageDataDto {
 
     @Schema(description = "Индентификатор типа объекта обследования")
     @NotNull(message = "type id should not be blank")
@@ -32,9 +32,9 @@ public class NewTextCenteredDto {
     @Schema(description = "Вторая чать текста под названием документа")
     @NotBlank(message = "text second should not be blank")
     private String textSecond;
-    @Schema(description = "Текст перед подписью")
-    @NotBlank(message = "signature should not be blank")
-    private String signature;
+    @Schema(description = "Должность")
+    @NotBlank(message = "post should not be blank")
+    private String post;
     @Schema(description = "Название города, для нижней часть титульного листа")
     @NotBlank(message = "city name should not be blank")
     private String city;
