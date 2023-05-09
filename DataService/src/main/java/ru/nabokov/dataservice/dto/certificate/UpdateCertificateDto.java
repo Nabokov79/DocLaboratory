@@ -21,6 +21,9 @@ public class UpdateCertificateDto {
     @NotNull(message = "id should not be blank")
     @Positive(message = "id must be positive")
     private long id;
+    @Schema(description = "Тип документа")
+    @NotBlank(message = "document type should not be blank")
+    private String documentType;
     @Schema(description = "Номер сертификата")
     @NotBlank(message = "number should not be blank")
     private String number;

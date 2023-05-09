@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.nabokov.patternservice.dto.NewTextCenteredDto;
+import ru.nabokov.patternservice.dto.NewTitlePageDataDto;
 import ru.nabokov.patternservice.dto.TitlePatternDto;
 import ru.nabokov.patternservice.dto.UpdateTitlePatternDto;
 import ru.nabokov.patternservice.service.title.TitlePatternService;
@@ -30,7 +30,7 @@ public class TitlePatternController {
     @PostMapping
     public ResponseEntity<TitlePatternDto> save(
             @RequestBody @Validated
-            @Parameter(description = "Текст по центру титульного листа") NewTextCenteredDto textCenteredDto) {
+            @Parameter(description = "Текст по центру титульного листа") NewTitlePageDataDto textCenteredDto) {
         return ResponseEntity.ok().body(service.save(textCenteredDto));
     }
 

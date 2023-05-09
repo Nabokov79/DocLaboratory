@@ -2,7 +2,7 @@ package ru.nabokov.patternservice.service.title;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.patternservice.dto.NewTextCenteredDto;
+import ru.nabokov.patternservice.dto.NewTitlePageDataDto;
 import ru.nabokov.patternservice.dto.TitlePatternDto;
 import ru.nabokov.patternservice.dto.UpdateTitlePatternDto;
 import ru.nabokov.patternservice.exceptions.NotFoundException;
@@ -21,7 +21,7 @@ public class TitlePatternServiceImpl implements TitlePatternService {
     private final ReportPatternService reportPatternService;
 
     @Override
-    public TitlePatternDto save(NewTextCenteredDto textCenteredDto) {
+    public TitlePatternDto save(NewTitlePageDataDto textCenteredDto) {
         TitlePattern pattern = new TitlePattern();
         pattern.setTextCentered(textCenteredService.save(mapper.mapToTextCentered(textCenteredDto)));
         TitlePattern titlePatternDb = repository.save(pattern);

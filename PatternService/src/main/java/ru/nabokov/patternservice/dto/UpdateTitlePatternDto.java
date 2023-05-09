@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import ru.nabokov.patternservice.model.TextCentered;
+import ru.nabokov.patternservice.model.TitlePageData;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -24,9 +24,5 @@ public class UpdateTitlePatternDto {
     private String templateObjectType;
     @Schema(description = "Текст по центру титульного листа")
     @NotNull(message = "text centered should not be blank")
-    private TextCentered textCentered;
-    @Schema(description = "Название документа")
-    @NotNull(message = "title page data id should not be blank")
-    @Positive(message = "title page data id can only be positive")
-    private Long titlePageDataId;
+    private TitlePageData titlePageData;
 }
