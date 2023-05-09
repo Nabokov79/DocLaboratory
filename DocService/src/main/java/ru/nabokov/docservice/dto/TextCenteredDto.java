@@ -13,7 +13,7 @@ public class TextCenteredDto {
     private String textFirst;
     private String object;
     private String textSecond;
-    private String signature;
+    private String post;
     private String city;
     private String year;
 
@@ -24,7 +24,7 @@ public class TextCenteredDto {
                 ", textFirst='" + textFirst + '\'' +
                 ", object='" + object + '\'' +
                 ", textSecond='" + textSecond + '\'' +
-                ", signature='" + signature + '\'' +
+                ", post='" + post + '\'' +
                 ", city='" + city + '\'' +
                 ", year='" + year + '\'' +
                 '}';
