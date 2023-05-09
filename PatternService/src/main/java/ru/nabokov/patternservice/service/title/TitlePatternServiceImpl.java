@@ -37,7 +37,7 @@ public class TitlePatternServiceImpl implements TitlePatternService {
             );
         }
         TitlePattern pattern = new TitlePattern();
-        pattern.setTextCentered(textCenteredService.update(titlePatternDto.getTextCentered()));
+        pattern.setTextCentered(textCenteredService.update(titlePatternDto.getTitlePageData()));
         return mapper.mapToTitlePatternDto(repository.save(pattern));
     }
 }
