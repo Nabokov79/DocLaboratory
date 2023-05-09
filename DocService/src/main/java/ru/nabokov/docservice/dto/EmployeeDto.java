@@ -16,8 +16,6 @@ public class EmployeeDto {
     private String patronymic;
     private String surname;
     private String post;
-    private Integer serviceNumber;
     private List<CertificateDto> certificate;
     private List<MeasuringToolDto> measuringTool;
-
 }
