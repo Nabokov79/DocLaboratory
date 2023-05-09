@@ -1,10 +1,10 @@
 package ru.nabokov.patternservice.service.title;
 
-import ru.nabokov.patternservice.model.TextCentered;
+import ru.nabokov.patternservice.model.TitlePageData;
 
 public interface TextCenteredService {
 
-    TextCentered save(TextCentered textCentered);
+    TitlePageData save(TitlePageData textCentered);
 
-    TextCentered update(TextCentered textCentered);
+    TitlePageData update(TitlePageData textCentered);
 }
