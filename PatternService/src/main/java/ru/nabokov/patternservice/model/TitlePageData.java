@@ -12,8 +12,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "texts_centered")
-public class TextCentered {
+@Table(name = "title_page_data")
+public class TitlePageData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +26,8 @@ public class TextCentered {
     private String object;
     @Column(name = "text_second")
     private String textSecond;
-    @Column(name = "signature")
-    private String signature;
+    @Column(name = "post")
+    private String post;
     @Column(name = "city")
     private String city;
     @Column(name = "year")
