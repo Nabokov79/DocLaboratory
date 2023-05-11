@@ -2,9 +2,7 @@ package ru.nabokov.docservice.service.title;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.docservice.dto.TitlePatternDto;
-import ru.nabokov.docservice.dto.title.BranchDto;
-import ru.nabokov.docservice.dto.title.ObjectDataDto;
+import ru.nabokov.docservice.dto.ReportDataBuilder;
 import ru.nabokov.docservice.exceptions.BadRequestException;
 import ru.nabokov.docservice.model.*;
 import ru.nabokov.docservice.repository.TitleRepository;
@@ -20,38 +18,39 @@ public class TitleServiceImpl implements TitleService {
     private final TextCenteredService textCenteredService;
     private final FooterService footerService;
 
-
     @Override
-    public Title save(ObjectDataDto objectData, BranchDto branch, TitlePatternDto titlePattern) {
+    public Title save(ReportDataBuilder builder) {
         Title title = new Title();
-        License license = licenseService.save(branch);
+        License license = licenseService.save(builder.getBranch().getLicense(), builder.getBranch().getDivision());
         if (license == null) {
             throw new BadRequestException(
-                    String.format("branch data for license should not be null, branch=%s", branch)
+                    String.format("branch data for license should not be null, branch=%s", builder.getBranch())
             );
         }
-        TitleHeader header = titleHeaderService.save(branch);
+        TitleHeader header = titleHeaderService.save(builder.getBranch());
         if (header == null) {
             throw new BadRequestException(
-                    String.format("branch data title header should not be null, branch=%s", branch)
+                    String.format("branch data title header should not be null, branch=%s", builder.getBranch())
             );
         }
         title.setHeader(header);
         title.setLicense(license);
-        TextCentered textCentered = textCenteredService.save(objectData,titlePattern.getTextCentered());
+        TextCentered textCentered = textCenteredService.save(builder.getObjectData()
+                                                                         , builder.getTitlePattern().getTextCentered());
         if (textCentered == null) {
             throw new BadRequestException(
                     String.format("object data and text centered data should not be null, objectData=%s, " +
-                                                                           "textCentered=%s",
-                                                                           objectData,
-                                                                           titlePattern.getTextCentered())
+                                                                                                     "textCentered=%s",
+                                                                            builder.getObjectData(),
+                                                                            builder.getTitlePattern().getTextCentered())
             );
         }
         title.setText(textCentered);
-        Footer footer = footerService.save(titlePattern.getTextCentered());
+        Footer footer = footerService.save(builder.getTitlePattern().getTextCentered());
         if (footer == null) {
             throw new BadRequestException(
-                 String.format("text centered data should not be null, textCentered=%s", titlePattern.getTextCentered())
+                 String.format("text centered data should not be null, textCentered=%s"
+                                                                          , builder.getTitlePattern().getTextCentered())
             );
         }
         title.setFooter(footer);

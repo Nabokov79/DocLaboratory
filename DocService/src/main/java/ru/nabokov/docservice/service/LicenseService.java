@@ -1,9 +1,9 @@
 package ru.nabokov.docservice.service;
 
-import ru.nabokov.docservice.dto.title.BranchDto;
+import ru.nabokov.docservice.dto.title.LicenseDto;
 import ru.nabokov.docservice.model.License;
 
 public interface LicenseService {
 
-    License save(BranchDto branchDto);
+    License save(LicenseDto licenseDto, String division);
 }

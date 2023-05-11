@@ -25,19 +25,19 @@ public class DataFirstSectionServiceImpl implements DataFirstSectionService {
     private final StringService stringService;
 
     @Override
-    public void save(FirstSection section, List<SubheadingDto> subheadingsDto, BranchDto branch, List<EmployeeDto> employeesDto, String license) {
-        Map<Double, DataFirstSection> dataSections = mapper.mapToDataFirstSection(subheadingsDto)
+    public void save(FirstSection section, ReportDataBuilder builder) {
+        Map<Double, DataFirstSection> dataSections = mapper.mapToDataFirstSection(builder.getPattern().getSubheadings())
                                                         .stream()
                                                         .collect(Collectors.toMap(DataFirstSection::getNumber, d -> d));
-        Map<Double, SubheadingDto> subheadings = subheadingsDto.stream()
+        Map<Double, SubheadingDto> subheadings = builder.getPattern().getSubheadings().stream()
                                                            .collect(Collectors.toMap(SubheadingDto::getNumber, s -> s));
         for (Double number : dataSections.keySet()) {
             DataFirstSection data = dataSections.get(number);
             if (data.getText() == null && data.getDocumentations() == null) {
-                data.setLaboratoryData(setLaboratoryData(branch, license));
+                data.setLaboratoryData(setLaboratoryData(builder.getBranch(), builder.getLicense()));
                 String employeeFirst = "";
                 String employeeSecond = "";
-                for (EmployeeDto employee : employeesDto) {
+                for (EmployeeDto employee : builder.getEmployees()) {
                     if (employeeFirst.isBlank()) {
                         employeeFirst = getStringEmployees(employee);
                     } else {
