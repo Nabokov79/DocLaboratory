@@ -32,8 +32,14 @@ public class Application {
     private String note;
     @Column(name = "report")
     private Boolean report;
-    @Column(name = "protocol")
-    private Boolean protocol;
+    @Column(name = "visual")
+    private Boolean visual;
+    @Column(name = "ultrasonic")
+    private Boolean ultrasonic;
+    @Column(name = "geodesy")
+    private Boolean geodesy;
+    @Column(name = "hardness")
+    private Boolean hardness;
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "applications_employees",
