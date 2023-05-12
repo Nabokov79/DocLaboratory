@@ -1,10 +1,11 @@
 package ru.nabokov.docservice.service;
 
 import org.springframework.stereotype.Service;
+import ru.nabokov.docservice.dto.pattern.HeaderDto;
 import ru.nabokov.docservice.dto.title.AddressDto;
 
 @Service
-public class StringService {
+public class StringBuilderService {
 
     private static final String HOUSE = "д.";
     private static final String BUILDING = "к.";
@@ -30,5 +31,9 @@ public class StringService {
             return String.join(", ", addressDto.getStreet(),
                     String.join("", HOUSE, String.valueOf(addressDto.getHouseNumber())));
         }
+    }
+
+    public String getHeaderSection(HeaderDto header) {
+        return String.join(". ", String.valueOf(header.getNumber()), header.getHeading());
     }
 }
