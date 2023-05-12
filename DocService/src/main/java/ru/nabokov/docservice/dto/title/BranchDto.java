@@ -3,6 +3,7 @@ package ru.nabokov.docservice.dto.title;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.nabokov.docservice.dto.OrganizationDto;
 
 @Setter
 @Getter
