@@ -7,8 +7,6 @@ import lombok.Setter;
 import ru.nabokov.dataservice.model.Address;
 import ru.nabokov.dataservice.model.Employee;
 import ru.nabokov.dataservice.model.ObjectData;
-import javax.persistence.Column;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,7 +17,7 @@ public class ApplicationDto {
 
     @Schema(description = "Индентификатор")
     private Long id;
-    @Schema(description = "Индентификатор адреса местонахождения котельной")
+    @Schema(description = "Адреса местонахождения котельной")
     private Address address;
     @Schema(description = "Проводимые работы")
     private String work;
@@ -31,10 +29,14 @@ public class ApplicationDto {
     private LocalDate repeatData;
     @Schema(description = "Оформить отчет")
     private Boolean report;
-    @Schema(description = "Оформить протокол")
-    @NotNull(message = "protocol should not be blank")
-    @Column(name = "protocol")
-    private Boolean protocol;
+    @Schema(description = "Оформить протокол визуального и измерительного контроля")
+    private Boolean visual;
+    @Schema(description = "Оформить протокол ультразвуковой толщинометрии")
+    private Boolean ultrasonic;
+    @Schema(description = "Оформить протокол геодезической съемки")
+    private Boolean geodesy;
+    @Schema(description = "Оформить протокол измерения твердости металла")
+    private Boolean hardness;
     @Schema(description = "Примечание")
     private String note;
     @Schema(description = "Сотрудники, проводившие обследование")
