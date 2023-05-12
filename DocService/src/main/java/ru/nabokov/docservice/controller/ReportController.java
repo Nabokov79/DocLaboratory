@@ -4,13 +4,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.nabokov.docservice.model.Title;
-import ru.nabokov.docservice.service.DocumentService;
+import ru.nabokov.docservice.model.Report;
+import ru.nabokov.docservice.service.ReportService;
 
 import javax.validation.constraints.Positive;
 
@@ -23,13 +22,13 @@ import javax.validation.constraints.Positive;
 @Validated
 @Tag(name="Отчет/протокол",
         description="API для работы с данными отчета/протокола")
-public class DocumentController {
+public class ReportController {
 
-    private final DocumentService service;
+    private final ReportService service;
 
     @Operation(summary = "Добавление нового отчета/протокола")
     @PostMapping
-    public ResponseEntity<Title> save(@RequestParam @Positive
+    public ResponseEntity<Report> save(@RequestParam @Positive
                                    @Parameter(description = "Индентификатор объекта обследования") Long applicationId) {
         return ResponseEntity.ok().body(service.save(applicationId));
     }
