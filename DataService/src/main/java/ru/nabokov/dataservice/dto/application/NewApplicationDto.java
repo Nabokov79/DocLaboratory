@@ -36,9 +36,18 @@ public class NewApplicationDto {
     @Schema(description = "Оформить отчет")
     @NotNull(message = "report should not be blank")
     private Boolean report;
-    @Schema(description = "Оформить протокол")
+    @Schema(description = "Оформить протокол визуального и измерительного контроля")
     @NotNull(message = "protocol should not be blank")
-    private Boolean protocol;
+    private Boolean visual;
+    @Schema(description = "Оформить протокол ультразвуковой толщинометрии")
+    @NotNull(message = "protocol should not be blank")
+    private Boolean ultrasonic;
+    @Schema(description = "Оформить протокол геодезической съемки")
+    @NotNull(message = "protocol should not be blank")
+    private Boolean geodesy;
+    @Schema(description = "Оформить протокол измерения твердости металла")
+    @NotNull(message = "protocol should not be blank")
+    private Boolean hardness;
     @Schema(description = "Примечание")
     private String note;
 }
