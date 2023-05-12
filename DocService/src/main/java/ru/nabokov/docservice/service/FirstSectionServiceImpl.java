@@ -12,12 +12,12 @@ public class FirstSectionServiceImpl implements FirstSectionService {
 
     private final FirstSectionRepository repository;
     private final DataFirstSectionService dataFirstSectionService;
+    private final StringBuilderService stringBuilder;
 
     @Override
     public FirstSection save(ReportDataBuilder builder) {
         FirstSection section = new FirstSection();
-        section.setHeading(String.join(". ", String.valueOf(builder.getPattern().getHeader().getNumber()),
-                builder.getPattern().getHeader().getHeading()));
+        section.setHeading(stringBuilder.getHeaderSection(builder.getPattern().getHeader()));
         dataFirstSectionService.save(repository.save(section), builder);
         return section;
     }
