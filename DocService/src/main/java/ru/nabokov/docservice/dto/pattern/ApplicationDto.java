@@ -1,10 +1,10 @@
-package ru.nabokov.docservice.dto;
+package ru.nabokov.docservice.dto.pattern;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.nabokov.docservice.dto.title.AddressDto;
-import ru.nabokov.docservice.dto.title.ObjectDataDto;
+import ru.nabokov.docservice.dto.ObjectDataDto;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,7 +21,10 @@ public class ApplicationDto {
     private LocalDate primaryData;
     private LocalDate repeatData;
     private Boolean report;
-    private Boolean protocol;
+    private Boolean visual;
+    private Boolean ultrasonic;
+    private Boolean geodesy;
+    private Boolean hardness;
     private String note;
     private List<EmployeeDto> employees;
 }
