@@ -3,8 +3,9 @@ package ru.nabokov.docservice.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.nabokov.docservice.dto.*;
+import ru.nabokov.docservice.dto.pattern.*;
 import ru.nabokov.docservice.dto.title.BranchDto;
-import ru.nabokov.docservice.dto.title.OrganizationDto;
+import ru.nabokov.docservice.dto.OrganizationDto;
 import ru.nabokov.docservice.mapper.SectionMapper;
 import ru.nabokov.docservice.model.DataFirstSection;
 import ru.nabokov.docservice.model.Document;
@@ -22,7 +23,7 @@ public class DataFirstSectionServiceImpl implements DataFirstSectionService {
     private static final String LEVEL_TEXT = "уровень квалификации по";
     private final DataFirstSectionRepository repository;
     private final SectionMapper mapper;
-    private final StringService stringService;
+    private final StringBuilderService stringService;
 
     @Override
     public void save(FirstSection section, ReportDataBuilder builder) {
