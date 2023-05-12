@@ -13,6 +13,9 @@ public class WebClientConfig {
     @Value("${data-service.url}")
     private String dataUrl;
 
+    @Value("${passport-service.url}")
+    private String passportUrl;
+
     @Bean
     public WebClient webPatternClient() {
         return WebClient.builder()
@@ -24,6 +27,13 @@ public class WebClientConfig {
     public WebClient webDataClient() {
         return WebClient.builder()
                 .baseUrl(dataUrl)
+                .build();
+    }
+
+    @Bean
+    public WebClient webPassportClient() {
+        return WebClient.builder()
+                .baseUrl(passportUrl)
                 .build();
     }
 }
