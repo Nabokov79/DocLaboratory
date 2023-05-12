@@ -62,7 +62,7 @@ public class ApplicationController {
                @Parameter(description = "Указание получить отчеты") Boolean report,
                @RequestParam(value = "protocol", required = false)
                @Parameter(description = "Указание получить протоколы") Boolean protocol,
-               @RequestParam(value = "dataId", required = false)
+               @RequestParam(value = "typeId", required = false)
                @Parameter(description = "Индентификатор объекта оследования") Long typeId) {
         ApplicationSearchParam param = new ApplicationSearchParam(addressId, startDate, endDate, report, protocol, typeId);
         return ResponseEntity.ok().body(service.getAll(param));
