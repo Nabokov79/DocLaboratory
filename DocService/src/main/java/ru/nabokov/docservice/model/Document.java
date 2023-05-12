@@ -1,5 +1,6 @@
 package ru.nabokov.docservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,4 +21,8 @@ public class Document {
     private long id;
     @Column(name = "document")
     private String document;
+    @ManyToOne
+    @JoinColumn(name = "section_id")
+    @JsonIgnore
+    private FirstSection section;
 }
