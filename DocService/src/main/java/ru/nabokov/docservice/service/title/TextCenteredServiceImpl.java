@@ -2,12 +2,12 @@ package ru.nabokov.docservice.service.title;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.docservice.dto.title.ObjectDataDto;
-import ru.nabokov.docservice.dto.TextCenteredDto;
+import ru.nabokov.docservice.dto.ObjectDataDto;
+import ru.nabokov.docservice.dto.pattern.TextCenteredDto;
 import ru.nabokov.docservice.mapper.TitleMapper;
 import ru.nabokov.docservice.model.TextCentered;
 import ru.nabokov.docservice.repository.TextCenteredRepository;
-import ru.nabokov.docservice.service.StringService;
+import ru.nabokov.docservice.service.StringBuilderService;
 
 @Service
 @RequiredArgsConstructor
@@ -15,7 +15,7 @@ public class TextCenteredServiceImpl implements TextCenteredService {
 
     private final TextCenteredRepository repository;
     private final TitleMapper mapper;
-    private final StringService stringService;
+    private final StringBuilderService stringService;
     private static final String NUMBER = "№";
     private static final String VOLUME = "V=";
     private static final String UNIT = "м3";
