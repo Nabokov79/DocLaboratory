@@ -17,8 +17,6 @@ public class DataFirstSection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "number")
-    private Double number;
     @Column(name = "heading")
     private String heading;
     @Column(name = "text")
