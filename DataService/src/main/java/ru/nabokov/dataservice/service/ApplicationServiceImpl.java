@@ -9,6 +9,7 @@ import ru.nabokov.dataservice.dto.application.ApplicationDto;
 import ru.nabokov.dataservice.dto.application.ApplicationSearchParam;
 import ru.nabokov.dataservice.dto.application.NewApplicationDto;
 import ru.nabokov.dataservice.dto.application.UpdateApplicationDto;
+import ru.nabokov.dataservice.exceptions.BadRequestException;
 import ru.nabokov.dataservice.exceptions.NotFoundException;
 import ru.nabokov.dataservice.mapper.ApplicationMapper;
 import ru.nabokov.dataservice.mapper.ObjectDataMapper;
@@ -33,6 +34,8 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public ApplicationDto save(NewApplicationDto applicationDto) {
+        validateBooleans(List.of(applicationDto.getReport(), applicationDto.getVisual(), applicationDto.getUltrasonic(),
+                                                            applicationDto.getGeodesy(), applicationDto.getHardness()));
         Application application = mapper.mapToNewApplication(applicationDto);
         application.setObjectData(
                 objectDataMapper.mapToObjectData(objectDataService.get(applicationDto.getObjectDataId()))
@@ -44,6 +47,8 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public ApplicationDto update(UpdateApplicationDto applicationDto) {
+        validateBooleans(List.of(applicationDto.getReport(), applicationDto.getVisual(), applicationDto.getUltrasonic(),
+                applicationDto.getGeodesy(), applicationDto.getHardness()));
         if (!repository.existsById(applicationDto.getId())) {
             throw new NotFoundException(
                                  String.format("application with id=%s not found for update", applicationDto.getId()));
@@ -57,7 +62,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public ApplicationDto get(Long id) {
-        return  mapper.mapToApplicationDto((repository.findById(id)
+        return mapper.mapToApplicationDto((repository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("application with id=%s not found",id)))));
     }
 
@@ -89,5 +94,17 @@ public class ApplicationServiceImpl implements ApplicationService {
                 .select(application)
                 .where(booleanBuilder);
         return mapper.mapToApplicationsDto(query.fetch());
+    }
+
+    private void validateBooleans(List<Boolean> booleansDto) {
+       long booleans = booleansDto.stream().filter(Boolean.TRUE::equals).count();
+        if (booleans > 1) {
+            throw new BadRequestException(
+                    String.format("To create document, more than one parameter is set, booleans=%s", booleans));
+        }
+        if (booleans < 1) {
+            throw new BadRequestException(
+                    String.format("type of the reporting document is not set, booleans=%s", booleans));
+        }
     }
 }
