@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "columns_headers")
-public class ColumnHeader {
+public class ColumnsHeaders {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
