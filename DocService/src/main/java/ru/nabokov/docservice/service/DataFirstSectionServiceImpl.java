@@ -6,7 +6,6 @@ import ru.nabokov.docservice.dto.*;
 import ru.nabokov.docservice.dto.pattern.*;
 import ru.nabokov.docservice.dto.title.BranchDto;
 import ru.nabokov.docservice.dto.OrganizationDto;
-import ru.nabokov.docservice.mapper.SectionMapper;
 import ru.nabokov.docservice.model.DataFirstSection;
 import ru.nabokov.docservice.model.Document;
 import ru.nabokov.docservice.model.FirstSection;
@@ -22,39 +21,40 @@ public class DataFirstSectionServiceImpl implements DataFirstSectionService {
     private static final String ISSUED = "выдано";
     private static final String LEVEL_TEXT = "уровень квалификации по";
     private final DataFirstSectionRepository repository;
-    private final SectionMapper mapper;
-    private final StringBuilderService stringService;
+    private final StringBuilderService stringBuilder;
 
     @Override
     public void save(FirstSection section, ReportDataBuilder builder) {
-        Map<Double, DataFirstSection> dataSections = mapper.mapToDataFirstSection(builder.getPattern().getSubheadings())
-                                                        .stream()
-                                                        .collect(Collectors.toMap(DataFirstSection::getNumber, d -> d));
+        List<DataFirstSection> dataFirstSections = new ArrayList<>();
         Map<Double, SubheadingDto> subheadings = builder.getPattern().getSubheadings().stream()
                                                            .collect(Collectors.toMap(SubheadingDto::getNumber, s -> s));
-        for (Double number : dataSections.keySet()) {
-            DataFirstSection data = dataSections.get(number);
-            if (data.getText() == null && data.getDocumentations() == null) {
-                data.setLaboratoryData(setLaboratoryData(builder.getBranch(), builder.getLicense()));
-                String employeeFirst = "";
-                String employeeSecond = "";
-                for (EmployeeDto employee : builder.getEmployees()) {
-                    if (employeeFirst.isBlank()) {
-                        employeeFirst = getStringEmployees(employee);
-                    } else {
-                        employeeSecond = getStringEmployees(employee);
+        for (SubheadingDto subheadingDto : subheadings.values()) {
+            DataFirstSection data = new DataFirstSection();
+            data.setHeading(stringBuilder.toStringSubheading(subheadingDto.getNumber(), subheadingDto.getHeading()));
+            if (data.getText() != null) {
+                data.setText(subheadingDto.getText());
+            } else {
+                if (data.getDocumentations() == null) {
+                    data.setLaboratoryData(toStringLaboratoryData(builder.getBranch(), builder.getLicense()));
+                    String employeeFirst = "";
+                    String employeeSecond = "";
+                    for (EmployeeDto employee : builder.getEmployees()) {
+                        if (employeeFirst.isBlank()) {
+                            employeeFirst = toStringEmployees(employee);
+                        } else {
+                            employeeSecond = toStringEmployees(employee);
+                        }
                     }
+                    data.setEmployeeFirst(employeeFirst);
+                    data.setEmployeeSecond(employeeSecond);
+                } else {
+                    data.setDocumentations(toStringDocumentation(subheadingDto.getDocumentations()));
                 }
-                data.setEmployeeFirst(employeeFirst);
-                data.setEmployeeSecond(employeeSecond);
-            }
-            if (data.getDocumentations() != null) {
-                data.setDocumentations(toStringDocumentation(subheadings.get(number).getDocumentations()));
             }
             data.setSection(section);
-            dataSections.put(number, data);
+            dataFirstSections.add(data);
         }
-        repository.saveAll(new ArrayList<>(dataSections.values()));
+        repository.saveAll(dataFirstSections);
     }
 
     private List<Document> toStringDocumentation(List<DocumentationDto> documentationsDto) {
@@ -69,7 +69,7 @@ public class DataFirstSectionServiceImpl implements DataFirstSectionService {
         return documentations;
     }
 
-    private String getStringEmployees(EmployeeDto employee) {
+    private String toStringEmployees(EmployeeDto employee) {
         String initials = String.join(". ", String.valueOf(employee.getName().charAt(0))
                 , String.valueOf(employee.getPatronymic().charAt(0)));
         return String.join(" - ", " ", employee.getPost()
@@ -78,7 +78,7 @@ public class DataFirstSectionServiceImpl implements DataFirstSectionService {
                         , toStringCertificateEmployee(employee.getCertificate())));
     }
 
-    private String setLaboratoryData(BranchDto branchDto, String license) {
+    private String toStringLaboratoryData(BranchDto branchDto, String license) {
         return String.join(" ", branchDto.getDivision()
                                       , String.join(" ", branchDto.getBranch()
                                                                , toStringType(branchDto.getOrganization().getType())
@@ -87,7 +87,7 @@ public class DataFirstSectionServiceImpl implements DataFirstSectionService {
                                       , String.valueOf(branchDto.getIndex())
                                       , branchDto.getAddress().getCity().getName().split(" ")[1]
                                       , branchDto.getAddress().getStreet()
-                                      , stringService.getStringAddress(branchDto.getAddress())
+                                      , stringBuilder.toStringAddress(branchDto.getAddress())
                                       , license);
     }
 
