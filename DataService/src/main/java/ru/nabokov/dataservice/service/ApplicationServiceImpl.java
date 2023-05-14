@@ -82,7 +82,10 @@ public class ApplicationServiceImpl implements ApplicationService {
             booleanBuilder.and(QApplication.application.report.eq(param.getReport()));
         }
         if(param.getProtocol() != null) {
-            booleanBuilder.and(QApplication.application.protocol.eq(param.getProtocol()));
+            booleanBuilder.and(QApplication.application.visual.eq(true));
+            booleanBuilder.and(QApplication.application.ultrasonic.eq(true));
+            booleanBuilder.and(QApplication.application.geodesy.eq(true));
+            booleanBuilder.and(QApplication.application.hardness.eq(true));
         }
         if(param.getTypeId() != null) {
             Type type = typeService.get(param.getTypeId());
