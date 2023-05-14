@@ -27,4 +27,10 @@ public class Report {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "second_section_id", referencedColumnName = "id")
     private SecondSection secondSection;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "third_section_id", referencedColumnName = "id")
+    private ThirdSection thirdSection;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "seventh_section_id", referencedColumnName = "id")
+    private SeventhSection seventhSection;
 }
