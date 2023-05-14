@@ -12,13 +12,5 @@ public class DrawingDto {
     private String type;
     private Integer number;
     private String name;
-
-    @Override
-    public String toString() {
-        return "DrawingDto{" +
-                "type='" + type + '\'' +
-                ", number=" + number +
-                ", name='" + name + '\'' +
-                '}';
-    }
+    private Integer count;
 }
