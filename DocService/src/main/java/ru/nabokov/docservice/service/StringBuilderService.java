@@ -1,8 +1,12 @@
 package ru.nabokov.docservice.service;
 
 import org.springframework.stereotype.Service;
+import ru.nabokov.docservice.dto.pattern.DrawingDto;
 import ru.nabokov.docservice.dto.pattern.HeaderDto;
 import ru.nabokov.docservice.dto.title.AddressDto;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @Service
 public class StringBuilderService {
@@ -10,30 +14,75 @@ public class StringBuilderService {
     private static final String HOUSE = "д.";
     private static final String BUILDING = "к.";
     private static final String LETTER = "лит.";
+    private static final CharSequence WHITESPACE = " ";
+    private static final CharSequence WHITESPACE_NULL = "";
+    private static final CharSequence COMMA = ", ";
+    private static final CharSequence POINT = ". ";
+    private static final CharSequence NUMBER = "№ ";
 
-    public String getStringAddress(AddressDto addressDto) {
+    public String toStringAddress(AddressDto addressDto) {
+        String address = String.join(COMMA
+                                   , addressDto.getStreet()
+                                   , String.join(WHITESPACE_NULL
+                                               , HOUSE
+                                               , String.valueOf(addressDto.getHouseNumber()))
+        );
         if (addressDto.getBuildingNumber() != null) {
-            return String.join(", ", addressDto.getStreet(),
-                    String.join("", HOUSE, String.valueOf(addressDto.getHouseNumber())),
-                    String.join("",BUILDING, String.valueOf(addressDto.getBuildingNumber())));
+            return String.join(COMMA
+                             , address
+                             , String.join(WHITESPACE_NULL
+                                         , BUILDING
+                                         , String.valueOf(addressDto.getBuildingNumber())));
         }
         if (addressDto.getLetter() != null) {
-            return String.join(", ", addressDto.getStreet(),
-                    String.join("", HOUSE, String.valueOf(addressDto.getHouseNumber())),
-                    String.join("",LETTER, addressDto.getLetter()));
+            return String.join(COMMA
+                             , address
+                             , String.join(WHITESPACE_NULL
+                                         , LETTER
+                                         , addressDto.getLetter()));
         }
         if (addressDto.getBuildingNumber() != null && addressDto.getLetter() != null) {
-            return String.join(", ", addressDto.getStreet(),
-                    String.join("", HOUSE, String.valueOf(addressDto.getHouseNumber())),
-                    String.join("",BUILDING, String.valueOf(addressDto.getBuildingNumber())),
-                    String.join("",LETTER, addressDto.getLetter()));
+            return String.join(COMMA
+                             , address
+                             , String.join(WHITESPACE_NULL
+                                         , BUILDING
+                                         , String.valueOf(addressDto.getBuildingNumber()))
+                                         , String.join(WHITESPACE_NULL
+                                                     , LETTER
+                                                     , addressDto.getLetter())
+                             );
         } else {
-            return String.join(", ", addressDto.getStreet(),
-                    String.join("", HOUSE, String.valueOf(addressDto.getHouseNumber())));
+            return address;
         }
     }
 
-    public String getHeaderSection(HeaderDto header) {
-        return String.join(". ", String.valueOf(header.getNumber()), header.getHeading());
+    public String toStringHeader(HeaderDto header) {
+        return String.join(POINT
+                         , String.valueOf(header.getNumber())
+                         , header.getHeading());
+    }
+
+    public String toStringSubheading(Double number, String heading) {
+        return String.join(WHITESPACE
+                         , String.valueOf(number)
+                         , heading);
+    }
+
+    public String toStringDrawing(DrawingDto drawingDto) {
+        return String.join(WHITESPACE
+                , drawingDto.getType()
+                , NUMBER
+                , String.join(WHITESPACE_NULL
+                        , String.valueOf(drawingDto.getNumber())
+                        , POINT )
+                , drawingDto.getName());
+    }
+
+    public String toStringCountList(Integer count) {
+        List<String> counts = new LinkedList<>();
+        for (int i = 1; i == count; i++) {
+            counts.add(String.valueOf(i));
+        }
+        return String.join(COMMA, counts);
     }
 }
