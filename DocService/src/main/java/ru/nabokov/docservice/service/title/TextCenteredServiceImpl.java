@@ -30,7 +30,7 @@ public class TextCenteredServiceImpl implements TextCenteredService {
                     VOLUME,
                     String.valueOf( objectData.getVolume()),
                     UNIT));
-            text.setAddress(stringService.getStringAddress(objectData.getBuilding().getAddress()));
+            text.setAddress(stringService.toStringAddress(objectData.getBuilding().getAddress()));
             return repository.save(text);
         }
         return null;
