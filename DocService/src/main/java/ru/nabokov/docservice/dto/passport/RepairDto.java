@@ -14,7 +14,7 @@ public class RepairDto {
 
     private Long id;
     private ObjectDataDto objectData;
-    private LocalDate date;
+    private String date;
     private String description;
     private OrganizationDto organization;
 }
