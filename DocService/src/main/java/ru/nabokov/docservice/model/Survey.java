@@ -24,7 +24,7 @@ public class Survey {
     @Column(name = "survey")
     private String survey;
     @Column(name = "number_document")
-    private String numberDocument;
+    private String number;
     @Column(name = "organization")
     private String organization;
     @ManyToOne
