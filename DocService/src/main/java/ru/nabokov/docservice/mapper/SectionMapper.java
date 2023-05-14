@@ -1,17 +1,24 @@
 package ru.nabokov.docservice.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import ru.nabokov.docservice.dto.passport.RepairDto;
+import ru.nabokov.docservice.dto.passport.SurveyDto;
 import ru.nabokov.docservice.dto.pattern.ColumnHeaderDto;
-import ru.nabokov.docservice.dto.pattern.SubheadingDto;
-import ru.nabokov.docservice.dto.pattern.SubheadingThreeDto;
-import ru.nabokov.docservice.model.ColumnHeader;
-import ru.nabokov.docservice.model.DataFirstSection;
+import ru.nabokov.docservice.model.ColumnsHeaders;
+import ru.nabokov.docservice.model.Repair;
+import ru.nabokov.docservice.model.Survey;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface SectionMapper {
 
-    List<DataFirstSection> mapToDataFirstSection(List<SubheadingDto> subheadings);
-    List<ColumnHeader> mapToColumnHeaders(List<ColumnHeaderDto> columnHeaders);
+    @Mapping(source = "organization.name", target = "organization")
+    Survey mapToSurveys(SurveyDto surveys);
+
+    @Mapping(source = "organization.name", target = "organization")
+    Repair mapToRepairs(RepairDto repairs);
+
+    List<ColumnsHeaders> mapToColumnsHeaders(List<ColumnHeaderDto> columnHeaders);
 }
