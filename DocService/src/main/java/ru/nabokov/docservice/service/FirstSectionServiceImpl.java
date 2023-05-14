@@ -17,7 +17,7 @@ public class FirstSectionServiceImpl implements FirstSectionService {
     @Override
     public FirstSection save(ReportDataBuilder builder) {
         FirstSection section = new FirstSection();
-        section.setHeading(stringBuilder.getHeaderSection(builder.getPattern().getHeader()));
+        section.setHeading(stringBuilder.toStringHeader(builder.getPattern().getHeader()));
         dataFirstSectionService.save(repository.save(section), builder);
         return section;
     }
