@@ -24,7 +24,7 @@ public class RepairsTable {
             joinColumns = {@JoinColumn(name = "repairs_table_id")},
             inverseJoinColumns = {@JoinColumn(name = "column_header_id")})
     @ToString.Exclude
-    private List<ColumnHeader> columnHeaders;
-    @OneToMany(mappedBy = "repairs_table", fetch = FetchType.LAZY)
+    private List<ColumnsHeaders> columnHeaders;
+    @OneToMany(mappedBy = "repairsTable", fetch = FetchType.LAZY)
     private List<Repair> repairs;
 }
