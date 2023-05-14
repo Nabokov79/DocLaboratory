@@ -20,7 +20,7 @@ public class SecondSectionServiceImpl implements  SecondSectionService {
     @Override
     public SecondSection save(HeaderDto header,  List<CharacteristicDto> characteristics) {
         SecondSection section = new SecondSection();
-        section.setHeading(stringBuilder.getHeaderSection(header));
+        section.setHeading(stringBuilder.toStringHeader(header));
         repository.save(section);
         section.setSecondSectionData(secondSectionDataService.save(section, characteristics));
         return section;
