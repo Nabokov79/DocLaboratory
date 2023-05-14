@@ -40,6 +40,7 @@ public class ReportServiceImpl implements ReportService {
                                                                    .build()));
         report.setSecondSection(secondSectionService.save(pattern.getPatternSectionTwo().getHeader(),
                                                           passport.getCharacteristics()));
+        report.setThirdSection(thirdSectionService.save(pattern.getPatternSectionThree(), passport));
         return report;
     }
 }
