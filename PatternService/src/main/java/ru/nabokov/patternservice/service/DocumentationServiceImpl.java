@@ -2,8 +2,10 @@ package ru.nabokov.patternservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.patternservice.exceptions.BadRequestException;
+import ru.nabokov.patternservice.dto.documentation.NewDocumentationDto;
+import ru.nabokov.patternservice.dto.documentation.UpdateDocumentationDto;
 import ru.nabokov.patternservice.exceptions.NotFoundException;
+import ru.nabokov.patternservice.mapper.DocumentationMapper;
 import ru.nabokov.patternservice.model.Documentation;
 import ru.nabokov.patternservice.model.Subheading;
 import ru.nabokov.patternservice.repository.DocumentationRepository;
@@ -18,42 +20,27 @@ import java.util.stream.Collectors;
 public class DocumentationServiceImpl implements DocumentationService {
 
     private final DocumentationRepository repository;
+    private final DocumentationMapper mapper;
 
     @Override
-    public void save(Subheading subheading, List<Documentation> documentations) {
+    public void save(Subheading subheading, List<NewDocumentationDto> documentationsDto) {
+        List<Documentation> documentations = mapper.mapToNewDocumentations(documentationsDto);
         for (Documentation document : documentations) {
-            validate(document);
             document.setSubheading(subheading);
         }
         repository.saveAll(documentations);
     }
 
     @Override
-    public void update(List<Documentation> documentations) {
-        validateIds(documentations.stream().map(Documentation::getId).toList());
+    public void update(Subheading subheading, List<UpdateDocumentationDto> documentationsDto) {
+        validateIds(documentationsDto.stream().map(UpdateDocumentationDto::getId).toList());
+        List<Documentation> documentations = mapper.mapToUpdateDocumentations(documentationsDto);
         for (Documentation document : documentations) {
-            validate(document);
+            document.setSubheading(subheading);
         }
         repository.saveAll(documentations);
     }
 
-    private void validate(Documentation document) {
-        if (document.getTypeDocument() == null) {
-            throw new BadRequestException("type document should not be blank");
-        }
-        if (!document.getTypeDocument().isBlank() && document.getTypeDocument().length() < 1) {
-            throw new BadRequestException("length of the document type cannot be less than one");
-        }
-        if (document.getNumberDocument() != null && document.getNumberDocument().length() < 1) {
-            throw new BadRequestException("length of the document number cannot be less than one");
-        }
-        if (document.getTitle() == null) {
-            throw new BadRequestException("title document should not be blank");
-        }
-        if (document.getTitle().length() < 10) {
-            throw new BadRequestException("length of the document title cannot be less than ten");
-        }
-    }
 
     private void validateIds(List<Long> ids) {
         Map<Long, Documentation> documentations = repository.findAllById((ids))
