@@ -1,0 +1,74 @@
+version: '3.1'
+services:
+  data-server:
+    build: DataService
+    image: data-service
+    container_name: data-service
+    ports:
+      - "8080:8080"
+    depends_on:
+     - data-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://data-db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=mywords
+
+  data-db:
+    image: postgres:14-alpine
+    container_name: data-service-dataBase
+    ports:
+      - "6541:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mywords
+
+  passport-service:
+    build: PassportService
+    image: passport-service
+    container_name: passport-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - data-server
+      - passport-db
+    environment:
+      - DATA-SERVICE_URL=http://data-server:8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://passport-db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=mywords
+
+  passport-db:
+    image: postgres:14-alpine
+    container_name: passport-dataBase
+    ports:
+      - "6542:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mywords
+
+  pattern-service:
+    build: PatternService
+    image: pattern-service
+    container_name: pattern-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - data-server
+      - pattern-db
+    environment:
+      - DATA-SERVICE_URL=http://data-server:8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://pattern-db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=mywords
+
+  pattern-db:
+    image: postgres:14-alpine
+    container_name: pattern-dataBase
+    ports:
+      - "6543:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mywords
