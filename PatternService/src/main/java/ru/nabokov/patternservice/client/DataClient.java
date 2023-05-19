@@ -15,15 +15,6 @@ public class DataClient {
 
     private final WebClient webClient;
 
-    public BranchDto getBranch(String uri) {
-        return Objects.requireNonNull(webClient.get()
-                                                .uri(uri)
-                                                .retrieve()
-                                                .toEntity(BranchDto.class)
-                                                .block())
-                                                .getBody();
-    }
-
     public List<Type> getType(String path, String ids) {
         return Objects.requireNonNull(webClient.get()
                         .uri(uriBuilder -> uriBuilder
