@@ -20,13 +20,24 @@ public class Documentation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "type_document", nullable = false)
-    private String typeDocument;
+    private String type;
     @Column(name = "number_document", nullable = false)
-    private String numberDocument;
+    private String number;
     @Column(name = "title", nullable = false)
     private String title;
     @ManyToOne
     @JoinColumn(name = "subheading_id")
     @JsonIgnore
     private Subheading subheading;
+
+    @Override
+    public String toString() {
+        return "Documentation{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", number='" + number + '\'' +
+                ", title='" + title + '\'' +
+                ", subheading=" + subheading +
+                '}';
+    }
 }
