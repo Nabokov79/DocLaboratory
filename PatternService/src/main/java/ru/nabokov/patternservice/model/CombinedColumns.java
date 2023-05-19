@@ -28,4 +28,16 @@ public class CombinedColumns {
     private String nameSecond;
     @Column(name = "name")
     private String name;
+
+    @Override
+    public String toString() {
+        return "CombinedColumns{" +
+                "id=" + id +
+                ", numberFirst=" + numberFirst +
+                ", nameFirst='" + nameFirst + '\'' +
+                ", numberSecond=" + numberSecond +
+                ", nameSecond='" + nameSecond + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
