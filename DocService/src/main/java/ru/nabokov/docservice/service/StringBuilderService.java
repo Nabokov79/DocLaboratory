@@ -1,9 +1,10 @@
 package ru.nabokov.docservice.service;
 
 import org.springframework.stereotype.Service;
-import ru.nabokov.docservice.dto.pattern.DrawingDto;
-import ru.nabokov.docservice.dto.pattern.HeaderDto;
-import ru.nabokov.docservice.dto.title.AddressDto;
+import ru.nabokov.docservice.dto.client.pattern.DrawingDto;
+import ru.nabokov.docservice.dto.client.pattern.HeaderDto;
+import ru.nabokov.docservice.dto.client.title.AddressDto;
+import ru.nabokov.docservice.dto.client.title.TypeDto;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -84,5 +85,13 @@ public class StringBuilderService {
             counts.add(String.valueOf(i));
         }
         return String.join(COMMA, counts);
+    }
+
+    public String toStringConclusion(TypeDto type , Integer number, String conclusion) {
+        return String.join(WHITESPACE
+                , type.getName()
+                , NUMBER
+                , String.valueOf(number)
+                , conclusion);
     }
 }
