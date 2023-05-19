@@ -1,9 +1,10 @@
-package ru.nabokov.patternservice.dto;
+package ru.nabokov.patternservice.dto.section;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import ru.nabokov.patternservice.dto.subheading.UpdateSubheadingDto;
 import ru.nabokov.patternservice.model.Header;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -29,5 +30,5 @@ public class UpdatePatternSectionThreeDto {
     private Header header;
     @Schema(description = "Список подзаголовоков раздела")
     @NotEmpty(message = "list of subheadings of the three section cannot be empty")
-    private List<UpdateSubheadingThreeDto> subheadings;
+    private List<UpdateSubheadingDto> subheadings;
 }
