@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @Setter
@@ -16,6 +17,10 @@ import java.util.List;
 @Schema(description = "Данные нового раздела № 7")
 public class NewSeventhSectionDto {
 
+    @Schema(description = "Индентификатор отчета")
+    @NotNull(message = "report id should not be blank")
+    @Positive(message = "report id can only be positive")
+    private Long reportId;
     @Schema(description = "Данные заголовка раздела")
     @NotNull(message = "section header should not be blank")
     private SectionHeaderDto sectionHeaderDto;
