@@ -2,12 +2,14 @@ package ru.nabokov.docservice.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import ru.nabokov.docservice.dto.passport.RepairDto;
-import ru.nabokov.docservice.dto.passport.SurveyDto;
-import ru.nabokov.docservice.dto.pattern.ColumnHeaderDto;
+import ru.nabokov.docservice.dto.ReportDto;
+import ru.nabokov.docservice.dto.client.passport.RepairDto;
+import ru.nabokov.docservice.dto.client.passport.SurveyDto;
+import ru.nabokov.docservice.dto.client.pattern.ColumnHeaderDto;
 import ru.nabokov.docservice.model.ColumnsHeaders;
-import ru.nabokov.docservice.model.Repair;
-import ru.nabokov.docservice.model.Survey;
+import ru.nabokov.docservice.model.thirdSection.Repair;
+import ru.nabokov.docservice.model.Report;
+import ru.nabokov.docservice.model.thirdSection.Survey;
 
 import java.util.List;
 
@@ -21,4 +23,6 @@ public interface SectionMapper {
     Repair mapToRepairs(RepairDto repairs);
 
     List<ColumnsHeaders> mapToColumnsHeaders(List<ColumnHeaderDto> columnHeaders);
+
+    ReportDto mapToReportDto(Report report);
 }
