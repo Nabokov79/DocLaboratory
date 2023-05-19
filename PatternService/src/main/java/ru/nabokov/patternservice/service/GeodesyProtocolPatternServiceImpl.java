@@ -2,9 +2,9 @@ package ru.nabokov.patternservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.patternservice.dto.GeodesyProtocolPatternDto;
-import ru.nabokov.patternservice.dto.NewGeodesyProtocolPatternDto;
-import ru.nabokov.patternservice.dto.UpdateGeodesyProtocolPatternDto;
+import ru.nabokov.patternservice.dto.protocol.GeodesyProtocolPatternDto;
+import ru.nabokov.patternservice.dto.protocol.NewGeodesyProtocolPatternDto;
+import ru.nabokov.patternservice.dto.protocol.UpdateGeodesyProtocolPatternDto;
 import ru.nabokov.patternservice.exceptions.NotFoundException;
 import ru.nabokov.patternservice.mapper.GeodesyProtocolMapper;
 import ru.nabokov.patternservice.model.GeodesyProtocolPattern;

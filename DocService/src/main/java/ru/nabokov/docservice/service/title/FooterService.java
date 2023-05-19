@@ -1,7 +1,7 @@
 package ru.nabokov.docservice.service.title;
 
-import ru.nabokov.docservice.dto.pattern.TextCenteredDto;
-import ru.nabokov.docservice.model.Footer;
+import ru.nabokov.docservice.dto.client.pattern.TextCenteredDto;
+import ru.nabokov.docservice.model.title.Footer;
 
 public interface FooterService {
 

@@ -2,7 +2,7 @@ package ru.nabokov.docservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.docservice.dto.title.LicenseDto;
+import ru.nabokov.docservice.dto.client.title.LicenseDto;
 import ru.nabokov.docservice.model.License;
 import ru.nabokov.docservice.repository.LicenseRepository;
 

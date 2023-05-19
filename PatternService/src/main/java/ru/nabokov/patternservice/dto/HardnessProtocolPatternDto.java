@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import ru.nabokov.patternservice.dto.table.PatternTableDto;
 import ru.nabokov.patternservice.model.PatternConclusion;
 
 @Setter

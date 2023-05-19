@@ -1,8 +1,8 @@
 package ru.nabokov.patternservice.service;
 
-import ru.nabokov.patternservice.dto.GeodesyProtocolPatternDto;
-import ru.nabokov.patternservice.dto.NewGeodesyProtocolPatternDto;
-import ru.nabokov.patternservice.dto.UpdateGeodesyProtocolPatternDto;
+import ru.nabokov.patternservice.dto.protocol.GeodesyProtocolPatternDto;
+import ru.nabokov.patternservice.dto.protocol.NewGeodesyProtocolPatternDto;
+import ru.nabokov.patternservice.dto.protocol.UpdateGeodesyProtocolPatternDto;
 
 public interface GeodesyProtocolPatternService {
 

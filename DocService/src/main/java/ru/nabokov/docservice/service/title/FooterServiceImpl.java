@@ -2,9 +2,9 @@ package ru.nabokov.docservice.service.title;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.docservice.dto.pattern.TextCenteredDto;
+import ru.nabokov.docservice.dto.client.pattern.TextCenteredDto;
 import ru.nabokov.docservice.mapper.TitleMapper;
-import ru.nabokov.docservice.model.Footer;
+import ru.nabokov.docservice.model.title.Footer;
 import ru.nabokov.docservice.repository.FooterRepository;
 
 @Service

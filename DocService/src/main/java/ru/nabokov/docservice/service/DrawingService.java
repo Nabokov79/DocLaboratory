@@ -1,8 +1,8 @@
 package ru.nabokov.docservice.service;
 
-import ru.nabokov.docservice.dto.pattern.DrawingDto;
-import ru.nabokov.docservice.model.Drawing;
-import ru.nabokov.docservice.model.SeventhSection;
+import ru.nabokov.docservice.dto.client.pattern.DrawingDto;
+import ru.nabokov.docservice.model.seventhSection.Drawing;
+import ru.nabokov.docservice.model.seventhSection.SeventhSection;
 
 import java.util.List;
 
