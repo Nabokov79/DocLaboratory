@@ -2,8 +2,14 @@ package ru.nabokov.patternservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.nabokov.patternservice.dto.documentation.NewDocumentationDto;
+import ru.nabokov.patternservice.dto.documentation.UpdateDocumentationDto;
+import ru.nabokov.patternservice.dto.recommendation.NewRecommendationDto;
+import ru.nabokov.patternservice.dto.recommendation.UpdateRecommendationDto;
+import ru.nabokov.patternservice.dto.subheading.NewSubheadingDto;
+import ru.nabokov.patternservice.dto.subheading.UpdateSubheadingDto;
 import ru.nabokov.patternservice.exceptions.NotFoundException;
-import ru.nabokov.patternservice.model.Documentation;
+import ru.nabokov.patternservice.mapper.SubheadingMapper;
 import ru.nabokov.patternservice.model.Subheading;
 import ru.nabokov.patternservice.repository.SubheadingRepository;
 import java.util.ArrayList;
@@ -16,51 +22,74 @@ import java.util.stream.Collectors;
 public class SubheadingServiceImpl implements SubheadingService {
 
     private final SubheadingRepository repository;
+    private final SubheadingMapper mapper;
     private final DocumentationService documentationService;
-    private final ColumnHeaderService columnHeaderService;
+    private final RecommendationService recommendationService;
 
     @Override
-    public List<Subheading> saveAll(List<Subheading> subheadings) {
-        for (Subheading subheading : subheadings) {
-            if (!subheading.getColumnHeaders().isEmpty()) {
-                subheading.setColumnHeaders(columnHeaderService.save(subheading.getColumnHeaders()));
-            }
-        }
-        List<Subheading> subheading = repository.saveAll(subheadings);
-        Map<Double, Subheading> subheadingsDb = subheading.stream()
-                                                          .filter(s -> s.getDocumentations() != null)
+    public List<Subheading> saveAll(List<NewSubheadingDto> subheadingsDto) {
+        List<String> numbers = subheadingsDto.stream()
+                                             .filter(s -> s.getDocumentations() != null
+                                                     || s.getRecommendations() != null)
+                                             .map(NewSubheadingDto::getNumber)
+                                             .toList();
+        Map<String, Subheading> subheadings = repository.saveAll(mapper.mapToNewSubheadings(subheadingsDto)).stream()
                                                           .collect(Collectors.toMap(Subheading::getNumber, s -> s));
-        Map<Double,List<Documentation>> documentations = subheadings
+        Map<String, List<NewDocumentationDto>> documentations = subheadingsDto
                                        .stream()
                                        .filter(s -> s.getDocumentations() != null)
-                                       .collect(Collectors.toMap(Subheading::getNumber, Subheading::getDocumentations));
-        for (Double number : subheadings.stream().filter(s -> s.getDocumentations() != null)
-                                                 .map(Subheading::getNumber)
-                                                 .toList()){
-            documentationService.save(subheadingsDb.get(number), documentations.get(number));
+                                       .collect(Collectors.toMap(NewSubheadingDto::getNumber
+                                                            , NewSubheadingDto::getDocumentations));
+        Map<String, List<NewRecommendationDto>> recommendations = subheadingsDto
+                                                                .stream()
+                                                                .filter(s -> s.getRecommendations() != null)
+                                                                .collect(Collectors.toMap(NewSubheadingDto::getNumber
+                                                                        , NewSubheadingDto::getRecommendations));
+        for (String number : numbers) {
+            List<NewDocumentationDto> documentationsDto = documentations.get(number);
+            List<NewRecommendationDto> recommendationsDto = recommendations.get(number);
+            if (documentationsDto != null) {
+                documentationService.save(subheadings.get(number), documentations.get(number));
+            }
+            if (recommendationsDto != null) {
+                recommendationService.save(subheadings.get(number), recommendations.get(number));
+            }
         }
-        return subheading;
+        return new ArrayList<>(subheadings.values());
     }
 
     @Override
-    public List<Subheading> updateAll(List<Subheading> subheadings) {
-        validateIds(subheadings.stream().map(Subheading::getId).toList());
-        for (Subheading subheading : subheadings) {
-            if (!subheading.getColumnHeaders().isEmpty()) {
-                subheading.setColumnHeaders(columnHeaderService.update(subheading.getColumnHeaders()));
-            }
-        }
-        List<Subheading> subheading = repository.saveAll(subheadings);
-        Map<Double,List<Documentation>> documentations = subheadings
+    public List<Subheading> updateAll(List<UpdateSubheadingDto> subheadingsDto) {
+        validateIds(subheadingsDto.stream().map(UpdateSubheadingDto::getId).toList());
+        List<String> numbers = subheadingsDto.stream()
+                .filter(s -> s.getDocumentations() != null
+                        || s.getRecommendations() != null)
+                .map(UpdateSubheadingDto::getNumber)
+                .toList();
+        Map<String, Subheading> subheadings = repository.saveAll(mapper.mapToUpdateSubheadings(subheadingsDto)).stream()
+                .filter(s -> s.getDocumentations() != null)
+                .collect(Collectors.toMap(Subheading::getNumber, s -> s));
+        Map<String, List<UpdateDocumentationDto>> documentations = subheadingsDto
                 .stream()
                 .filter(s -> s.getDocumentations() != null)
-                .collect(Collectors.toMap(Subheading::getNumber, Subheading::getDocumentations));
-        for (Double number : subheadings.stream().filter(s -> s.getDocumentations() != null)
-                .map(Subheading::getNumber)
-                .toList()){
-            documentationService.update(documentations.get(number));
+                .collect(Collectors.toMap(UpdateSubheadingDto::getNumber
+                        , UpdateSubheadingDto::getDocumentations));
+        Map<String, List<UpdateRecommendationDto>> recommendations = subheadingsDto
+                .stream()
+                .filter(s -> s.getRecommendations() != null)
+                .collect(Collectors.toMap(UpdateSubheadingDto::getNumber
+                        , UpdateSubheadingDto::getRecommendations));
+        for (String number : numbers) {
+            List<UpdateDocumentationDto> documentationsDto = documentations.get(number);
+            List<UpdateRecommendationDto> recommendationsDto = recommendations.get(number);
+            if (documentationsDto != null) {
+                documentationService.update(subheadings.get(number), documentations.get(number));
+            }
+            if (recommendationsDto != null) {
+                recommendationService.update(subheadings.get(number), recommendations.get(number));
+            }
         }
-        return subheading;
+        return new ArrayList<>(subheadings.values());
     }
 
     private void validateIds(List<Long> ids) {
