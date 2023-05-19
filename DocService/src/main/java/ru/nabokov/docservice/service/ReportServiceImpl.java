@@ -3,18 +3,25 @@ package ru.nabokov.docservice.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.nabokov.docservice.client.DocClient;
-import ru.nabokov.docservice.dto.passport.PassportDto;
-import ru.nabokov.docservice.dto.pattern.ApplicationDto;
+import ru.nabokov.docservice.dto.client.passport.PassportDto;
+import ru.nabokov.docservice.dto.client.pattern.ApplicationDto;
 import ru.nabokov.docservice.dto.ReportDataBuilder;
-import ru.nabokov.docservice.dto.title.BranchDto;
-import ru.nabokov.docservice.dto.pattern.ReportPatternDto;
+import ru.nabokov.docservice.dto.client.title.BranchDto;
+import ru.nabokov.docservice.dto.ReportDto;
+import ru.nabokov.docservice.dto.client.pattern.ReportPatternDto;
+import ru.nabokov.docservice.exceptions.NotFoundException;
+import ru.nabokov.docservice.mapper.SectionMapper;
 import ru.nabokov.docservice.model.Report;
+import ru.nabokov.docservice.repository.ReportRepository;
 import ru.nabokov.docservice.service.title.TitleService;
 
 @Service
 @RequiredArgsConstructor
 public class ReportServiceImpl implements ReportService {
 
+
+    private final ReportRepository repository;
+    private final SectionMapper mapper;
     private final TitleService titleService;
     private final FirstSectionService firstSectionService;
     private final DocClient client;
@@ -22,7 +29,7 @@ public class ReportServiceImpl implements ReportService {
     private final ThirdSectionService thirdSectionService;
 
     @Override
-    public Report save(Long applicationId) {
+    public ReportDto save(Long applicationId) {
         Report report = new Report();
         ApplicationDto application = client.getApplication(applicationId);
         BranchDto branch = client.getBranch();
@@ -41,6 +48,18 @@ public class ReportServiceImpl implements ReportService {
         report.setSecondSection(secondSectionService.save(pattern.getPatternSectionTwo().getHeader(),
                                                           passport.getCharacteristics()));
         report.setThirdSection(thirdSectionService.save(pattern.getPatternSectionThree(), passport));
-        return report;
+        return mapper.mapToReportDto(report);
+    }
+
+    @Override
+    public void update(Report report) {
+        repository.save(report);
+    }
+
+
+    @Override
+    public Report get(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format("Report with id=%s not found", id)));
     }
 }
