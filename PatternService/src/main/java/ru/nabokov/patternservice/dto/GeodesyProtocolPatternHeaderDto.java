@@ -18,4 +18,17 @@ public class GeodesyProtocolPatternHeaderDto {
     private String text;
     private String textMeasurements;
     private String schemaHeader;
+
+    @Override
+    public String toString() {
+        return "GeodesyProtocolPatternHeaderDto{" +
+                "id=" + id +
+                ", number=" + number +
+                ", document='" + document + '\'' +
+                ", name='" + name + '\'' +
+                ", text='" + text + '\'' +
+                ", textMeasurements='" + textMeasurements + '\'' +
+                ", schemaHeader='" + schemaHeader + '\'' +
+                '}';
+    }
 }

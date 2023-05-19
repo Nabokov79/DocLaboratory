@@ -22,4 +22,13 @@ public class Header {
     private Integer number;
     @Column(name = "heading")
     private String heading;
+
+    @Override
+    public String toString() {
+        return "Header{" +
+                "id=" + id +
+                ", number=" + number +
+                ", heading='" + heading + '\'' +
+                '}';
+    }
 }
