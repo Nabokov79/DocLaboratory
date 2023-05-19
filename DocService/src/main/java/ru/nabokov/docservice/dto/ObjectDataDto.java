@@ -3,8 +3,8 @@ package ru.nabokov.docservice.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.nabokov.docservice.dto.title.BuildingDto;
-import ru.nabokov.docservice.dto.title.TypeDto;
+import ru.nabokov.docservice.dto.client.title.BuildingDto;
+import ru.nabokov.docservice.dto.client.title.TypeDto;
 
 @Setter
 @Getter
