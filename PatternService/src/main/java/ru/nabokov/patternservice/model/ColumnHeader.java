@@ -21,4 +21,13 @@ public class ColumnHeader {
     private Integer number;
     @Column(name = "heading")
     private String heading;
+
+    @Override
+    public String toString() {
+        return "ColumnHeader{" +
+                "id=" + id +
+                ", number=" + number +
+                ", heading='" + heading + '\'' +
+                '}';
+    }
 }
