@@ -1,10 +1,11 @@
 package ru.nabokov.patternservice.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.nabokov.patternservice.dto.NewPatternSectionFiveDto;
-import ru.nabokov.patternservice.dto.PatternSectionFiveDto;
-import ru.nabokov.patternservice.dto.UpdatePatternSectionFiveDto;
+import ru.nabokov.patternservice.dto.section.NewPatternSectionFiveDto;
+import ru.nabokov.patternservice.dto.section.PatternSectionFiveDto;
+import ru.nabokov.patternservice.dto.section.UpdatePatternSectionFiveDto;
 import ru.nabokov.patternservice.exceptions.NotFoundException;
 import ru.nabokov.patternservice.mapper.PatternSectionFiveMapper;
 import ru.nabokov.patternservice.model.PatternSectionFive;
@@ -14,6 +15,7 @@ import ru.nabokov.patternservice.repository.ReportPatternRepository;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PatternSectionFiveServiceImpl implements PatternSectionFiveService {
 
     private final PatternSectionFiveRepository repository;
@@ -24,6 +26,7 @@ public class PatternSectionFiveServiceImpl implements PatternSectionFiveService 
 
     @Override
     public PatternSectionFiveDto save(NewPatternSectionFiveDto patternDto) {
+        log.info(patternDto.toString());
         if (!reportPatternRepository.existsById(patternDto.getReportPatternId())) {
             throw new NotFoundException(String.format("report pattern witch id=%s not found for section one",
                     patternDto.getReportPatternId())
@@ -31,9 +34,11 @@ public class PatternSectionFiveServiceImpl implements PatternSectionFiveService 
         }
         PatternSectionFive pattern = mapper.mapToNewPatternSectionFive(patternDto);
         pattern.setHeader(headerService.save(patternDto.getHeader()));
-        pattern.setSubheadings(subheadingService.saveAll(pattern.getSubheadings()));
+        pattern.setSubheadings(subheadingService.saveAll(patternDto.getSubheadings()));
         updateReportPattern(patternDto.getReportPatternId(), pattern);
-        return mapper.mapToPatternSectionFiveDto(repository.save(pattern));
+        PatternSectionFiveDto patternSectionFiveDto =  mapper.mapToPatternSectionFiveDto(repository.save(pattern));
+        log.info(patternSectionFiveDto.toString());
+        return patternSectionFiveDto;
     }
 
     @Override
@@ -45,7 +50,7 @@ public class PatternSectionFiveServiceImpl implements PatternSectionFiveService 
         }
         PatternSectionFive pattern = mapper.mapToUpdatePatternSectionFive(patternDto);
         pattern.setHeader(headerService.update(patternDto.getHeader()));
-        pattern.setSubheadings(subheadingService.updateAll(pattern.getSubheadings()));
+        pattern.setSubheadings(subheadingService.updateAll(patternDto.getSubheadings()));
         return mapper.mapToPatternSectionFiveDto(repository.save(pattern));
     }
 

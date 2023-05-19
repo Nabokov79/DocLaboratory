@@ -1,10 +1,11 @@
 package ru.nabokov.patternservice.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.nabokov.patternservice.dto.NewPatternSectionFourDto;
-import ru.nabokov.patternservice.dto.PatternSectionFourDto;
-import ru.nabokov.patternservice.dto.UpdatePatternSectionFourDto;
+import ru.nabokov.patternservice.dto.section.NewPatternSectionFourDto;
+import ru.nabokov.patternservice.dto.section.PatternSectionFourDto;
+import ru.nabokov.patternservice.dto.section.UpdatePatternSectionFourDto;
 import ru.nabokov.patternservice.exceptions.NotFoundException;
 import ru.nabokov.patternservice.mapper.PatternSectionFourMapper;
 import ru.nabokov.patternservice.model.PatternSectionFour;
@@ -14,6 +15,7 @@ import ru.nabokov.patternservice.repository.ReportPatternRepository;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PatternSectionFourServiceImpl implements PatternSectionFourService {
 
     private final PatternSectionFourRepository repository;
@@ -22,9 +24,12 @@ public class PatternSectionFourServiceImpl implements PatternSectionFourService 
 
     @Override
     public PatternSectionFourDto save(NewPatternSectionFourDto patternDto) {
+        log.info(patternDto.toString());
         PatternSectionFour pattern = repository.save(mapper.mapToNewPatternSectionFourDto(patternDto));
         updateReportPattern(patternDto.getReportPatternId(), pattern);
-        return mapper.mapToPatternSectionFourDto((pattern));
+        PatternSectionFourDto patternSectionFourDto = mapper.mapToPatternSectionFourDto((pattern));
+        log.info(patternSectionFourDto.toString());
+        return patternSectionFourDto;
     }
 
     @Override
