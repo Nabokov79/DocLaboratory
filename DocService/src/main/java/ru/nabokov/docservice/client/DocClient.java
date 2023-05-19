@@ -2,10 +2,11 @@ package ru.nabokov.docservice.client;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.docservice.dto.passport.PassportDto;
-import ru.nabokov.docservice.dto.pattern.ApplicationDto;
-import ru.nabokov.docservice.dto.title.BranchDto;
-import ru.nabokov.docservice.dto.pattern.ReportPatternDto;
+import ru.nabokov.docservice.dto.ObjectDataDto;
+import ru.nabokov.docservice.dto.client.passport.PassportDto;
+import ru.nabokov.docservice.dto.client.pattern.ApplicationDto;
+import ru.nabokov.docservice.dto.client.title.BranchDto;
+import ru.nabokov.docservice.dto.client.pattern.ReportPatternDto;
 
 @Service
 @RequiredArgsConstructor
@@ -28,5 +29,9 @@ public class DocClient {
 
     public PassportDto getPassport(Long id) {
         return passportClient.getPassport("/passport/" + id);
+    }
+
+    public ObjectDataDto getObjectData(Long id) {
+        return dataClient.getObjectData("/data/object/" + id);
     }
 }
