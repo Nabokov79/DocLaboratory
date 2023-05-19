@@ -17,4 +17,14 @@ public class GeodesyPatternTable {
     private String name;
     private List<ColumnHeader> columnHeaders;
     private GeodesyCombinedColumns combinedColumn;
+
+    @Override
+    public String toString() {
+        return "GeodesyPatternTable{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", columnHeaders=" + columnHeaders +
+                ", combinedColumn=" + combinedColumn +
+                '}';
+    }
 }

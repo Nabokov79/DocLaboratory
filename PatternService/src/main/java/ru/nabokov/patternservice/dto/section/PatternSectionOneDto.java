@@ -1,9 +1,10 @@
-package ru.nabokov.patternservice.dto;
+package ru.nabokov.patternservice.dto.section;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import ru.nabokov.patternservice.dto.subheading.SubheadingSectionOneDto;
 import ru.nabokov.patternservice.model.Header;
 import java.util.List;
 
@@ -18,5 +19,14 @@ public class PatternSectionOneDto {
     @Schema(description = "Заголовок раздела")
     private Header header;
     @Schema(description = "Список подзаголовоков раздела")
-    private List<SubheadingDto> subheadings;
+    private List<SubheadingSectionOneDto> subheadings;
+
+    @Override
+    public String toString() {
+        return "PatternSectionOneDto{" +
+                "id=" + id +
+                ", header=" + header +
+                ", subheadings=" + subheadings +
+                '}';
+    }
 }

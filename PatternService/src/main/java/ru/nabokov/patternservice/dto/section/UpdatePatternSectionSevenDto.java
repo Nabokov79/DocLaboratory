@@ -1,4 +1,4 @@
-package ru.nabokov.patternservice.dto;
+package ru.nabokov.patternservice.dto.section;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -31,4 +31,14 @@ public class UpdatePatternSectionSevenDto {
     @Schema(description = "Список названий чертежей")
     @NotEmpty(message = "list of drawings of the seven section cannot be empty")
     private List<Drawing> drawings;
+
+    @Override
+    public String toString() {
+        return "UpdatePatternSectionSevenDto{" +
+                "id=" + id +
+                ", reportPatternId=" + reportPatternId +
+                ", header=" + header +
+                ", drawings=" + drawings +
+                '}';
+    }
 }

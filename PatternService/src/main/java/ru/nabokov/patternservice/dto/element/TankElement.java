@@ -1,4 +1,4 @@
-package ru.nabokov.patternservice.dto;
+package ru.nabokov.patternservice.dto.element;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,4 +16,13 @@ public class TankElement {
     private Long id;
     private String name;
     private List<Place> places;
+
+    @Override
+    public String toString() {
+        return "TankElement{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", places=" + places +
+                '}';
+    }
 }

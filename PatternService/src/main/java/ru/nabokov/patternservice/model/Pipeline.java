@@ -20,4 +20,12 @@ public class Pipeline {
     private long id;
     @Column(name = "name")
     private String name;
+
+    @Override
+    public String toString() {
+        return "Pipeline{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

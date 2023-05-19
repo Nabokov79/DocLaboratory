@@ -1,4 +1,4 @@
-package ru.nabokov.patternservice.dto;
+package ru.nabokov.patternservice.dto.element;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,4 +13,12 @@ public class PipelineElement {
 
     private Long id;
     private String name;
+
+    @Override
+    public String toString() {
+        return "PipelineElement{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

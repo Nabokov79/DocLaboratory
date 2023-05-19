@@ -21,4 +21,14 @@ public class PipelineProtocolPatternDto {
     private PipelinePatternTableDto patternTable;
     @Schema(description = "Заключение протокола")
     private PatternConclusion patternConclusion;
+
+    @Override
+    public String toString() {
+        return "PipelineProtocolPatternDto{" +
+                "id=" + id +
+                ", protocolHeader=" + protocolHeader +
+                ", patternTable=" + patternTable +
+                ", patternConclusion=" + patternConclusion +
+                '}';
+    }
 }

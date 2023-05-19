@@ -15,4 +15,14 @@ public class GeodesyCombinedColumns {
     private Integer numberFirst;
     private Integer numberSecond;
     private String name;
+
+    @Override
+    public String toString() {
+        return "GeodesyCombinedColumns{" +
+                "id=" + id +
+                ", numberFirst=" + numberFirst +
+                ", numberSecond=" + numberSecond +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

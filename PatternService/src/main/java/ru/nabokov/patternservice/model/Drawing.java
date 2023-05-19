@@ -28,4 +28,15 @@ public class Drawing {
     @JoinColumn(name = "pattern_section_seven_id")
     @JsonIgnore
     private PatternSectionSeven patternSectionSeven;
+
+    @Override
+    public String toString() {
+        return "Drawing{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", number=" + number +
+                ", name='" + name + '\'' +
+                ", patternSectionSeven=" + patternSectionSeven +
+                '}';
+    }
 }

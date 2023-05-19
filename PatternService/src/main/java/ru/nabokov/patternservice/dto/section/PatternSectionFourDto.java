@@ -1,9 +1,13 @@
-package ru.nabokov.patternservice.dto;
+package ru.nabokov.patternservice.dto.section;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import ru.nabokov.patternservice.dto.*;
+import ru.nabokov.patternservice.dto.protocol.GeodesyProtocolPatternDto;
+import ru.nabokov.patternservice.dto.protocol.TankProtocolPatternDto;
+import ru.nabokov.patternservice.dto.protocol.VisualProtocolPatternDto;
 import ru.nabokov.patternservice.model.Header;
 
 @Setter
@@ -26,4 +30,17 @@ public class PatternSectionFourDto {
     private GeodesyProtocolPatternDto geodesyProtocolPattern;
     @Schema(description = "Протокол измерения твердости металла")
     private HardnessProtocolPatternDto hardnessProtocolPattern;
+
+    @Override
+    public String toString() {
+        return "PatternSectionFourDto{" +
+                "id=" + id +
+                ", header=" + header +
+                ", visualProtocolPattern=" + visualProtocolPattern +
+                ", pipelineProtocolPattern=" + pipelineProtocolPattern +
+                ", tankProtocolPattern=" + tankProtocolPattern +
+                ", geodesyProtocolPattern=" + geodesyProtocolPattern +
+                ", hardnessProtocolPattern=" + hardnessProtocolPattern +
+                '}';
+    }
 }

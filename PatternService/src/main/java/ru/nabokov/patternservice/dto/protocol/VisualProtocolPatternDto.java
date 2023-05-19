@@ -1,10 +1,11 @@
-package ru.nabokov.patternservice.dto;
+package ru.nabokov.patternservice.dto.protocol;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.nabokov.patternservice.dto.table.PatternTableDto;
 import ru.nabokov.patternservice.model.PatternConclusion;
 
 @Setter
@@ -20,4 +21,14 @@ public class VisualProtocolPatternDto {
     private PatternTableDto patternTable;
     @Schema(description = "Заключение протокола")
     private PatternConclusion patternConclusion;
+
+    @Override
+    public String toString() {
+        return "VisualProtocolPatternDto{" +
+                "id=" + id +
+                ", protocolHeader=" + protocolHeader +
+                ", patternTable=" + patternTable +
+                ", patternConclusion=" + patternConclusion +
+                '}';
+    }
 }

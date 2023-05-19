@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.nabokov.patternservice.dto.table.PipelineTableDto;
 import ru.nabokov.patternservice.model.ColumnHeader;
 import java.util.List;
 
@@ -17,4 +18,14 @@ public class PipelinePatternTableDto {
     private String name;
     private List<ColumnHeader> columnHeaders;
     private List<PipelineTableDto> pipelineTables;
+
+    @Override
+    public String toString() {
+        return "PipelinePatternTableDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", columnHeaders=" + columnHeaders +
+                ", pipelineTables=" + pipelineTables +
+                '}';
+    }
 }

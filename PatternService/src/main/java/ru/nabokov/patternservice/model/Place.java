@@ -25,4 +25,13 @@ public class Place {
     @JoinColumn(name = "element_id")
     @JsonIgnore
     private Element element;
+
+    @Override
+    public String toString() {
+        return "Place{" +
+                "id=" + id +
+                ", place='" + place + '\'' +
+                ", element=" + element +
+                '}';
+    }
 }
