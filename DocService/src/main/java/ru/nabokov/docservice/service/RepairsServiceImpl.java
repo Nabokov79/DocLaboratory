@@ -2,10 +2,10 @@ package ru.nabokov.docservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.docservice.dto.passport.RepairDto;
+import ru.nabokov.docservice.dto.client.passport.RepairDto;
 import ru.nabokov.docservice.mapper.SectionMapper;
-import ru.nabokov.docservice.model.Repair;
-import ru.nabokov.docservice.model.RepairsTable;
+import ru.nabokov.docservice.model.thirdSection.Repair;
+import ru.nabokov.docservice.model.thirdSection.RepairsTable;
 import ru.nabokov.docservice.repository.RepairsRepository;
 
 import java.util.ArrayList;

@@ -17,18 +17,25 @@ public class Subheading {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "number")
-    private Double number;
+    private String number;
     @Column(name = "heading")
     private String heading;
     @Column(name = "text")
     private String text;
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "subheadings_column_headers",
-            joinColumns = {@JoinColumn(name = "subheading_id")},
-            inverseJoinColumns = {@JoinColumn(name = "column_header_id")})
-    @ToString.Exclude
-    private List<ColumnHeader> columnHeaders;
     @OneToMany(mappedBy = "subheading", fetch = FetchType.LAZY)
     private List<Documentation> documentations;
+    @OneToMany(mappedBy = "subheading", fetch = FetchType.LAZY)
+    private List<Recommendation> recommendations;
+
+    @Override
+    public String toString() {
+        return "Subheading{" +
+                "id=" + id +
+                ", number=" + number +
+                ", heading='" + heading + '\'' +
+                ", text='" + text + '\'' +
+                ", documentations=" + documentations +
+                ", recommendations=" + recommendations +
+                '}';
+    }
 }

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.nabokov.patternservice.dto.client.Type;
+import ru.nabokov.patternservice.dto.section.*;
 import ru.nabokov.patternservice.model.TitlePattern;
 
 @Setter

@@ -2,9 +2,9 @@ package ru.nabokov.patternservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.patternservice.dto.NewProtocolPatternDto;
-import ru.nabokov.patternservice.dto.UpdateProtocolPatternDto;
-import ru.nabokov.patternservice.dto.VisualProtocolPatternDto;
+import ru.nabokov.patternservice.dto.protocol.NewProtocolPatternDto;
+import ru.nabokov.patternservice.dto.protocol.UpdateProtocolPatternDto;
+import ru.nabokov.patternservice.dto.protocol.VisualProtocolPatternDto;
 import ru.nabokov.patternservice.exceptions.NotFoundException;
 import ru.nabokov.patternservice.mapper.VisualProtocolPatternMapper;
 import ru.nabokov.patternservice.model.PatternSectionFour;

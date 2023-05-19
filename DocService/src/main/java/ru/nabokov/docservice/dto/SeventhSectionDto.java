@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import ru.nabokov.docservice.dto.pattern.DrawingDto;
+import ru.nabokov.docservice.dto.client.pattern.DrawingDto;
 
 import java.util.List;
 @Setter

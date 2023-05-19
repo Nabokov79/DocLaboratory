@@ -2,10 +2,10 @@ package ru.nabokov.docservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.docservice.dto.passport.SurveyDto;
+import ru.nabokov.docservice.dto.client.passport.SurveyDto;
 import ru.nabokov.docservice.mapper.SectionMapper;
-import ru.nabokov.docservice.model.Survey;
-import ru.nabokov.docservice.model.SurveysTable;
+import ru.nabokov.docservice.model.thirdSection.Survey;
+import ru.nabokov.docservice.model.thirdSection.SurveysTable;
 import ru.nabokov.docservice.repository.SurveysRepository;
 
 import java.util.ArrayList;

@@ -8,9 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.nabokov.docservice.model.Report;
+import ru.nabokov.docservice.dto.ReportDto;
 import ru.nabokov.docservice.service.ReportService;
-
 import javax.validation.constraints.Positive;
 
 @RestController
@@ -20,16 +19,16 @@ import javax.validation.constraints.Positive;
         produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 @Validated
-@Tag(name="Отчет/протокол",
-        description="API для работы с данными отчета/протокола")
+@Tag(name="Отчет",
+     description="API для работы с данными отчета")
 public class ReportController {
 
     private final ReportService service;
 
-    @Operation(summary = "Добавление нового отчета/протокола")
+    @Operation(summary = "Добавление нового отчета")
     @PostMapping
-    public ResponseEntity<Report> save(@RequestParam @Positive
-                                   @Parameter(description = "Индентификатор объекта обследования") Long applicationId) {
+    public ResponseEntity<ReportDto> save(@RequestParam @Positive
+                                       @Parameter(description = "Индентификатор заявки") Long applicationId) {
         return ResponseEntity.ok().body(service.save(applicationId));
     }
 

@@ -1,7 +1,7 @@
 package ru.nabokov.docservice.service.title;
 
-import ru.nabokov.docservice.dto.title.BranchDto;
-import ru.nabokov.docservice.model.TitleHeader;
+import ru.nabokov.docservice.dto.client.title.BranchDto;
+import ru.nabokov.docservice.model.title.TitleHeader;
 
 public interface TitleHeaderService {
 

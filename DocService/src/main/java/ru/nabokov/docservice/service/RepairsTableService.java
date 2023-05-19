@@ -1,8 +1,8 @@
 package ru.nabokov.docservice.service;
 
-import ru.nabokov.docservice.dto.passport.RepairDto;
-import ru.nabokov.docservice.dto.pattern.SubheadingThreeDto;
-import ru.nabokov.docservice.model.RepairsTable;
+import ru.nabokov.docservice.dto.client.passport.RepairDto;
+import ru.nabokov.docservice.dto.client.pattern.SubheadingThreeDto;
+import ru.nabokov.docservice.model.thirdSection.RepairsTable;
 
 import java.util.List;
 

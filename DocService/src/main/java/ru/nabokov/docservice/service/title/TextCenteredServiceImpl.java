@@ -3,9 +3,9 @@ package ru.nabokov.docservice.service.title;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.nabokov.docservice.dto.ObjectDataDto;
-import ru.nabokov.docservice.dto.pattern.TextCenteredDto;
+import ru.nabokov.docservice.dto.client.pattern.TextCenteredDto;
 import ru.nabokov.docservice.mapper.TitleMapper;
-import ru.nabokov.docservice.model.TextCentered;
+import ru.nabokov.docservice.model.title.TextCentered;
 import ru.nabokov.docservice.repository.TextCenteredRepository;
 import ru.nabokov.docservice.service.StringBuilderService;
 

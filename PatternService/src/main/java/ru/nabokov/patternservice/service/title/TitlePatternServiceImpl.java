@@ -23,7 +23,7 @@ public class TitlePatternServiceImpl implements TitlePatternService {
     @Override
     public TitlePatternDto save(NewTitlePageDataDto textCenteredDto) {
         TitlePattern pattern = new TitlePattern();
-        pattern.setTextCentered(textCenteredService.save(mapper.mapToTextCentered(textCenteredDto)));
+        pattern.setTitlePageData(textCenteredService.save(mapper.mapToTextCentered(textCenteredDto)));
         TitlePattern titlePatternDb = repository.save(pattern);
         reportPatternService.save(textCenteredDto.getTypeId(), titlePatternDb);
         return mapper.mapToTitlePatternDto(titlePatternDb);
@@ -37,7 +37,7 @@ public class TitlePatternServiceImpl implements TitlePatternService {
             );
         }
         TitlePattern pattern = new TitlePattern();
-        pattern.setTextCentered(textCenteredService.update(titlePatternDto.getTitlePageData()));
+        pattern.setTitlePageData(textCenteredService.update(titlePatternDto.getTitlePageData()));
         return mapper.mapToTitlePatternDto(repository.save(pattern));
     }
 }

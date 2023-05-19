@@ -1,9 +1,9 @@
 package ru.nabokov.docservice.dto;
 
-import ru.nabokov.docservice.dto.pattern.EmployeeDto;
-import ru.nabokov.docservice.dto.pattern.PatternSectionOneDto;
-import ru.nabokov.docservice.dto.pattern.TitlePatternDto;
-import ru.nabokov.docservice.dto.title.BranchDto;
+import ru.nabokov.docservice.dto.client.pattern.EmployeeDto;
+import ru.nabokov.docservice.dto.client.pattern.PatternSectionOneDto;
+import ru.nabokov.docservice.dto.client.pattern.TitlePatternDto;
+import ru.nabokov.docservice.dto.client.title.BranchDto;
 
 import java.util.List;
 

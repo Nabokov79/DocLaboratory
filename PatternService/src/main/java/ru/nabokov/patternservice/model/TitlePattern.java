@@ -20,5 +20,5 @@ public class TitlePattern {
     private long id;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "title_page_data_id", referencedColumnName = "id")
-    private TitlePageData textCentered;
+    private TitlePageData titlePageData;
 }

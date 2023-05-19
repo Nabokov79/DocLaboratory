@@ -2,11 +2,11 @@ package ru.nabokov.docservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.docservice.dto.passport.PassportDto;
-import ru.nabokov.docservice.dto.pattern.PatternSectionThreeDto;
-import ru.nabokov.docservice.dto.pattern.SubheadingThreeDto;
+import ru.nabokov.docservice.dto.client.passport.PassportDto;
+import ru.nabokov.docservice.dto.client.pattern.PatternSectionThreeDto;
+import ru.nabokov.docservice.dto.client.pattern.SubheadingThreeDto;
 import ru.nabokov.docservice.exceptions.BadRequestException;
-import ru.nabokov.docservice.model.*;
+import ru.nabokov.docservice.model.thirdSection.ThirdSection;
 import ru.nabokov.docservice.repository.ThirdSectionRepository;
 import java.util.Map;
 import java.util.stream.Collectors;

@@ -12,6 +12,7 @@ import ru.nabokov.patternservice.mapper.ReportPatternMapper;
 import ru.nabokov.patternservice.model.ReportPattern;
 import ru.nabokov.patternservice.model.TitlePattern;
 import ru.nabokov.patternservice.repository.ReportPatternRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,29 +36,32 @@ public class ReportPatternServiceImpl implements ReportPatternService {
 
     @Override
     public ReportPatternDto get(Long id, Long typeId) {
-        ReportPatternDto reportPatternDto;
-       if (id != null && id > 0) {
-           reportPatternDto = mapper.mapToReportPatternDto(repository.findById(id)
-                   .orElseThrow(() -> new NotFoundException(String.format("Pattern witch id=%s not found", id)))
-           );
-       } else {
-           reportPatternDto = mapper.mapToReportPatternDto(repository.findByTypeId(typeId));
-       }
-       if (reportPatternDto == null) {
-           throw new BadRequestException(String.format("id=%s and typeId=%s not correct", id, typeId));
-       }
-       return reportPatternDto;
+        ReportPattern reportPattern = new ReportPattern();
+        if (id != null && id > 0 && typeId == null) {
+            reportPattern = repository.findById(id)
+                    .orElseThrow(() -> new NotFoundException(String.format("Pattern witch id=%s not found", id))
+                    );
+        }
+        if (id == null && typeId != null && typeId > 0) {
+            reportPattern = repository.findByTypeId(typeId);
+        }
+        if (reportPattern == null) {
+            throw new BadRequestException(String.format("id=%s and typeId=%s not correct", id, typeId));
+        }
+        ReportPatternDto reportPatternDto = mapper.mapToReportPatternDto(reportPattern);
+        reportPatternDto.setType(client.getType(String.valueOf(reportPattern.getTypeId())).get(0));
+        return reportPatternDto;
     }
 
     @Override
     public List<ShortReportPatternDto> getAll() {
         Map<Long, ReportPattern> patterns = repository.findAll()
-                                                  .stream().collect(Collectors.toMap(ReportPattern::getTypeId, r -> r));
+                .stream().collect(Collectors.toMap(ReportPattern::getTypeId, r -> r));
         if (patterns.isEmpty()) {
             throw new NotFoundException(String.format("reports patterns not found, patterns=%s", patterns));
         }
         Map<Long, Type> types = client.getType(patterns.keySet().toString())
-                                                            .stream().collect(Collectors.toMap(Type::getId, t -> t));
+                .stream().collect(Collectors.toMap(Type::getId, t -> t));
         if (types.isEmpty()) {
             throw new NotFoundException(String.format("types reports patterns with ids=%s not found", patterns.keySet()));
         }

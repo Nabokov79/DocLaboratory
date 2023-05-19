@@ -5,6 +5,10 @@ import org.springframework.stereotype.Service;
 import ru.nabokov.docservice.dto.ReportDataBuilder;
 import ru.nabokov.docservice.exceptions.BadRequestException;
 import ru.nabokov.docservice.model.*;
+import ru.nabokov.docservice.model.title.Footer;
+import ru.nabokov.docservice.model.title.TextCentered;
+import ru.nabokov.docservice.model.title.Title;
+import ru.nabokov.docservice.model.title.TitleHeader;
 import ru.nabokov.docservice.repository.TitleRepository;
 import ru.nabokov.docservice.service.LicenseService;
 

@@ -2,9 +2,9 @@ package ru.nabokov.docservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.docservice.dto.passport.SurveyDto;
-import ru.nabokov.docservice.dto.pattern.SubheadingThreeDto;
-import ru.nabokov.docservice.model.SurveysTable;
+import ru.nabokov.docservice.dto.client.passport.SurveyDto;
+import ru.nabokov.docservice.dto.client.pattern.SubheadingThreeDto;
+import ru.nabokov.docservice.model.thirdSection.SurveysTable;
 import ru.nabokov.docservice.repository.SurveysTableRepository;
 
 import java.util.List;
