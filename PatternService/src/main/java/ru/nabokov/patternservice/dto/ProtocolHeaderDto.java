@@ -19,4 +19,18 @@ public class ProtocolHeaderDto {
     private String textMeasurements;
     private String location;
     private String admissibility;
+
+    @Override
+    public String toString() {
+        return "ProtocolHeaderDto{" +
+                "id=" + id +
+                ", number=" + number +
+                ", document='" + document + '\'' +
+                ", name='" + name + '\'' +
+                ", text='" + text + '\'' +
+                ", textMeasurements='" + textMeasurements + '\'' +
+                ", location='" + location + '\'' +
+                ", admissibility='" + admissibility + '\'' +
+                '}';
+    }
 }

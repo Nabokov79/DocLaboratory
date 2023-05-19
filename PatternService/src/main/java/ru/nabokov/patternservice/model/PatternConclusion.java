@@ -22,4 +22,13 @@ public class PatternConclusion {
     private String isNotDefect;
     @Column(name = "is_defect")
     private String isDefect;
+
+    @Override
+    public String toString() {
+        return "PatternConclusion{" +
+                "id=" + id +
+                ", isNotDefect='" + isNotDefect + '\'' +
+                ", isDefect='" + isDefect + '\'' +
+                '}';
+    }
 }

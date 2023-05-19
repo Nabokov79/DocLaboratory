@@ -26,4 +26,13 @@ public class PatternSectionOne {
             inverseJoinColumns = {@JoinColumn(name = "subheading_id")})
     @ToString.Exclude
     private List<Subheading> subheadings;
+
+    @Override
+    public String toString() {
+        return "PatternSectionOne{" +
+                "id=" + id +
+                ", header=" + header +
+                ", subheadings=" + subheadings +
+                '}';
+    }
 }
