@@ -1,10 +1,11 @@
 package ru.nabokov.patternservice.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.nabokov.patternservice.dto.NewPatternSectionSevenDto;
-import ru.nabokov.patternservice.dto.PatternSectionSevenDto;
-import ru.nabokov.patternservice.dto.UpdatePatternSectionSevenDto;
+import ru.nabokov.patternservice.dto.section.NewPatternSectionSevenDto;
+import ru.nabokov.patternservice.dto.section.PatternSectionSevenDto;
+import ru.nabokov.patternservice.dto.section.UpdatePatternSectionSevenDto;
 import ru.nabokov.patternservice.exceptions.NotFoundException;
 import ru.nabokov.patternservice.mapper.PatternSectionSevenMapper;
 import ru.nabokov.patternservice.model.PatternSectionSeven;
@@ -14,6 +15,7 @@ import ru.nabokov.patternservice.repository.ReportPatternRepository;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PatternSectionSevenServiceImpl implements PatternSectionSevenService {
 
     private final PatternSectionSevenRepository repository;
@@ -24,6 +26,7 @@ public class PatternSectionSevenServiceImpl implements PatternSectionSevenServic
 
     @Override
     public PatternSectionSevenDto save(NewPatternSectionSevenDto patternDto) {
+        log.info(patternDto.toString());
         if (!reportPatternRepository.existsById(patternDto.getReportPatternId())) {
             throw new NotFoundException(String.format("report pattern witch id=%s not found for section seven",
                     patternDto.getReportPatternId())
@@ -53,10 +56,12 @@ public class PatternSectionSevenServiceImpl implements PatternSectionSevenServic
 
     @Override
     public PatternSectionSevenDto get(Long patId) {
-        return mapper.mapToPatternSectionSevenDto(
-                repository.findById(patId).orElseThrow(() -> new NotFoundException(
-                        String.format("pattern section seven witch id=%s not found", patId)))
-        );
+        PatternSectionSevenDto patternSectionSevenDto = mapper.mapToPatternSectionSevenDto(
+                                           repository.findById(patId).orElseThrow(() -> new NotFoundException(
+                                                   String.format("pattern section seven witch id=%s not found", patId)))
+                                    );
+        log.info(patternSectionSevenDto.toString());
+        return patternSectionSevenDto;
     }
 
     private void updateReportPattern(Long id, PatternSectionSeven patternDb) {

@@ -1,8 +1,8 @@
 package ru.nabokov.patternservice.service;
 
-import ru.nabokov.patternservice.dto.NewPatternSectionTwoDto;
-import ru.nabokov.patternservice.dto.PatternSectionTwoDto;
-import ru.nabokov.patternservice.dto.UpdatePatternSectionTwoDto;
+import ru.nabokov.patternservice.dto.section.NewPatternSectionTwoDto;
+import ru.nabokov.patternservice.dto.section.PatternSectionTwoDto;
+import ru.nabokov.patternservice.dto.section.UpdatePatternSectionTwoDto;
 
 public interface PatternSectionTwoService {
 

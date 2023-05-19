@@ -1,10 +1,12 @@
 package ru.nabokov.patternservice.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.nabokov.patternservice.dto.NewPatternSectionOneDto;
-import ru.nabokov.patternservice.dto.PatternSectionOneDto;
-import ru.nabokov.patternservice.dto.UpdatePatternSectionOneDto;
+import ru.nabokov.patternservice.dto.section.NewPatternSectionOneDto;
+import ru.nabokov.patternservice.dto.section.PatternSectionOneDto;
+import ru.nabokov.patternservice.dto.subheading.SubheadingSectionOneDto;
+import ru.nabokov.patternservice.dto.section.UpdatePatternSectionOneDto;
 import ru.nabokov.patternservice.exceptions.NotFoundException;
 import ru.nabokov.patternservice.mapper.PatternSectionOneMapper;
 import ru.nabokov.patternservice.model.PatternSectionOne;
@@ -12,8 +14,11 @@ import ru.nabokov.patternservice.model.ReportPattern;
 import ru.nabokov.patternservice.repository.PatternSectionOneRepository;
 import ru.nabokov.patternservice.repository.ReportPatternRepository;
 
+import java.util.Comparator;
+
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PatternSectionOneServiceImpl implements PatternSectionOneService {
 
     private final PatternSectionOneRepository repository;
@@ -24,6 +29,7 @@ public class PatternSectionOneServiceImpl implements PatternSectionOneService {
 
     @Override
     public PatternSectionOneDto save(NewPatternSectionOneDto patternDto) {
+        log.info(patternDto.toString());
         if (!reportPatternRepository.existsById(patternDto.getReportPatternId())) {
             throw new NotFoundException(String.format("report pattern witch id=%s not found for section one",
                                                                             patternDto.getReportPatternId())
@@ -31,10 +37,15 @@ public class PatternSectionOneServiceImpl implements PatternSectionOneService {
         }
         PatternSectionOne pattern = new PatternSectionOne();
         pattern.setHeader(headerService.save(patternDto.getHeader()));
-        pattern.setSubheadings(subheadingService.saveAll(pattern.getSubheadings()));
+        pattern.setSubheadings(subheadingService.saveAll(patternDto.getSubheadings()));
         PatternSectionOne patternDb = repository.save(pattern);
+        log.info(patternDb.toString());
         updateReportPattern(patternDto.getReportPatternId(), patternDb);
-        return mapper.mapToPatternSectionOneDto(patternDb);
+        PatternSectionOneDto patternSectionOneDto = mapper.mapToPatternSectionOneDto(patternDb);
+        log.info(patternSectionOneDto.toString());
+        patternSectionOneDto.setSubheadings(patternSectionOneDto.getSubheadings().stream()
+                                      .sorted(Comparator.comparing(SubheadingSectionOneDto::getNumber)).toList());
+        return patternSectionOneDto;
     }
 
     @Override
@@ -46,7 +57,7 @@ public class PatternSectionOneServiceImpl implements PatternSectionOneService {
         }
         PatternSectionOne pattern = mapper.mapToPatternSectionOne(patternDto);
         pattern.setHeader(headerService.update(patternDto.getHeader()));
-        pattern.setSubheadings(subheadingService.updateAll(pattern.getSubheadings()));
+        pattern.setSubheadings(subheadingService.updateAll(patternDto.getSubheadings()));
         return mapper.mapToPatternSectionOneDto(repository.save(pattern));
     }
 

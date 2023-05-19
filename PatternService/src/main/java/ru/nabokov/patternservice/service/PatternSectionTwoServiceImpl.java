@@ -1,10 +1,12 @@
 package ru.nabokov.patternservice.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.nabokov.patternservice.dto.NewPatternSectionTwoDto;
-import ru.nabokov.patternservice.dto.PatternSectionTwoDto;
-import ru.nabokov.patternservice.dto.UpdatePatternSectionTwoDto;
+import ru.nabokov.patternservice.dto.section.NewPatternSectionTwoDto;
+import ru.nabokov.patternservice.dto.section.PatternSectionTwoDto;
+import ru.nabokov.patternservice.dto.section.UpdatePatternSectionTwoDto;
+import ru.nabokov.patternservice.dto.subheading.SubheadingDto;
 import ru.nabokov.patternservice.exceptions.NotFoundException;
 import ru.nabokov.patternservice.mapper.PatternSectionTwoMapper;
 import ru.nabokov.patternservice.model.PatternSectionTwo;
@@ -12,8 +14,11 @@ import ru.nabokov.patternservice.model.ReportPattern;
 import ru.nabokov.patternservice.repository.PatternSectionTwoRepository;
 import ru.nabokov.patternservice.repository.ReportPatternRepository;
 
+import java.util.Comparator;
+
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PatternSectionTwoServiceImpl implements PatternSectionTwoService {
 
     private final PatternSectionTwoRepository repository;
@@ -24,6 +29,7 @@ public class PatternSectionTwoServiceImpl implements PatternSectionTwoService {
 
     @Override
     public PatternSectionTwoDto save(NewPatternSectionTwoDto patternDto) {
+        log.info(patternDto.toString());
         if (!reportPatternRepository.existsById(patternDto.getReportPatternId())) {
             throw new NotFoundException(String.format("report pattern witch id=%s not found for section two",
                     patternDto.getReportPatternId())
@@ -31,10 +37,14 @@ public class PatternSectionTwoServiceImpl implements PatternSectionTwoService {
         }
         PatternSectionTwo pattern = new  PatternSectionTwo();
         pattern.setHeader(headerService.save(patternDto.getHeader()));
-        pattern.setSubheadings(subheadingService.saveAll(pattern.getSubheadings()));
+        pattern.setSubheadings(subheadingService.saveAll(patternDto.getSubheadings()));
         PatternSectionTwo patternDb = repository.save(pattern);
         updateReportPattern(patternDto.getReportPatternId(), patternDb);
-        return mapper.mapToPatternSectionTwoDto(patternDb);
+        PatternSectionTwoDto patternSectionTwoDto = mapper.mapToPatternSectionTwoDto(patternDb);
+        patternSectionTwoDto.setSubheadings(patternSectionTwoDto.getSubheadings()
+                                             .stream().sorted(Comparator.comparing(SubheadingDto::getNumber)).toList());
+        log.info(patternSectionTwoDto.toString());
+        return patternSectionTwoDto;
     }
 
     @Override
@@ -46,8 +56,11 @@ public class PatternSectionTwoServiceImpl implements PatternSectionTwoService {
         }
         PatternSectionTwo pattern = mapper.mapToPatternSectionTwo(patternDto);
         pattern.setHeader(headerService.update(patternDto.getHeader()));
-        pattern.setSubheadings(subheadingService.updateAll(pattern.getSubheadings()));
-        return mapper.mapToPatternSectionTwoDto(repository.save(pattern));
+        pattern.setSubheadings(subheadingService.updateAll(patternDto.getSubheadings()));
+        PatternSectionTwoDto patternSectionTwoDto = mapper.mapToPatternSectionTwoDto(repository.save(pattern));
+        patternSectionTwoDto.setSubheadings(patternSectionTwoDto.getSubheadings()
+                                             .stream().sorted(Comparator.comparing(SubheadingDto::getNumber)).toList());
+        return patternSectionTwoDto;
     }
 
     @Override
