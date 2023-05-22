@@ -1,4 +1,4 @@
-package ru.nabokov.dataservice.dto.autor;
+package ru.nabokov.dataservice.dto.documentation;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -9,10 +9,13 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @Schema(description = "Данные автора проекта")
-public class AuthorDto {
+public class DocumentationDto {
 
     @Schema(description = "Индентификатор")
     private Long id;
-    @Schema(description = "Автор проекта")
-    private String name;
+    private String view;
+    @Schema(description = "Номер документа")
+    private String number;
+    @Schema(description = "Заголовок документа")
+    private String title;
 }
