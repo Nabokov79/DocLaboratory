@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 @Setter
 @Getter
@@ -22,4 +23,6 @@ public class UpdateTypeDto {
     @Schema(description = "Тип объекта")
     @NotBlank(message = "name type should not be blank")
     private String name;
+    @Schema(description = "Индентификаторы нормативной документации")
+    private List<Long> documentationIds;
 }

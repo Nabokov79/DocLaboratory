@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Setter
 @Getter
@@ -18,4 +18,6 @@ public class NewTypeDto {
     @Schema(description = "Тип объекта")
     @NotBlank(message = "name type should not be blank")
     private String name;
+    @Schema(description = "Индентификаторы нормативной документации")
+    private List<Long> documentationIds;
 }
