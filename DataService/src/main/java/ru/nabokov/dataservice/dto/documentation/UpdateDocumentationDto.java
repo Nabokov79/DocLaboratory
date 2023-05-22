@@ -1,4 +1,4 @@
-package ru.nabokov.dataservice.dto.autor;
+package ru.nabokov.dataservice.dto.documentation;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -13,13 +13,19 @@ import javax.validation.constraints.Positive;
 @Getter
 @AllArgsConstructor
 @Schema(description = "Данные для изменения информации о авторе проекта")
-public class UpdateAuthorDto {
+public class UpdateDocumentationDto {
 
     @Schema(description = "Индентификатор")
     @NotNull(message = "id author should not be blank")
     @Positive(message = "id author must be positive")
     private Long id;
-    @Schema(description = "Автор проекта")
-    @NotBlank(message = "name author should not be blank")
-    private String name;
+    @Schema(description = "Вид документа")
+    @NotBlank(message = "view should not be blank")
+    private String view;
+    @Schema(description = "Номер документа")
+    @NotBlank(message = "number should not be blank")
+    private String number;
+    @Schema(description = "Заголовок документа")
+    @NotBlank(message = "title should not be blank")
+    private String title;
 }
