@@ -23,8 +23,6 @@ public class Subheading {
     @Column(name = "text")
     private String text;
     @OneToMany(mappedBy = "subheading", fetch = FetchType.LAZY)
-    private List<Documentation> documentations;
-    @OneToMany(mappedBy = "subheading", fetch = FetchType.LAZY)
     private List<Recommendation> recommendations;
 
     @Override
@@ -34,7 +32,6 @@ public class Subheading {
                 ", number=" + number +
                 ", heading='" + heading + '\'' +
                 ", text='" + text + '\'' +
-                ", documentations=" + documentations +
                 ", recommendations=" + recommendations +
                 '}';
     }
