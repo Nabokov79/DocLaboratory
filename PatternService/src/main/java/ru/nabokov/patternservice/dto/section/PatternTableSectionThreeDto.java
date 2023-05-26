@@ -1,4 +1,4 @@
-package ru.nabokov.patternservice.dto;
+package ru.nabokov.patternservice.dto.section;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,20 +11,16 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GeodesyPatternTable {
+public class PatternTableSectionThreeDto {
 
     private long id;
-    private String name;
     private List<ColumnHeader> columnHeaders;
-    private GeodesyCombinedColumns combinedColumn;
 
     @Override
     public String toString() {
-        return "GeodesyPatternTable{" +
+        return "PatternTableDto{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
                 ", columnHeaders=" + columnHeaders +
-                ", combinedColumn=" + combinedColumn +
                 '}';
     }
 }
