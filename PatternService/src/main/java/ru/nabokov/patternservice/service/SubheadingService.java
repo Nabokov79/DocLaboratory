@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface SubheadingService {
 
-    List<Subheading> saveAll(List<NewSubheadingDto> subheadingsDto);
+    List<Subheading> save(List<NewSubheadingDto> subheadingsDto);
 
-    List<Subheading> updateAll(List<UpdateSubheadingDto> subheadingsDto);
+    List<Subheading> update(List<UpdateSubheadingDto> subheadingsDto);
 }
