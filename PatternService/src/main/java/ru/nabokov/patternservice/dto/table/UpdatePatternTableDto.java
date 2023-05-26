@@ -4,9 +4,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import ru.nabokov.patternservice.dto.element.TankElement;
-import ru.nabokov.patternservice.model.ColumnHeader;
-import ru.nabokov.patternservice.model.CombinedColumns;
+import ru.nabokov.patternservice.dto.columnHeader.UpdateColumnHeaderDto;
+import ru.nabokov.patternservice.dto.combinedColumns.UpdateCombinedColumnsDto;
+import ru.nabokov.patternservice.dto.element.UpdateElementDto;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.List;
@@ -25,9 +26,9 @@ public class UpdatePatternTableDto {
     private String name;
     @Schema(description = "Заголовки колонок таблицы")
     @NotNull(message = "pattern table column headers should not be blank")
-    private List<ColumnHeader> columnHeaders;
+    private List<UpdateColumnHeaderDto> columnHeaders;
     @Schema(description = "Данные объедененной колонки")
-    private CombinedColumns combinedColumn;
+    private UpdateCombinedColumnsDto combinedColumn;
     @Schema(description = "Элементы, содержащиеся в таблице")
-    private List<TankElement> elements;
+    private List<UpdateElementDto> elements;
 }
