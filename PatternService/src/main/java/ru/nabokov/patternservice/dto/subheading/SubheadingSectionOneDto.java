@@ -4,9 +4,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import ru.nabokov.patternservice.dto.documentation.DocumentationDto;
-
-import java.util.List;
 
 @Setter
 @Getter
@@ -22,8 +19,6 @@ public class SubheadingSectionOneDto {
     private String heading;
     @Schema(description = "Текст в подразделе")
     private String text;
-    @Schema(description = "Нормативная документация")
-    private List<DocumentationDto> documentations;
 
     @Override
     public String toString() {
@@ -32,7 +27,6 @@ public class SubheadingSectionOneDto {
                 ", number=" + number +
                 ", heading='" + heading + '\'' +
                 ", text='" + text + '\'' +
-                ", documentations=" + documentations +
                 '}';
     }
 }
