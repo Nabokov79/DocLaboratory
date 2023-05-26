@@ -8,12 +8,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.nabokov.patternservice.dto.protocol.GeodesyProtocolPatternDto;
-import ru.nabokov.patternservice.dto.protocol.NewGeodesyProtocolPatternDto;
-import ru.nabokov.patternservice.dto.protocol.UpdateGeodesyProtocolPatternDto;
-import ru.nabokov.patternservice.service.GeodesyProtocolPatternService;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import ru.nabokov.patternservice.dto.ReportPatternDto;
+import ru.nabokov.patternservice.dto.protocol.NewProtocolPatternDto;
+import ru.nabokov.patternservice.dto.protocol.UpdateProtocolPatternDto;
+import ru.nabokov.patternservice.service.protocol.GeodesyProtocolPatternService;
 
 @RestController
 @RequestMapping(
@@ -30,23 +28,17 @@ public class GeodesyProtocolPatternController {
 
     @Operation(summary = "Добавление данных нового шаблона протокола")
     @PostMapping
-    public ResponseEntity<GeodesyProtocolPatternDto> save(
+    public ResponseEntity<ReportPatternDto> save(
             @RequestBody @Validated
-            @Parameter(description = "Данные протокола") NewGeodesyProtocolPatternDto protocolDto) {
+            @Parameter(description = "Данные протокола") NewProtocolPatternDto protocolDto) {
         return ResponseEntity.ok().body(service.save(protocolDto));
     }
 
     @Operation(summary = "Изменение данных шаблона протокола")
     @PatchMapping
-    public ResponseEntity<GeodesyProtocolPatternDto> update(
+    public ResponseEntity<ReportPatternDto> update(
             @RequestBody @Validated
-            @Parameter(description = "Данные протокола") UpdateGeodesyProtocolPatternDto protocolDto) {
+            @Parameter(description = "Данные протокола") UpdateProtocolPatternDto protocolDto) {
         return ResponseEntity.ok().body(service.update(protocolDto));
-    }
-
-    @Operation(summary = "Получение шаблона протокола")
-    @GetMapping("/{id}")
-    public ResponseEntity<GeodesyProtocolPatternDto> get(@PathVariable @NotNull @Positive Long id) {
-        return ResponseEntity.ok().body(service.get(id));
     }
 }

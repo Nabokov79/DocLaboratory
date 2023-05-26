@@ -1,4 +1,4 @@
-package ru.nabokov.patternservice.controller;
+package ru.nabokov.patternservice.controller.section;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -8,10 +8,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.nabokov.patternservice.dto.NewTitlePageDataDto;
-import ru.nabokov.patternservice.dto.TitlePatternDto;
-import ru.nabokov.patternservice.dto.UpdateTitlePatternDto;
-import ru.nabokov.patternservice.service.title.TitlePatternService;
+import ru.nabokov.patternservice.dto.title.NewTitlePageDataDto;
+import ru.nabokov.patternservice.dto.ReportPatternDto;
+import ru.nabokov.patternservice.dto.title.UpdateTitlePageDataDto;
+import ru.nabokov.patternservice.service.section.TitlePatternService;
 
 @RestController
 @RequestMapping(
@@ -28,17 +28,17 @@ public class TitlePatternController {
 
     @Operation(summary = "Добавление данных нового шаблона отчета")
     @PostMapping
-    public ResponseEntity<TitlePatternDto> save(
+    public ResponseEntity<ReportPatternDto> save(
             @RequestBody @Validated
-            @Parameter(description = "Текст по центру титульного листа") NewTitlePageDataDto textCenteredDto) {
-        return ResponseEntity.ok().body(service.save(textCenteredDto));
+            @Parameter(description = "Текст по центру титульного листа") NewTitlePageDataDto titlePageDataDto) {
+        return ResponseEntity.ok().body(service.save(titlePageDataDto));
     }
 
     @Operation(summary = "Изменение данных шаблона")
     @PatchMapping
-    public ResponseEntity<TitlePatternDto> update(
+    public ResponseEntity<ReportPatternDto> update(
             @RequestBody @Validated
-            @Parameter(description = "Текст по центру титульного листа") UpdateTitlePatternDto titlePatternDto) {
+            @Parameter(description = "Текст по центру титульного листа") UpdateTitlePageDataDto titlePatternDto) {
         return ResponseEntity.ok().body(service.update(titlePatternDto));
     }
 }

@@ -8,12 +8,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.nabokov.patternservice.dto.HardnessProtocolPatternDto;
+import ru.nabokov.patternservice.dto.ReportPatternDto;
 import ru.nabokov.patternservice.dto.protocol.NewProtocolPatternDto;
 import ru.nabokov.patternservice.dto.protocol.UpdateProtocolPatternDto;
-import ru.nabokov.patternservice.service.HardnessProtocolPatternService;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import ru.nabokov.patternservice.service.protocol.HardnessProtocolPatternService;
 
 @RestController
 @RequestMapping(
@@ -30,23 +28,15 @@ public class HardnessProtocolPatternController {
 
     @Operation(summary = "Добавление данных нового шаблона протокола")
     @PostMapping
-    public ResponseEntity<HardnessProtocolPatternDto> save(
-            @RequestBody @Validated
-            @Parameter(description = "Данные протокола") NewProtocolPatternDto protocolDto) {
+    public ResponseEntity<ReportPatternDto> save(
+            @RequestBody @Validated @Parameter(description = "Данные протокола") NewProtocolPatternDto protocolDto) {
         return ResponseEntity.ok().body(service.save(protocolDto));
     }
 
     @Operation(summary = "Изменение данных шаблона протокола")
     @PatchMapping
-    public ResponseEntity<HardnessProtocolPatternDto> update(
-            @RequestBody @Validated
-            @Parameter(description = "Данные протокола") UpdateProtocolPatternDto protocolDto) {
+    public ResponseEntity<ReportPatternDto> update(
+            @RequestBody @Validated @Parameter(description = "Данные протокола") UpdateProtocolPatternDto protocolDto) {
         return ResponseEntity.ok().body(service.update(protocolDto));
-    }
-
-    @Operation(summary = "Получение шаблона протокола")
-    @GetMapping("/{id}")
-    public ResponseEntity<HardnessProtocolPatternDto> get(@PathVariable @NotNull @Positive Long id) {
-        return ResponseEntity.ok().body(service.get(id));
     }
 }

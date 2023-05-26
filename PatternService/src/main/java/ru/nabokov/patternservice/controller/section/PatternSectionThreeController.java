@@ -1,4 +1,4 @@
-package ru.nabokov.patternservice.controller;
+package ru.nabokov.patternservice.controller.section;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -8,12 +8,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.nabokov.patternservice.dto.section.NewPatternSectionThreeDto;
-import ru.nabokov.patternservice.dto.section.PatternSectionThreeDto;
-import ru.nabokov.patternservice.dto.section.UpdatePatternSectionThreeDto;
-import ru.nabokov.patternservice.service.PatternSectionThreeService;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import ru.nabokov.patternservice.dto.section.NewPatternSectionDto;
+import ru.nabokov.patternservice.dto.ReportPatternDto;
+import ru.nabokov.patternservice.dto.section.UpdatePatternSectionDto;
+import ru.nabokov.patternservice.service.section.PatternSectionThreeService;
 
 @RestController
 @RequestMapping(
@@ -30,23 +28,17 @@ public class PatternSectionThreeController {
 
     @Operation(summary = "Добавление данных нового шаблона раздела № 3")
     @PostMapping
-    public ResponseEntity<PatternSectionThreeDto> save(
+    public ResponseEntity<ReportPatternDto> save(
             @RequestBody @Validated
-            @Parameter(description = "Данные шаблона раздела № 3") NewPatternSectionThreeDto patternDto) {
+            @Parameter(description = "Данные шаблона раздела № 3") NewPatternSectionDto patternDto) {
         return ResponseEntity.ok().body(service.save(patternDto));
     }
 
     @Operation(summary = "Изменение данных шаблона раздела № 3")
     @PatchMapping
-    public ResponseEntity<PatternSectionThreeDto> update(
+    public ResponseEntity<ReportPatternDto> update(
             @RequestBody @Validated
-            @Parameter(description = "Данные шаблона раздела № 3") UpdatePatternSectionThreeDto patternDto) {
+            @Parameter(description = "Данные шаблона раздела № 3") UpdatePatternSectionDto patternDto) {
         return ResponseEntity.ok().body(service.update(patternDto));
-    }
-
-    @Operation(summary = "Получение данных шаблона раздела № 3")
-    @GetMapping("/{patId}")
-    public ResponseEntity<PatternSectionThreeDto> get(@PathVariable @NotNull @Positive Long patId) {
-        return ResponseEntity.ok().body(service.get(patId));
     }
 }
