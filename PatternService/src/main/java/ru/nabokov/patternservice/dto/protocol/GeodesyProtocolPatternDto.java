@@ -4,22 +4,24 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import ru.nabokov.patternservice.dto.GeodesyPatternTable;
-import ru.nabokov.patternservice.dto.GeodesyProtocolPatternHeaderDto;
-import ru.nabokov.patternservice.model.PatternConclusion;
+import ru.nabokov.patternservice.dto.conclusion.PatternConclusionDto;
+import ru.nabokov.patternservice.dto.protocolHeader.ProtocolHeaderDto;
+import ru.nabokov.patternservice.dto.table.PatternTableDto;
+
 import java.util.List;
 
 @Setter
 @Getter
 @AllArgsConstructor
-@Schema(description = "Данные шаблона протокола по геодезии")
+@Schema(description = "Данные шаблона протокола еодезической съемки")
 public class GeodesyProtocolPatternDto {
 
+    @Schema(description = "Индентификатор")
     private Long id;
     @Schema(description = "Заголовок протокола")
-    private GeodesyProtocolPatternHeaderDto protocolHeader;
+    private ProtocolHeaderDto header;
     @Schema(description = "Список таблиц протокола")
-    private List<GeodesyPatternTable> patternTables;
+    private List<PatternTableDto> patternTables;
     @Schema(description = "Заключение протокола")
-    private PatternConclusion patternConclusion;
+    private PatternConclusionDto patternConclusion;
 }
