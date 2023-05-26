@@ -4,8 +4,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import ru.nabokov.patternservice.dto.subheading.SubheadingDto;
-import ru.nabokov.patternservice.model.Header;
+import ru.nabokov.patternservice.dto.header.HeaderDto;
+import ru.nabokov.patternservice.dto.subheading.ShortSubheadingDto;
 import java.util.List;
 
 @Setter
@@ -17,7 +17,7 @@ public class PatternSectionFiveDto {
     @Schema(description = "Индентификатор")
     private Long id;
     @Schema(description = "Заголовок раздела")
-    private Header header;
+    private HeaderDto header;
     @Schema(description = "Список подзаголовоков раздела")
-    private List<SubheadingDto> subheadings;
+    private List<ShortSubheadingDto> subheadings;
 }
