@@ -1,25 +1,30 @@
 package ru.nabokov.patternservice.dto.table;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.nabokov.patternservice.dto.element.TankElement;
-import ru.nabokov.patternservice.model.ColumnHeader;
-import ru.nabokov.patternservice.model.CombinedColumns;
+import ru.nabokov.patternservice.dto.columnHeader.ColumnHeaderDto;
+import ru.nabokov.patternservice.dto.combinedColumns.CombinedColumnsDto;
+import ru.nabokov.patternservice.dto.element.ElementDto;
 import java.util.List;
 
 @Setter
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
+@Schema(description = "Данные шаблона таблицы протокола")
 public class PatternTableDto {
 
-    private long id;
+    @Schema(description = "Индентификатор")
+    private Long id;
+    @Schema(description = "Название таблицы")
     private String name;
-    private List<ColumnHeader> columnHeaders;
-    private CombinedColumns combinedColumn;
-    private List<TankElement> elements;
+    @Schema(description = "Данные колонок таблицы")
+    private List<ColumnHeaderDto> columnHeaders;
+    @Schema(description = "Данные объедененной колоноки таблицы")
+    private CombinedColumnsDto combinedColumn;
+    @Schema(description = "Данные элементов, входящих в таблицу")
+    private List<ElementDto> elements;
 
     @Override
     public String toString() {
