@@ -1,4 +1,4 @@
-package ru.nabokov.patternservice.dto;
+package ru.nabokov.patternservice.dto.title;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
