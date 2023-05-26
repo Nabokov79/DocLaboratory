@@ -1,10 +1,12 @@
 package ru.nabokov.patternservice.service;
 
+import ru.nabokov.patternservice.dto.header.NewHeaderDto;
+import ru.nabokov.patternservice.dto.header.UpdateHeaderDto;
 import ru.nabokov.patternservice.model.Header;
 
 public interface HeaderService {
 
-    Header save(Header header);
+    Header save(NewHeaderDto headerDto);
 
-    Header update(Header header);
+    Header update(UpdateHeaderDto headerDto);
 }
