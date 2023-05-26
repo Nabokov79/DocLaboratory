@@ -2,21 +2,11 @@ package ru.nabokov.patternservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.patternservice.client.PatternClient;
 import ru.nabokov.patternservice.dto.ReportPatternDto;
-import ru.nabokov.patternservice.dto.client.Type;
-import ru.nabokov.patternservice.dto.ShortReportPatternDto;
-import ru.nabokov.patternservice.exceptions.BadRequestException;
 import ru.nabokov.patternservice.exceptions.NotFoundException;
 import ru.nabokov.patternservice.mapper.ReportPatternMapper;
-import ru.nabokov.patternservice.model.ReportPattern;
-import ru.nabokov.patternservice.model.TitlePattern;
+import ru.nabokov.patternservice.model.*;
 import ru.nabokov.patternservice.repository.ReportPatternRepository;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,61 +14,29 @@ public class ReportPatternServiceImpl implements ReportPatternService {
 
     private final ReportPatternRepository repository;
     private final ReportPatternMapper mapper;
-    private final PatternClient client;
 
     @Override
-    public void save(Long typeId, TitlePattern titlePattern) {
+    public ReportPatternDto addTitlePattern(Long typeId, TitlePattern titlePattern) {
         ReportPattern pattern = new ReportPattern();
         pattern.setTypeId(typeId);
         pattern.setTitlePattern(titlePattern);
-        repository.save(pattern);
+        return mapper.mapToReportPatternDto(repository.save(pattern));
+    }
+    @Override
+   public ReportPattern get(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("report pattern section five witch id=%s not found for update", id))
+                );
     }
 
     @Override
-    public ReportPatternDto get(Long id, Long typeId) {
-        ReportPattern reportPattern = new ReportPattern();
-        if (id != null && id > 0 && typeId == null) {
-            reportPattern = repository.findById(id)
-                    .orElseThrow(() -> new NotFoundException(String.format("Pattern witch id=%s not found", id))
-                    );
-        }
-        if (id == null && typeId != null && typeId > 0) {
-            reportPattern = repository.findByTypeId(typeId);
-        }
-        if (reportPattern == null) {
-            throw new BadRequestException(String.format("id=%s and typeId=%s not correct", id, typeId));
-        }
-        ReportPatternDto reportPatternDto = mapper.mapToReportPatternDto(reportPattern);
-        reportPatternDto.setType(client.getType(String.valueOf(reportPattern.getTypeId())).get(0));
-        return reportPatternDto;
+    public ReportPatternDto save(ReportPattern pattern) {
+        return mapper.mapToReportPatternDto(repository.save(pattern));
     }
 
     @Override
-    public List<ShortReportPatternDto> getAll() {
-        Map<Long, ReportPattern> patterns = repository.findAll()
-                .stream().collect(Collectors.toMap(ReportPattern::getTypeId, r -> r));
-        if (patterns.isEmpty()) {
-            throw new NotFoundException(String.format("reports patterns not found, patterns=%s", patterns));
-        }
-        Map<Long, Type> types = client.getType(patterns.keySet().toString())
-                .stream().collect(Collectors.toMap(Type::getId, t -> t));
-        if (types.isEmpty()) {
-            throw new NotFoundException(String.format("types reports patterns with ids=%s not found", patterns.keySet()));
-        }
-        List<ShortReportPatternDto> reportPatterns = new ArrayList<>();
-        for (Long id : patterns.keySet()) {
-            ShortReportPatternDto shortPatterns = mapper.mapToShortReportPatternDto(patterns.get(id));
-            shortPatterns.setType(types.get(id));
-        }
-        return reportPatterns;
-    }
-
-    @Override
-    public void delete(Long patId) {
-        if (repository.existsById(patId)) {
-            repository.deleteById(patId);
-            return;
-        }
-        throw new BadRequestException(String.format("Report pattern with id=%s not found for delete", patId));
+    public ReportPatternDto update(ReportPattern pattern) {
+        return mapper.mapToReportPatternDto(repository.save(pattern));
     }
 }
