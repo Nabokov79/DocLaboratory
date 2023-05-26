@@ -2,7 +2,10 @@ package ru.nabokov.patternservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.nabokov.patternservice.dto.drawing.NewDrawingDto;
+import ru.nabokov.patternservice.dto.drawing.UpdateDrawingDto;
 import ru.nabokov.patternservice.exceptions.NotFoundException;
+import ru.nabokov.patternservice.mapper.DrawingMapper;
 import ru.nabokov.patternservice.model.Drawing;
 import ru.nabokov.patternservice.model.PatternSectionSeven;
 import ru.nabokov.patternservice.repository.DrawingRepository;
@@ -16,24 +19,29 @@ import java.util.stream.Collectors;
 public class DrawingServiceImpl implements DrawingService {
 
     private final DrawingRepository repository;
+    private final DrawingMapper mapper;
 
     @Override
-    public void save(PatternSectionSeven pattern, List<Drawing> drawings) {
-        if (drawings != null) {
+    public List<Drawing> save(PatternSectionSeven section, List<NewDrawingDto> drawingsDto) {
+        List<Drawing> drawings;
+        if (drawingsDto != null) {
+             drawings = mapper.mapToNewDrawing(drawingsDto);
             for (Drawing drawing : drawings) {
-                drawing.setPatternSectionSeven(pattern);
+                drawing.setPatternSectionSeven(section);
             }
-            repository.saveAll(drawings);
+            return repository.saveAll(drawings);
         }
+        return mapper.mapToNewDrawing(null);
     }
 
     @Override
-    public void update(PatternSectionSeven pattern, List<Drawing> drawings) {
-        validateIds(drawings.stream().map(Drawing::getId).toList());
+    public List<Drawing> update(PatternSectionSeven section, List<UpdateDrawingDto> drawingsDto) {
+        validateIds(drawingsDto.stream().map(UpdateDrawingDto::getId).toList());
+        List<Drawing> drawings = mapper.mapToUpdateDrawing(drawingsDto);
         for (Drawing drawing : drawings) {
-            drawing.setPatternSectionSeven(pattern);
+            drawing.setPatternSectionSeven(section);
         }
-        repository.saveAll(drawings);
+        return repository.saveAll(drawings);
     }
 
     private void validateIds(List<Long> ids) {
