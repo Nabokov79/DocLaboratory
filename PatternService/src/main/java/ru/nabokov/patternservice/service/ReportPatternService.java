@@ -1,17 +1,15 @@
 package ru.nabokov.patternservice.service;
 
 import ru.nabokov.patternservice.dto.ReportPatternDto;
-import ru.nabokov.patternservice.dto.ShortReportPatternDto;
-import ru.nabokov.patternservice.model.TitlePattern;
-import java.util.List;
+import ru.nabokov.patternservice.model.*;
 
 public interface ReportPatternService {
 
-    void save(Long typeId, TitlePattern titlePattern);
+    ReportPatternDto addTitlePattern(Long typeId, TitlePattern titlePattern);
 
-    ReportPatternDto get(Long id, Long typeId);
+    ReportPattern get(Long id);
 
-    List<ShortReportPatternDto> getAll();
+    ReportPatternDto save(ReportPattern pattern);
 
-    void delete(Long id);
+    ReportPatternDto update(ReportPattern pattern);
 }
