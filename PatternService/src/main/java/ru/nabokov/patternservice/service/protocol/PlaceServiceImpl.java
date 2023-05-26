@@ -1,9 +1,12 @@
-package ru.nabokov.patternservice.service;
+package ru.nabokov.patternservice.service.protocol;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.patternservice.exceptions.BadRequestException;
+import ru.nabokov.patternservice.dto.place.NewPlaceDto;
+import ru.nabokov.patternservice.dto.place.UpdatePlaceDto;
 import ru.nabokov.patternservice.exceptions.NotFoundException;
+import ru.nabokov.patternservice.mapper.PlaceMapper;
+import ru.nabokov.patternservice.model.Element;
 import ru.nabokov.patternservice.model.Place;
 import ru.nabokov.patternservice.repository.PlaceRepository;
 import java.util.ArrayList;
@@ -16,26 +19,17 @@ import java.util.stream.Collectors;
 public class PlaceServiceImpl implements PlaceService {
 
     private final PlaceRepository repository;
+    private final PlaceMapper mapper;
 
     @Override
-    public void save(List<Place> places) {
-        validate(places);
-        repository.saveAll(places);
+    public void save(Element element, List<NewPlaceDto> placesDto) {
+        repository.saveAll(setElement(element, mapper.mapToNewPlace(placesDto)));
     }
 
     @Override
-    public void update(List<Place> places) {
-        validateIds(places.stream().map(Place::getId).toList());
-        validate(places);
-        repository.saveAll(places);
-    }
-
-    private void validate(List<Place> places) {
-        for (Place place : places) {
-            if (place.getPlace() == null) {
-                throw new BadRequestException("place name cannot be blank");
-            }
-        }
+    public void update(Element element, List<UpdatePlaceDto> placesDto) {
+        validateIds(placesDto.stream().map(UpdatePlaceDto::getId).toList());
+        repository.saveAll(setElement(element, mapper.mapToUpdatePlace(placesDto)));
     }
 
     private void validateIds(List<Long> ids) {
@@ -46,5 +40,12 @@ public class PlaceServiceImpl implements PlaceService {
             ids = ids.stream().filter(e -> !idsDb.contains(e)).collect(Collectors.toList());
             throw new NotFoundException(String.format("places with ids= %s not found", ids));
         }
+    }
+
+    private List<Place> setElement(Element element, List<Place> places) {
+        for (Place place : places) {
+            place.setElement(element);
+        }
+        return places;
     }
 }
