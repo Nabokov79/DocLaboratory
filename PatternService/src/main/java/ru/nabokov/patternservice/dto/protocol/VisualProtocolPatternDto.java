@@ -3,20 +3,21 @@ package ru.nabokov.patternservice.dto.protocol;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.nabokov.patternservice.dto.protocolHeader.ProtocolHeaderDto;
 import ru.nabokov.patternservice.dto.table.PatternTableDto;
 import ru.nabokov.patternservice.model.PatternConclusion;
 
 @Setter
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
+@Schema(description = "Данные шаблона протокола визуального и измерительного контроля")
 public class VisualProtocolPatternDto {
 
+    @Schema(description = "Индетнификатор")
     private Long id;
     @Schema(description = "Заголовок протокола")
-    private VisualProtocolHeader protocolHeader;
+    private ProtocolHeaderDto protocolHeader;
     @Schema(description = "Таблица протокола")
     private PatternTableDto patternTable;
     @Schema(description = "Заключение протокола")
