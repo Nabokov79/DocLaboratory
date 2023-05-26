@@ -3,7 +3,6 @@ package ru.nabokov.patternservice.dto.recommendation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
@@ -13,7 +12,6 @@ import javax.validation.constraints.Positive;
 @Setter
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
 @Schema(description = "Данные для изменения текста рекомендаций")
 public class UpdateRecommendationDto {
 
