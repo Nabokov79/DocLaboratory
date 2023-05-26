@@ -4,11 +4,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import ru.nabokov.patternservice.dto.*;
 import ru.nabokov.patternservice.dto.protocol.GeodesyProtocolPatternDto;
-import ru.nabokov.patternservice.dto.protocol.TankProtocolPatternDto;
+import ru.nabokov.patternservice.dto.protocol.HardnessProtocolPatternDto;
+import ru.nabokov.patternservice.dto.protocol.UltrasonicProtocolPatternDto;
 import ru.nabokov.patternservice.dto.protocol.VisualProtocolPatternDto;
-import ru.nabokov.patternservice.model.Header;
+import ru.nabokov.patternservice.dto.header.HeaderDto;
 
 @Setter
 @Getter
@@ -19,13 +19,11 @@ public class PatternSectionFourDto {
     @Schema(description = "Индентификатор")
     private Long id;
     @Schema(description = "Заголовок раздела")
-    private Header header;
+    private HeaderDto header;
     @Schema(description = "Протокол визуального и измерительного контроля")
     private VisualProtocolPatternDto visualProtocolPattern;
-    @Schema(description = "Протокол ультразвуковой толщинометрии объектов типа трубопровод")
-    private PipelineProtocolPatternDto pipelineProtocolPattern;
-    @Schema(description = "Протокол ультразвуковой толщинометрии объектов типа трубопровод")
-    private TankProtocolPatternDto tankProtocolPattern;
+    @Schema(description = "Протокол ультразвуковой толщинометрии")
+    private UltrasonicProtocolPatternDto ultrasonicProtocolPattern;
     @Schema(description = "Протокол проведения геодезической съемки")
     private GeodesyProtocolPatternDto geodesyProtocolPattern;
     @Schema(description = "Протокол измерения твердости металла")
@@ -37,8 +35,7 @@ public class PatternSectionFourDto {
                 "id=" + id +
                 ", header=" + header +
                 ", visualProtocolPattern=" + visualProtocolPattern +
-                ", pipelineProtocolPattern=" + pipelineProtocolPattern +
-                ", tankProtocolPattern=" + tankProtocolPattern +
+                ", ultrasonicProtocolPattern=" + ultrasonicProtocolPattern +
                 ", geodesyProtocolPattern=" + geodesyProtocolPattern +
                 ", hardnessProtocolPattern=" + hardnessProtocolPattern +
                 '}';
