@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
 
 @Setter
@@ -18,7 +17,18 @@ public class TitlePattern {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "title_page_data_id", referencedColumnName = "id")
-    private TitlePageData titlePageData;
+    @Column(name = "type_id")
+    private Long typeId;
+    @Column(name = "report_name")
+    private String reportName;
+    @Column(name = "text_first")
+    private String textFirst;
+    @Column(name = "object")
+    private String object;
+    @Column(name = "text_second")
+    private String textSecond;
+    @Column(name = "post")
+    private String post;
+    @Column(name = "city")
+    private String city;
 }
