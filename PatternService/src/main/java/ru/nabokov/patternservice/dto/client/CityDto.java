@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class City {
+public class CityDto {
 
     private long id;
     private String name;
