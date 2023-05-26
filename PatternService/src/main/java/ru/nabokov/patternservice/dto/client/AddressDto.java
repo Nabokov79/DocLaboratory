@@ -9,10 +9,10 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Address {
+public class AddressDto {
 
     private Long id;
-    private City city;
+    private CityDto city;
     private String street;
     private Integer houseNumber;
     private Integer buildingNumber;
