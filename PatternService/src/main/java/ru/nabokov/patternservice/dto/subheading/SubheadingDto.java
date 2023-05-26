@@ -4,26 +4,21 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import ru.nabokov.patternservice.dto.recommendation.RecommendationDto;
+import java.util.List;
 
 @Setter
 @Getter
 @AllArgsConstructor
-@Schema(description = "Данные подрраздела разделов #: № 1, 2, 4, 5, 6")
+@Schema(description = "Полные данные подразделов раздела")
 public class SubheadingDto {
 
     @Schema(description = "Индентификатор")
     private Long id;
     @Schema(description = "Номер подраздела")
-    private String number;
+    private Double number;
     @Schema(description = "Заголовок подраздела")
     private String heading;
-
-    @Override
-    public String toString() {
-        return "SubheadingDto{" +
-                "id=" + id +
-                ", number=" + number +
-                ", heading='" + heading + '\'' +
-                '}';
-    }
+    @Schema(description = "Рекомендации")
+    private List<RecommendationDto> recommendations;
 }
