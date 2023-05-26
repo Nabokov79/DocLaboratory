@@ -26,12 +26,10 @@ public class ProtocolHeader {
     private String name;
     @Column(name = "text")
     private String text;
-    @Column(name = "text_measurements")
-    private String textMeasurements;
+    @Column(name = "header_measurements")
+    private String headerMeasurements;
     @Column(name = "location")
     private String location;
     @Column(name = "admissibility")
     private String admissibility;
-    @Column(name = "schema_header")
-    private String schemaHeader;
 }
