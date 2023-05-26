@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import ru.nabokov.patternservice.dto.table.PatternTableDto;
+import ru.nabokov.patternservice.dto.section.PatternTableSectionThreeDto;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class SubheadingSectionThreeDto {
     @Schema(description = "Текст в подразделе")
     private String text;
     @Schema(description = "Заголовки колонок таблицы")
-    private List<PatternTableDto> patternTables;
+    private List<PatternTableSectionThreeDto> patternTables;
 
     @Override
     public String toString() {
