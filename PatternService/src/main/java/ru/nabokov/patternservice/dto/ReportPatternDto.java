@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.nabokov.patternservice.dto.client.Type;
+import ru.nabokov.patternservice.dto.client.TypeDto;
 import ru.nabokov.patternservice.dto.section.*;
 import ru.nabokov.patternservice.model.TitlePattern;
 
@@ -19,7 +19,7 @@ public class ReportPatternDto {
     @Schema(description = "Индентификатор")
     private Long Id;
     @Schema(description = "Тип объекта шаблона")
-    private Type type;
+    private TypeDto type;
     @Schema(description = "Данные титульной страницы")
     private TitlePattern titlePattern;
     @Schema(description = "Данные шаблона первого раздела отчета")
