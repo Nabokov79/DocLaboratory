@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import ru.nabokov.patternservice.dto.documentation.UpdateDocumentationDto;
 import ru.nabokov.patternservice.dto.recommendation.UpdateRecommendationDto;
 import ru.nabokov.patternservice.dto.table.UpdatePatternTableDto;
 
@@ -30,8 +29,6 @@ public class UpdateSubheadingDto {
     private String heading;
     @Schema(description = "Данные таблицы")
     private UpdatePatternTableDto patternTables;
-    @Schema(description = "Документация")
-    private List<UpdateDocumentationDto>  documentations;
     @Schema(description = "Рекомендации")
     private List<UpdateRecommendationDto> recommendations;
 }
