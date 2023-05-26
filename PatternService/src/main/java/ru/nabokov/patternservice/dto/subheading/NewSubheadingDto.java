@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.nabokov.patternservice.dto.documentation.NewDocumentationDto;
 import ru.nabokov.patternservice.dto.recommendation.NewRecommendationDto;
 import ru.nabokov.patternservice.dto.table.NewPatternTableDto;
 
@@ -32,8 +31,6 @@ public class NewSubheadingDto {
     private String text;
     @Schema(description = "Данные таблицы")
     private NewPatternTableDto patternTables;
-    @Schema(description = "Документация")
-    private List<NewDocumentationDto>  documentations;
     @Schema(description = "Рекомендации")
     private List<NewRecommendationDto> recommendations;
 
@@ -44,7 +41,6 @@ public class NewSubheadingDto {
                 ", heading='" + heading + '\'' +
                 ", text='" + text + '\'' +
                 ", patternTables=" + patternTables +
-                ", documentations=" + documentations +
                 ", recommendations=" + recommendations +
                 '}';
     }
