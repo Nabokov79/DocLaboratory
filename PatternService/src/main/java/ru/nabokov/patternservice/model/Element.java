@@ -31,8 +31,5 @@ public class Element {
     @JoinColumn(name = "pattern_table_id")
     @JsonIgnore
     private PatternTable patternTable;
-    @ManyToOne
-    @JoinColumn(name = "pipeline_table_id")
-    @JsonIgnore
-    private PipelineTable pipelineTable;
+
 }
