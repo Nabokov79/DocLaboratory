@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.nabokov.patternservice.dto.subheading.SubheadingSectionThreeDto;
 import ru.nabokov.patternservice.model.Header;
-
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
