@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.nabokov.patternservice.dto.drawing.NewDrawingDto;
+import ru.nabokov.patternservice.dto.header.NewHeaderDto;
 import ru.nabokov.patternservice.dto.subheading.NewSubheadingDto;
-import ru.nabokov.patternservice.model.Header;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.List;
@@ -16,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Schema(description = "Данные нового раздела № 1 шаблона отчета")
-public class NewPatternSectionOneDto {
+public class NewPatternSectionDto {
 
     @Schema(description = "Индентификатор шаблона отчета")
     @NotNull(message = "pattern report id should not be blank")
@@ -24,10 +26,12 @@ public class NewPatternSectionOneDto {
     private Long reportPatternId;
     @Schema(description = "Заголовок раздела")
     @NotNull(message = "header template of the first section should not be blank")
-    private Header header;
+    private NewHeaderDto header;
     @Schema(description = "Список подзаголовоков раздела")
-    @NotNull(message = "list of subheadings of the first section should not be blank")
     private List<NewSubheadingDto> subheadings;
+
+    @Schema(description = "Список чертежей")
+    private List<NewDrawingDto> drawings;
 
     @Override
     public String toString() {
