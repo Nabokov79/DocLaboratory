@@ -2,11 +2,11 @@ package ru.nabokov.docservice.client;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.docservice.dto.ObjectDataDto;
-import ru.nabokov.docservice.dto.client.passport.PassportDto;
-import ru.nabokov.docservice.dto.client.pattern.ApplicationDto;
-import ru.nabokov.docservice.dto.client.title.BranchDto;
-import ru.nabokov.docservice.dto.client.pattern.ReportPatternDto;
+import ru.nabokov.docservice.dto.client.data_service.ObjectDataDto;
+import ru.nabokov.docservice.dto.client.passport_service.PassportDto;
+import ru.nabokov.docservice.dto.ApplicationDto;
+import ru.nabokov.docservice.dto.client.data_service.BranchDto;
+import ru.nabokov.docservice.dto.client.pattern_servicce.ReportPatternDto;
 
 @Service
 @RequiredArgsConstructor
