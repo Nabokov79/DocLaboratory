@@ -1,14 +1,15 @@
-package ru.nabokov.docservice.dto.client.pattern;
+package ru.nabokov.docservice.dto.client.pattern_servicce;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
 @Getter
-@NoArgsConstructor
+@AllArgsConstructor
 public class HardnessProtocolPatternDto {
 
+    private Long id;
     private ProtocolHeaderDto protocolHeader;
     private PatternTableDto patternTable;
     private PatternConclusionDto patternConclusion;
@@ -16,7 +17,8 @@ public class HardnessProtocolPatternDto {
     @Override
     public String toString() {
         return "HardnessProtocolPatternDto{" +
-                "protocolHeader=" + protocolHeader +
+                "id=" + id +
+                ", protocolHeader=" + protocolHeader +
                 ", patternTable=" + patternTable +
                 ", patternConclusion=" + patternConclusion +
                 '}';

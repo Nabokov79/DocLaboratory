@@ -1,4 +1,4 @@
-package ru.nabokov.docservice.dto.client.pattern;
+package ru.nabokov.docservice.dto.client.data_service;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

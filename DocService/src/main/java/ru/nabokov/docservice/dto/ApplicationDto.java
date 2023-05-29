@@ -1,10 +1,11 @@
-package ru.nabokov.docservice.dto.client.pattern;
+package ru.nabokov.docservice.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.nabokov.docservice.dto.client.title.AddressDto;
-import ru.nabokov.docservice.dto.ObjectDataDto;
+import ru.nabokov.docservice.dto.client.data_service.EmployeeDto;
+import ru.nabokov.docservice.dto.client.data_service.AddressDto;
+import ru.nabokov.docservice.dto.client.data_service.ObjectDataDto;
 
 import java.time.LocalDate;
 import java.util.List;

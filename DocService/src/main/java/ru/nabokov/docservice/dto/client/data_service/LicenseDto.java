@@ -1,9 +1,8 @@
-package ru.nabokov.docservice.dto.client.title;
+package ru.nabokov.docservice.dto.client.data_service;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.nabokov.docservice.dto.OrganizationDto;
 
 import java.time.LocalDate;
 

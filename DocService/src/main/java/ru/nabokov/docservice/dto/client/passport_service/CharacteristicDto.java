@@ -1,4 +1,4 @@
-package ru.nabokov.docservice.dto.client.passport;
+package ru.nabokov.docservice.dto.client.passport_service;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
