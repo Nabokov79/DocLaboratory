@@ -1,16 +1,16 @@
-package ru.nabokov.docservice.dto.client.pattern;
+package ru.nabokov.docservice.dto.client.pattern_servicce;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
 @Getter
-@NoArgsConstructor
+@AllArgsConstructor
 public class VisualProtocolPatternDto {
 
     private Long id;
-    private VisualProtocolHeaderDto protocolHeader;
+    private ProtocolHeaderDto protocolHeader;
     private PatternTableDto patternTable;
     private PatternConclusionDto patternConclusion;
 
