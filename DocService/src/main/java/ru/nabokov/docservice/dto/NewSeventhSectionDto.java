@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.nabokov.docservice.dto.client.pattern_servicce.HeaderDto;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -21,9 +22,6 @@ public class NewSeventhSectionDto {
     @NotNull(message = "report id should not be blank")
     @Positive(message = "report id can only be positive")
     private Long reportId;
-    @Schema(description = "Данные заголовка раздела")
-    @NotNull(message = "section header should not be blank")
-    private SectionHeaderDto sectionHeaderDto;
     @Schema(description = "Данные чертежей раздела")
     @NotNull(message = "drawings should not be blank")
     private List<NewDrawingDto> drawings;
