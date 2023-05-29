@@ -2,12 +2,13 @@ package ru.nabokov.docservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.docservice.dto.client.passport.PassportDto;
-import ru.nabokov.docservice.dto.client.pattern.PatternSectionThreeDto;
-import ru.nabokov.docservice.dto.client.pattern.SubheadingThreeDto;
+import ru.nabokov.docservice.dto.client.passport_service.PassportDto;
+import ru.nabokov.docservice.dto.client.pattern_servicce.PatternSectionThreeDto;
+import ru.nabokov.docservice.dto.client.pattern_servicce.SubheadingSectionThreeDto;
 import ru.nabokov.docservice.exceptions.BadRequestException;
 import ru.nabokov.docservice.model.thirdSection.ThirdSection;
 import ru.nabokov.docservice.repository.ThirdSectionRepository;
+
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -18,13 +19,12 @@ public class ThirdSectionServiceImpl implements ThirdSectionService {
     private final ThirdSectionRepository repository;
     private final RepairsTableService repairsTableService;
     private final SurveysTableService surveysTableService;
-    private final StringBuilderService stringBuilder;
-
+    private final StringBuilderServiceImpl stringBuilder;
 
     @Override
     public ThirdSection save(PatternSectionThreeDto patternSectionThree, PassportDto passport) {
-        Map<Double, SubheadingThreeDto> subheadings = patternSectionThree.getSubheadings()
-                .stream().collect(Collectors.toMap(SubheadingThreeDto::getNumber, s -> s));
+        Map<Double, SubheadingSectionThreeDto> subheadings = patternSectionThree.getSubheadings()
+                .stream().collect(Collectors.toMap(SubheadingSectionThreeDto::getNumber, s -> s));
         if (subheadings.size() > 2) {
             throw new BadRequestException(
                     String.format("Section three cannot have more than two subsections, subsections=%s"

@@ -12,7 +12,7 @@ public class FirstSectionServiceImpl implements FirstSectionService {
 
     private final FirstSectionRepository repository;
     private final DataFirstSectionService dataFirstSectionService;
-    private final StringBuilderService stringBuilder;
+    private final StringBuilderServiceImpl stringBuilder;
 
     @Override
     public FirstSection save(ReportDataBuilder builder) {

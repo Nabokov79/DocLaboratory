@@ -1,6 +1,6 @@
 package ru.nabokov.docservice.service;
 
-import ru.nabokov.docservice.dto.client.passport.SurveyDto;
+import ru.nabokov.docservice.dto.client.passport_service.SurveyDto;
 import ru.nabokov.docservice.model.thirdSection.Survey;
 import ru.nabokov.docservice.model.thirdSection.SurveysTable;
 

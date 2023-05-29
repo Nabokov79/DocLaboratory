@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import ru.nabokov.docservice.dto.ObjectDataDto;
-import ru.nabokov.docservice.dto.client.pattern.ApplicationDto;
-import ru.nabokov.docservice.dto.client.title.BranchDto;
+import ru.nabokov.docservice.dto.client.data_service.ObjectDataDto;
+import ru.nabokov.docservice.dto.ApplicationDto;
+import ru.nabokov.docservice.dto.client.data_service.BranchDto;
 import java.util.Objects;
 
 @Component

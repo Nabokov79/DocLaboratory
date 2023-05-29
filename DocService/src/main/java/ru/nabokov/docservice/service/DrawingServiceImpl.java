@@ -2,7 +2,7 @@ package ru.nabokov.docservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.docservice.dto.client.pattern.DrawingDto;
+import ru.nabokov.docservice.dto.client.pattern_servicce.DrawingDto;
 import ru.nabokov.docservice.model.seventhSection.Drawing;
 import ru.nabokov.docservice.model.seventhSection.SeventhSection;
 import ru.nabokov.docservice.repository.DrawingRepository;
@@ -15,7 +15,7 @@ import java.util.List;
 public class DrawingServiceImpl implements DrawingService {
 
     private final DrawingRepository repository;
-    private final StringBuilderService stringBuilder;
+    private final StringBuilderServiceImpl stringBuilder;
 
     @Override
     public List<Drawing> save(SeventhSection section, List<DrawingDto> drawingsDto) {

@@ -1,6 +1,6 @@
 package ru.nabokov.docservice.service;
 
-import ru.nabokov.docservice.dto.client.pattern.ColumnHeaderDto;
+import ru.nabokov.docservice.dto.client.pattern_servicce.ColumnHeaderDto;
 import ru.nabokov.docservice.model.ColumnsHeaders;
 
 import java.util.List;

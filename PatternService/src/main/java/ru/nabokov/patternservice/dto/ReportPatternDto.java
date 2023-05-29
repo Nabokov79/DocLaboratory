@@ -3,16 +3,14 @@ package ru.nabokov.patternservice.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.nabokov.patternservice.dto.client.TypeDto;
 import ru.nabokov.patternservice.dto.section.*;
-import ru.nabokov.patternservice.model.TitlePattern;
+import ru.nabokov.patternservice.dto.title.TitlePatternDto;
 
 @Setter
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
 @Schema(description = "Данные шаблона отчета")
 public class ReportPatternDto {
 
@@ -21,7 +19,7 @@ public class ReportPatternDto {
     @Schema(description = "Тип объекта шаблона")
     private TypeDto type;
     @Schema(description = "Данные титульной страницы")
-    private TitlePattern titlePattern;
+    private TitlePatternDto titlePattern;
     @Schema(description = "Данные шаблона первого раздела отчета")
     private PatternSectionOneDto patternSectionOne;
     @Schema(description = "Данные шаблона второго раздела отчета")

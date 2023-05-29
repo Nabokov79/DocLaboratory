@@ -3,7 +3,7 @@ package ru.nabokov.docservice.client;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import ru.nabokov.docservice.dto.client.pattern.ReportPatternDto;
+import ru.nabokov.docservice.dto.client.pattern_servicce.ReportPatternDto;
 
 import java.util.Objects;
 

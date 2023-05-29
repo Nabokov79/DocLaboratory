@@ -1,6 +1,6 @@
 package ru.nabokov.docservice.service;
 
-import ru.nabokov.docservice.dto.client.passport.RepairDto;
+import ru.nabokov.docservice.dto.client.passport_service.RepairDto;
 import ru.nabokov.docservice.model.thirdSection.Repair;
 import ru.nabokov.docservice.model.thirdSection.RepairsTable;
 

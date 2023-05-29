@@ -5,7 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.nabokov.docservice.dto.client.pattern.HeaderDto;
+import ru.nabokov.docservice.dto.client.pattern_servicce.HeaderDto;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;

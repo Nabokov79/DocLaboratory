@@ -2,7 +2,7 @@ package ru.nabokov.docservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.docservice.dto.ObjectDataDto;
+import ru.nabokov.docservice.dto.client.data_service.ObjectDataDto;
 import ru.nabokov.docservice.dto.sixthSection.NewSubheadingsSixDto;
 import ru.nabokov.docservice.dto.sixthSection.UpdateSubheadingsSixDto;
 import ru.nabokov.docservice.model.sixthSection.SixthSection;
@@ -18,7 +18,7 @@ public class SubheadingsServiceImpl implements SubheadingsService {
 
     private final SubheadingsRepository repository;
     private final RecommendationsService recommendationsService;
-    private final StringBuilderService stringBuilder;
+    private final StringBuilderServiceImpl stringBuilder;
 
     @Override
     public void save(SixthSection section, ObjectDataDto objectData, List<NewSubheadingsSixDto> subheadingsDto) {

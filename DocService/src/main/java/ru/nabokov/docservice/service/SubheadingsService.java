@@ -1,6 +1,6 @@
 package ru.nabokov.docservice.service;
 
-import ru.nabokov.docservice.dto.ObjectDataDto;
+import ru.nabokov.docservice.dto.client.data_service.ObjectDataDto;
 import ru.nabokov.docservice.dto.sixthSection.NewSubheadingsSixDto;
 import ru.nabokov.docservice.dto.sixthSection.UpdateSubheadingsSixDto;
 import ru.nabokov.docservice.model.sixthSection.SixthSection;

@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.nabokov.patternservice.dto.section.PatternTableSectionThreeDto;
 
-import java.util.List;
-
 @Setter
 @Getter
 @AllArgsConstructor
@@ -22,8 +20,8 @@ public class SubheadingSectionThreeDto {
     private String heading;
     @Schema(description = "Текст в подразделе")
     private String text;
-    @Schema(description = "Заголовки колонок таблицы")
-    private List<PatternTableSectionThreeDto> patternTables;
+    @Schema(description = "Таблица подраздела")
+    private PatternTableSectionThreeDto patternTables;
 
     @Override
     public String toString() {

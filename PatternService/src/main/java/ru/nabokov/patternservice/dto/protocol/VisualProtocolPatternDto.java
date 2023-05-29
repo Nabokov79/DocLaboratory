@@ -4,9 +4,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import ru.nabokov.patternservice.dto.conclusion.PatternConclusionDto;
 import ru.nabokov.patternservice.dto.protocolHeader.ProtocolHeaderDto;
 import ru.nabokov.patternservice.dto.table.PatternTableDto;
-import ru.nabokov.patternservice.model.PatternConclusion;
 
 @Setter
 @Getter
@@ -21,7 +21,7 @@ public class VisualProtocolPatternDto {
     @Schema(description = "Таблица протокола")
     private PatternTableDto patternTable;
     @Schema(description = "Заключение протокола")
-    private PatternConclusion patternConclusion;
+    private PatternConclusionDto patternConclusion;
 
     @Override
     public String toString() {

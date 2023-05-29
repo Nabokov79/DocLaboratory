@@ -1,6 +1,6 @@
 package ru.nabokov.docservice.service;
 
-import ru.nabokov.docservice.dto.client.pattern.DrawingDto;
+import ru.nabokov.docservice.dto.client.pattern_servicce.DrawingDto;
 import ru.nabokov.docservice.model.seventhSection.Drawing;
 import ru.nabokov.docservice.model.seventhSection.SeventhSection;
 

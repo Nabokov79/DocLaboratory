@@ -40,21 +40,20 @@ public class TitleServiceImpl implements TitleService {
         title.setHeader(header);
         title.setLicense(license);
         TextCentered textCentered = textCenteredService.save(builder.getObjectData()
-                                                                         , builder.getTitlePattern().getTextCentered());
+                                                                         , builder.getTitlePattern());
         if (textCentered == null) {
             throw new BadRequestException(
                     String.format("object data and text centered data should not be null, objectData=%s, " +
                                                                                                      "textCentered=%s",
                                                                             builder.getObjectData(),
-                                                                            builder.getTitlePattern().getTextCentered())
+                                                                            builder.getTitlePattern())
             );
         }
         title.setText(textCentered);
-        Footer footer = footerService.save(builder.getTitlePattern().getTextCentered());
+        Footer footer = footerService.save(builder.getTitlePattern());
         if (footer == null) {
             throw new BadRequestException(
-                 String.format("text centered data should not be null, textCentered=%s"
-                                                                          , builder.getTitlePattern().getTextCentered())
+                 String.format("text centered data should not be null, textCentered=%s", builder.getTitlePattern())
             );
         }
         title.setFooter(footer);

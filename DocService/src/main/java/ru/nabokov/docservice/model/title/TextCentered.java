@@ -18,9 +18,14 @@ public class TextCentered {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(name = "report_name")
     private String reportName;
+    @Column(name = "text_first")
     private String textFirst;
+    @Column(name = "object")
     private String object;
+    @Column(name = "text_second")
     private String textSecond;
+    @Column(name = "address")
     private String address;
 }

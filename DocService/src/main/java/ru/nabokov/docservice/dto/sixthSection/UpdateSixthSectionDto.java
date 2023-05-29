@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import ru.nabokov.docservice.dto.client.pattern.HeaderDto;
+import ru.nabokov.docservice.dto.client.pattern_servicce.HeaderDto;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
