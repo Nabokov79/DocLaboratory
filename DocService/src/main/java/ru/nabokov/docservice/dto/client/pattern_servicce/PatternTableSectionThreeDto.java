@@ -1,5 +1,6 @@
-package ru.nabokov.docservice.dto.client.pattern;
+package ru.nabokov.docservice.dto.client.pattern_servicce;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,21 +8,18 @@ import java.util.List;
 
 @Setter
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
-public class PipelinePatternTableDto {
+public class PatternTableSectionThreeDto {
 
     private long id;
-    private String name;
     private List<ColumnHeaderDto> columnHeaders;
-    private List<PipelineTableDto> pipelineTables;
 
     @Override
     public String toString() {
-        return "PipelinePatternTableDto{" +
+        return "PatternTableDto{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
                 ", columnHeaders=" + columnHeaders +
-                ", pipelineTables=" + pipelineTables +
                 '}';
     }
 }
