@@ -1,22 +1,24 @@
-package ru.nabokov.docservice.dto.client.pattern;
+package ru.nabokov.docservice.dto.client.pattern_servicce;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
 @Getter
-@NoArgsConstructor
-public class TankProtocolPatternDto {
+@AllArgsConstructor
+public class UltrasonicProtocolPatternDto {
 
+    private Long id;
     private ProtocolHeaderDto protocolHeader;
     private PatternTableDto patternTable;
     private PatternConclusionDto patternConclusion;
 
     @Override
     public String toString() {
-        return "TankProtocolPatternDto{" +
-                "protocolHeader=" + protocolHeader +
+        return "UltrasonicProtocolPatternDto{" +
+                "id=" + id +
+                ", protocolHeader=" + protocolHeader +
                 ", patternTable=" + patternTable +
                 ", patternConclusion=" + patternConclusion +
                 '}';
