@@ -1,8 +1,10 @@
-package ru.nabokov.docservice.dto.client.title;
+package ru.nabokov.docservice.dto.client.data_service;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -11,6 +13,7 @@ public class TypeDto {
 
     private long id;
     private String name;
+    private List<DocumentationDto> documentations;
 
     @Override
     public String toString() {
