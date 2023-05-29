@@ -1,18 +1,18 @@
-package ru.nabokov.docservice.dto.client.pattern;
+package ru.nabokov.docservice.dto.client.pattern_servicce;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.List;
 
 @Setter
 @Getter
-@NoArgsConstructor
+@AllArgsConstructor
 public class PatternSectionOneDto {
 
     private Long id;
     private HeaderDto header;
-    private List<SubheadingDto> subheadings;
+    private List<SubheadingSectionOneDto> subheadings;
 
     @Override
     public String toString() {
