@@ -1,20 +1,21 @@
-package ru.nabokov.docservice.dto.client.pattern;
+package ru.nabokov.docservice.dto.client.pattern_servicce;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.util.List;
 
 @Setter
 @Getter
-@NoArgsConstructor
+@AllArgsConstructor
 public class PatternTableDto {
 
-    private long id;
+    private Long id;
     private String name;
     private List<ColumnHeaderDto> columnHeaders;
     private CombinedColumnsDto combinedColumn;
-    private List<TankElementDto> elements;
+    private List<ElementDto> elements;
 
     @Override
     public String toString() {
