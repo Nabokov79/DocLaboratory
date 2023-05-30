@@ -2,12 +2,12 @@ package ru.nabokov.docservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.docservice.dto.NewSeventhSectionDto;
-import ru.nabokov.docservice.dto.SeventhSectionDto;
+import ru.nabokov.docservice.dto.NewDrawingDto;
+import ru.nabokov.docservice.dto.client.pattern_servicce.HeaderDto;
 import ru.nabokov.docservice.mapper.SeventhSectionMapper;
-import ru.nabokov.docservice.model.Report;
 import ru.nabokov.docservice.model.seventhSection.SeventhSection;
 import ru.nabokov.docservice.repository.SeventhSectionRepository;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -15,23 +15,15 @@ public class SeventhSectionServiceImpl implements SeventhSectionService {
 
     private final SeventhSectionRepository repository;
     private final SeventhSectionMapper mapper;
-    private final StringBuilderService stringBuilder;
+    private final StringBuilderServiceImpl stringBuilder;
     private final DrawingService drawingService;
-    private final ReportService reportService;
 
     @Override
-    public SeventhSectionDto save(NewSeventhSectionDto sectionDto) {
+    public SeventhSection save(HeaderDto headerDto, List<NewDrawingDto> drawings) {
         SeventhSection section = new SeventhSection();
-        section.setHeading(stringBuilder.toStringHeader(mapper.mapToHeaderDto(sectionDto.getSectionHeaderDto())));
+        section.setHeading(stringBuilder.toStringHeader(headerDto));
         section.setDrawings(drawingService.save(repository.save(section)
-                                              , mapper.mapToDrawingDto(sectionDto.getDrawings())));
-        addSectionToReport(sectionDto.getReportId(), section);
-        return mapper.mapToSeventhSectionDto(section);
-    }
-
-    private void addSectionToReport(Long reportId, SeventhSection section) {
-        Report report = reportService.get(reportId);
-        report.setSeventhSection(section);
-        reportService.update(report);
+                                              , mapper.mapToDrawingDto(drawings)));
+        return section;
     }
 }
