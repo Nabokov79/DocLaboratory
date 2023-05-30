@@ -3,12 +3,13 @@ package ru.nabokov.docservice.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.nabokov.docservice.client.DocClient;
-import ru.nabokov.docservice.dto.client.passport.PassportDto;
-import ru.nabokov.docservice.dto.client.pattern.ApplicationDto;
+import ru.nabokov.docservice.dto.NewReportDto;
+import ru.nabokov.docservice.dto.client.passport_service.PassportDto;
+import ru.nabokov.docservice.dto.ApplicationDto;
 import ru.nabokov.docservice.dto.ReportDataBuilder;
-import ru.nabokov.docservice.dto.client.title.BranchDto;
+import ru.nabokov.docservice.dto.client.data_service.BranchDto;
 import ru.nabokov.docservice.dto.ReportDto;
-import ru.nabokov.docservice.dto.client.pattern.ReportPatternDto;
+import ru.nabokov.docservice.dto.client.pattern_servicce.ReportPatternDto;
 import ru.nabokov.docservice.exceptions.NotFoundException;
 import ru.nabokov.docservice.mapper.SectionMapper;
 import ru.nabokov.docservice.model.Report;
@@ -22,16 +23,17 @@ public class ReportServiceImpl implements ReportService {
 
     private final ReportRepository repository;
     private final SectionMapper mapper;
+    private final DocClient client;
     private final TitleService titleService;
     private final FirstSectionService firstSectionService;
-    private final DocClient client;
     private final SecondSectionService secondSectionService;
     private final ThirdSectionService thirdSectionService;
+    private final SeventhSectionService seventhSectionService;
 
     @Override
-    public ReportDto save(Long applicationId) {
+    public ReportDto save(NewReportDto reportDto) {
         Report report = new Report();
-        ApplicationDto application = client.getApplication(applicationId);
+        ApplicationDto application = client.getApplication(reportDto.getApplicationId());
         BranchDto branch = client.getBranch();
         ReportPatternDto pattern = client.getReportPatternDto(application.getObjectData().getType().getId());
         PassportDto passport = client.getPassport(application.getObjectData().getId());
@@ -43,17 +45,20 @@ public class ReportServiceImpl implements ReportService {
                                                                    .branch(branch)
                                                                    .pattern(pattern.getPatternSectionOne())
                                                                    .employees(application.getEmployees())
+                                                                   .documentations(application.getObjectData()
+                                                                                        .getType().getDocumentations())
                                                                    .license(report.getTitle().getLicense().getLicense())
                                                                    .build()));
         report.setSecondSection(secondSectionService.save(pattern.getPatternSectionTwo().getHeader(),
-                                                          passport.getCharacteristics()));
+                                                                                    passport.getCharacteristics()));
         report.setThirdSection(thirdSectionService.save(pattern.getPatternSectionThree(), passport));
+        report.setSeventhSection(seventhSectionService.save(pattern.getPatternSectionSeven().getHeader(), reportDto.getDrawings()));
         return mapper.mapToReportDto(report);
     }
 
     @Override
-    public void update(Report report) {
-        repository.save(report);
+    public ReportDto update(Report report) {
+        return mapper.mapToReportDto(repository.save(report));
     }
 
 
