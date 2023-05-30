@@ -1,9 +1,11 @@
 package ru.nabokov.docservice.dto;
 
-import ru.nabokov.docservice.dto.client.pattern.EmployeeDto;
-import ru.nabokov.docservice.dto.client.pattern.PatternSectionOneDto;
-import ru.nabokov.docservice.dto.client.pattern.TitlePatternDto;
-import ru.nabokov.docservice.dto.client.title.BranchDto;
+import ru.nabokov.docservice.dto.client.data_service.DocumentationDto;
+import ru.nabokov.docservice.dto.client.data_service.EmployeeDto;
+import ru.nabokov.docservice.dto.client.data_service.BranchDto;
+import ru.nabokov.docservice.dto.client.data_service.ObjectDataDto;
+import ru.nabokov.docservice.dto.client.pattern_servicce.PatternSectionOneDto;
+import ru.nabokov.docservice.dto.client.pattern_servicce.TitlePatternDto;
 
 import java.util.List;
 
@@ -14,6 +16,7 @@ public class ReportDataBuilder {
     private final TitlePatternDto titlePattern;
     private final PatternSectionOneDto pattern;
     private final List<EmployeeDto> employees;
+    private List<DocumentationDto> documentations;
     private final String license;
 
     public ReportDataBuilder(DataBuilder builder) {
@@ -22,6 +25,7 @@ public class ReportDataBuilder {
         this.titlePattern = builder.titlePattern;
         this.pattern = builder.pattern;
         this.employees = builder.employees;
+        this.documentations = builder.documentations;
         this.license = builder.license;
     }
 
@@ -45,6 +49,10 @@ public class ReportDataBuilder {
         return employees;
     }
 
+    public List<DocumentationDto> getDocumentations() {
+        return documentations;
+    }
+
     public String getLicense() {
         return license;
     }
@@ -57,6 +65,7 @@ public class ReportDataBuilder {
                 ", titlePattern=" + titlePattern +
                 ", pattern=" + pattern +
                 ", employees=" + employees +
+                ", documentations=" + documentations +
                 ", license='" + license + '\'' +
                 '}';
     }
@@ -68,6 +77,7 @@ public class ReportDataBuilder {
         private TitlePatternDto titlePattern;
         private PatternSectionOneDto pattern;
         private List<EmployeeDto> employees;
+        private List<DocumentationDto> documentations;
         private String license;
 
         public DataBuilder objectData(ObjectDataDto objectData) {
@@ -91,6 +101,11 @@ public class ReportDataBuilder {
 
         public DataBuilder employees(List<EmployeeDto> employees) {
             this.employees = employees;
+            return this;
+        }
+
+        public DataBuilder documentations(List<DocumentationDto> documentations) {
+            this.documentations = documentations;
             return this;
         }
 
