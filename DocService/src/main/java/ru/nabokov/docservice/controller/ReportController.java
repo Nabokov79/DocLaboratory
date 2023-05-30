@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.nabokov.docservice.dto.NewReportDto;
 import ru.nabokov.docservice.dto.ReportDto;
 import ru.nabokov.docservice.service.ReportService;
 import javax.validation.constraints.Positive;
@@ -27,9 +28,9 @@ public class ReportController {
 
     @Operation(summary = "Добавление нового отчета")
     @PostMapping
-    public ResponseEntity<ReportDto> save(@RequestParam @Positive
-                                       @Parameter(description = "Индентификатор заявки") Long applicationId) {
-        return ResponseEntity.ok().body(service.save(applicationId));
+    public ResponseEntity<ReportDto> save(
+            @RequestBody @Validated @Parameter(description = "Входные данные отчета") NewReportDto reportDto) {
+        return ResponseEntity.ok().body(service.save(reportDto));
     }
 
     @Operation(summary = "Изменение отчета/протокола")
