@@ -30,15 +30,15 @@ public class DocumentationController {
     @Operation(summary = "Добавление нового нормативного документа")
     @PostMapping
     public ResponseEntity<List<DocumentationDto>> save(
-                   @RequestBody @Parameter(description = "Нормативный документ") List<NewDocumentationDto> documentationsDto) {
-        return ResponseEntity.ok().body(service.save(documentationsDto));
+               @RequestBody @Parameter(description = "Нормативный документ") List<NewDocumentationDto> documentations) {
+        return ResponseEntity.ok().body(service.save(documentations));
     }
 
     @Operation(summary = "Изменение данных нормативного документа")
     @PatchMapping
     public ResponseEntity<List<DocumentationDto>> update(
-                @RequestBody @Parameter(description = "Нормативный документ") List<UpdateDocumentationDto> documentationsDto) {
-        return ResponseEntity.ok().body(service.update(documentationsDto));
+            @RequestBody @Parameter(description = "Нормативный документ") List<UpdateDocumentationDto> documentations) {
+        return ResponseEntity.ok().body(service.update(documentations));
     }
 
     @Operation(summary = "Получение данных нормативного документа")
