@@ -20,10 +20,8 @@ public class UpdateDocumentationDto {
     @Positive(message = "id author must be positive")
     private Long id;
     @Schema(description = "Вид документа")
-    @NotBlank(message = "view should not be blank")
     private String view;
     @Schema(description = "Номер документа")
-    @NotBlank(message = "number should not be blank")
     private String number;
     @Schema(description = "Заголовок документа")
     @NotBlank(message = "title should not be blank")
