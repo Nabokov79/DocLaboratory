@@ -29,4 +29,15 @@ public class Documentation {
     @JoinColumn(name = "type_id")
     @JsonIgnore
     private Type type;
+
+    @Override
+    public String toString() {
+        return "Documentation{" +
+                "id=" + id +
+                ", view='" + view + '\'' +
+                ", number='" + number + '\'' +
+                ", title='" + title + '\'' +
+                ", type=" + type +
+                '}';
+    }
 }

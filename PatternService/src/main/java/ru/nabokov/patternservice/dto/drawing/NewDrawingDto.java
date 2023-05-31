@@ -27,4 +27,13 @@ public class NewDrawingDto {
     @Schema(description = "Название чертежа")
     @NotBlank(message = "drawing name should not be blank")
     private String name;
+
+    @Override
+    public String toString() {
+        return "NewDrawingDto{" +
+                "type='" + type + '\'' +
+                ", number=" + number +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
