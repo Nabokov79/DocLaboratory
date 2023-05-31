@@ -19,5 +19,5 @@ public class NewTypeDto {
     @NotBlank(message = "name type should not be blank")
     private String name;
     @Schema(description = "Индентификаторы нормативной документации")
-    private List<Long> documentationIds;
+    private String documentationIds;
 }
