@@ -1,6 +1,7 @@
 package ru.nabokov.dataservice.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.nabokov.dataservice.dto.type.NewTypeDto;
 import ru.nabokov.dataservice.dto.type.TypeDto;
@@ -13,6 +14,7 @@ import ru.nabokov.dataservice.model.Type;
 import ru.nabokov.dataservice.repository.DocumentationRepository;
 import ru.nabokov.dataservice.repository.TypeRepository;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +31,7 @@ public class TypeServiceImpl implements TypeService {
         }
         Type type = repository.save(mapper.mapToNewType(typeDto));
         if (!typeDto.getDocumentationIds().isEmpty()) {
-            updateDocumentation(type, typeDto.getDocumentationIds());
+            type.setDocumentations(updateDocumentation(type, typeDto.getDocumentationIds()));
         }
         return mapper.mapToTypeDto(type);
     }
@@ -57,11 +59,13 @@ public class TypeServiceImpl implements TypeService {
         return mapper.mapToTypesDto(repository.findAll());
     }
 
-    private void updateDocumentation(Type type, List<Long> documentationIds) {
-        List<Documentation> documentations = documentationRepository.findAllById(documentationIds);
+    private List<Documentation> updateDocumentation(Type type, String documentationIds) {
+        List<Documentation> documentations = documentationRepository.findAllById(
+                Stream.of(documentationIds.split(",")).map(Long::parseLong).toList()
+        );
         for (Documentation documentation : documentations) {
             documentation.setType(type);
-            documentationRepository.saveAll(documentations);
         }
+        return documentationRepository.saveAll(documentations);
     }
 }
