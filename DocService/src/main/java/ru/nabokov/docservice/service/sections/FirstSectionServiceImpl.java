@@ -1,10 +1,12 @@
-package ru.nabokov.docservice.service;
+package ru.nabokov.docservice.service.sections;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.nabokov.docservice.dto.ReportDataBuilder;
 import ru.nabokov.docservice.model.FirstSection;
 import ru.nabokov.docservice.repository.FirstSectionRepository;
+import ru.nabokov.docservice.service.DataFirstSectionService;
+import ru.nabokov.docservice.service.StringBuilderServiceImpl;
 
 @Service
 @RequiredArgsConstructor
