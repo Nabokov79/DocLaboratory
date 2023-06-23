@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import ru.nabokov.patternservice.dto.conclusion.UpdatePatternConclusionDto;
 import ru.nabokov.patternservice.dto.recommendation.UpdateRecommendationDto;
 import ru.nabokov.patternservice.dto.table.UpdatePatternTableDto;
 
@@ -27,6 +28,10 @@ public class UpdateSubheadingDto {
     private String number;
     @Schema(description = "Заголовок подраздела")
     private String heading;
+    @Schema(description = "Текст в подразделе")
+    private String text;
+    @Schema(description = "Текст в подразделе")
+    private UpdatePatternConclusionDto conclusions;
     @Schema(description = "Данные таблицы")
     private UpdatePatternTableDto patternTables;
     @Schema(description = "Рекомендации")
