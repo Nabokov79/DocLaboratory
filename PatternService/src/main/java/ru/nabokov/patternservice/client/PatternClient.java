@@ -11,7 +11,11 @@ public class PatternClient {
 
     private final DataClient client;
 
-    public List<TypeDto> getType(String ids) {
-        return client.getType("/data/types", ids);
+    public TypeDto getType(Long id) {
+        return client.getType("/data/types/" + id);
+    }
+
+    public List<TypeDto> getTypes(String ids) {
+        return client.getTypes("/data/types/", ids);
     }
 }
