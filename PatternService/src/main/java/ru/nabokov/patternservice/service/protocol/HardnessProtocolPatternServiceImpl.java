@@ -28,6 +28,10 @@ public class HardnessProtocolPatternServiceImpl implements HardnessProtocolPatte
     public ReportPatternDto save(NewProtocolPatternDto protocolDto) {
         validateCountPatternTables(protocolDto.getPatternTables().size());
         PatternSectionFour section = patternSectionFourService.get(protocolDto.getSectionId());
+        if(section.getHardnessProtocolPattern() != null) {
+            throw new BadRequestException(
+                    String.format("Hardness protocol pattern for section with id=%s found", section.getId()));
+        }
         HardnessProtocolPattern protocol = mapper.mapToNewHardnessProtocolPattern(protocolDto);
         protocol.setProtocolHeader(protocolHeaderService.save(protocolDto.getProtocolHeader()));
         protocol.setPatternTable(tableService.save(protocolDto.getPatternTables().get(0)));
@@ -53,7 +57,8 @@ public class HardnessProtocolPatternServiceImpl implements HardnessProtocolPatte
     }
     private void validateCountPatternTables(Integer size) {
         if (size > 1) {
-            throw new BadRequestException(String.format("number of tables exceeds one for hardness protocol, count=%s", size));
+            throw new BadRequestException(
+                    String.format("number of tables exceeds one for hardness protocol pattern, count=%s", size));
         }
     }
 }

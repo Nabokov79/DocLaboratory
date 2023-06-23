@@ -7,6 +7,7 @@ import ru.nabokov.patternservice.dto.protocol.NewProtocolPatternDto;
 import ru.nabokov.patternservice.dto.protocol.UpdateProtocolPatternDto;
 import ru.nabokov.patternservice.dto.table.NewPatternTableDto;
 import ru.nabokov.patternservice.dto.table.UpdatePatternTableDto;
+import ru.nabokov.patternservice.exceptions.BadRequestException;
 import ru.nabokov.patternservice.exceptions.NotFoundException;
 import ru.nabokov.patternservice.mapper.GeodesyProtocolMapper;
 import ru.nabokov.patternservice.model.GeodesyProtocolPattern;
@@ -31,7 +32,12 @@ public class GeodesyProtocolPatternServiceImpl implements GeodesyProtocolPattern
 
     @Override
     public ReportPatternDto save(NewProtocolPatternDto protocolDto) {
+        validateCountPatternTables(protocolDto.getPatternTables().size());
         PatternSectionFour section = patternSectionFourService.get(protocolDto.getSectionId());
+        if(section.getGeodesyProtocolPattern() != null) {
+            throw new BadRequestException(
+                    String.format("Geodesy protocol pattern for section with id=%s found", section.getId()));
+        }
         GeodesyProtocolPattern protocol = mapper.mapToNewGeodesyProtocolPattern(protocolDto);
         protocol.setProtocolHeader(protocolHeaderService.save(protocolDto.getProtocolHeader()));
         protocol.setPatternConclusion(conclusionService.save(protocolDto.getPatternConclusion()));
@@ -62,5 +68,12 @@ public class GeodesyProtocolPatternServiceImpl implements GeodesyProtocolPattern
         protocol.setPatternTables(tables);
         section.setGeodesyProtocolPattern(protocol);
         return patternSectionFourService.addProtocol(protocolDto.getReportPatternId(), section);
+    }
+
+    private void validateCountPatternTables(Integer size) {
+        if (size != 2) {
+            throw new BadRequestException(
+                    String.format("number of tables exceeds one for geodesy protocol pattern, count=%s", size));
+        }
     }
 }
