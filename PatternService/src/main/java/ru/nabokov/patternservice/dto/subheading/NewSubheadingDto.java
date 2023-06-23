@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.nabokov.patternservice.dto.conclusion.NewPatternConclusionDto;
 import ru.nabokov.patternservice.dto.recommendation.NewRecommendationDto;
 import ru.nabokov.patternservice.dto.table.NewPatternTableDto;
 
@@ -29,6 +30,8 @@ public class NewSubheadingDto {
     private String heading;
     @Schema(description = "Текст в подразделе")
     private String text;
+    @Schema(description = "Текст в подразделе")
+    private NewPatternConclusionDto conclusions;
     @Schema(description = "Данные таблицы")
     private NewPatternTableDto patternTables;
     @Schema(description = "Рекомендации")
