@@ -10,7 +10,5 @@ import lombok.Setter;
 public class CharacteristicDto {
 
     private Long id;
-    private Double number;
-    private String heading;
     private String meaning;
 }
