@@ -14,11 +14,22 @@ public class DataClient {
 
     private final WebClient webClient;
 
-    public List<TypeDto> getType(String path, String ids) {
+    public TypeDto getType(String path) {
         return Objects.requireNonNull(webClient.get()
                         .uri(uriBuilder -> uriBuilder
                                 .path(path)
-                                .queryParam("ids", ids)
+                                .build())
+                        .retrieve()
+                        .toEntity(TypeDto.class)
+                        .block())
+                .getBody();
+    }
+
+    public List<TypeDto> getTypes(String path, String ids) {
+        return Objects.requireNonNull(webClient.get()
+                        .uri(uriBuilder -> uriBuilder
+                                .path(path)
+                                .queryParam(ids)
                                 .build())
                         .retrieve()
                         .toEntityList(TypeDto.class)
