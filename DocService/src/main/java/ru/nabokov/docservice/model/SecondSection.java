@@ -22,5 +22,5 @@ public class SecondSection {
     @Column(name = "heading")
     private String heading;
     @OneToMany(mappedBy = "section", fetch = FetchType.LAZY)
-    private List<SecondSectionData> secondSectionData;
+    private List<Characteristic> characteristics;
 }
