@@ -8,13 +8,22 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebClientConfig {
 
+    @Value("${pattern-service.url}")
+    private String patternUrl;
     @Value("${data-service.url}")
-    private String url;
+    private String dataUrl;
 
     @Bean
-    public WebClient webClient() {
+    public WebClient webPatternClient() {
         return WebClient.builder()
-                .baseUrl(url)
+                .baseUrl(patternUrl)
+                .build();
+    }
+
+    @Bean
+    public WebClient webDataClient() {
+        return WebClient.builder()
+                .baseUrl(dataUrl)
                 .build();
     }
 }
