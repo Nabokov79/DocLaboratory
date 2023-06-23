@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import ru.nabokov.patternservice.dto.conclusion.PatternConclusionDto;
 import ru.nabokov.patternservice.dto.recommendation.RecommendationDto;
 import java.util.List;
 
@@ -19,6 +20,8 @@ public class SubheadingDto {
     private Double number;
     @Schema(description = "Заголовок подраздела")
     private String heading;
+    @Schema(description = "Заключение")
+    private PatternConclusionDto conclusions;
     @Schema(description = "Рекомендации")
     private List<RecommendationDto> recommendations;
 }
