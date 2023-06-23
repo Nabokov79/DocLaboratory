@@ -28,6 +28,10 @@ public class UltrasonicProtocolPatternServiceImpl implements UltrasonicProtocolP
     public ReportPatternDto save(NewProtocolPatternDto protocolDto) {
         validateCountPatternTables(protocolDto.getPatternTables().size());
         PatternSectionFour section = patternSectionFourService.get(protocolDto.getSectionId());
+        if(section.getUltrasonicProtocolPattern() != null) {
+            throw new BadRequestException(
+                    String.format("Ultrasonic protocol pattern for section with id=%s found", section.getId()));
+        }
         UltrasonicProtocolPattern protocol = mapper.mapToNewUltrasonicProtocolPattern(protocolDto);
         protocol.setProtocolHeader(protocolHeaderService.save(protocolDto.getProtocolHeader()));
         protocol.setPatternTable(tableService.save(protocolDto.getPatternTables().get(0)));
@@ -55,7 +59,8 @@ public class UltrasonicProtocolPatternServiceImpl implements UltrasonicProtocolP
 
     private void validateCountPatternTables(Integer size) {
         if (size > 1) {
-            throw new BadRequestException(String.format("number of tables exceeds one for visual protocol, count=%s", size));
+            throw new BadRequestException(
+                    String.format("number of tables exceeds one for ultrasonic protocol pattern, count=%s", size));
         }
     }
 }
