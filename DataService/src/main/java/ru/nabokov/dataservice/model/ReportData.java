@@ -19,7 +19,7 @@ public class ReportData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "object_data_id", referencedColumnName = "id")
     private ObjectData objectData;
     @OneToOne(cascade = CascadeType.ALL)
