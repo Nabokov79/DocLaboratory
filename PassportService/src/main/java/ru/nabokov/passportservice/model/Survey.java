@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -20,7 +19,7 @@ public class Survey {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "date")
-    private LocalDate date;
+    private String date;
     @Column(name = "survey", nullable = false)
     private String survey;
     @Column(name = "number")
