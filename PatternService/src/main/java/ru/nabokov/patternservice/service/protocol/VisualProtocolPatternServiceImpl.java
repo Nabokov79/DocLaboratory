@@ -28,6 +28,10 @@ public class VisualProtocolPatternServiceImpl implements VisualProtocolPatternSe
     public ReportPatternDto save(NewProtocolPatternDto protocolDto) {
         validateCountPatternTables(protocolDto.getPatternTables().size());
         PatternSectionFour section = patternSectionFourService.get(protocolDto.getSectionId());
+        if(section.getVisualProtocolPattern() != null) {
+            throw new BadRequestException(
+                    String.format("Visual protocol pattern for section with id=%s found", section.getId()));
+        }
         VisualProtocolPattern protocol = mapper.mapToNewVisualProtocolPattern(protocolDto);
         protocol.setProtocolHeader(protocolHeaderService.save(protocolDto.getProtocolHeader()));
         protocol.setPatternTable(tableService.save(protocolDto.getPatternTables().get(0)));
@@ -55,7 +59,8 @@ public class VisualProtocolPatternServiceImpl implements VisualProtocolPatternSe
 
     private void validateCountPatternTables(Integer size) {
         if (size > 1) {
-            throw new BadRequestException(String.format("number of tables exceeds one for visual protocol, count=%s", size));
+            throw new BadRequestException(
+                    String.format("number of tables exceeds one for visual protocol pattern, count=%s", size));
         }
     }
 }
