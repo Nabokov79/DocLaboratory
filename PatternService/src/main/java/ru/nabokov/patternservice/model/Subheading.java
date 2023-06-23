@@ -22,6 +22,9 @@ public class Subheading {
     private String heading;
     @Column(name = "text")
     private String text;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "conclusion_id", referencedColumnName = "id")
+    private PatternConclusion conclusion;
     @OneToMany(mappedBy = "subheading", fetch = FetchType.LAZY)
     private List<Recommendation> recommendations;
 
