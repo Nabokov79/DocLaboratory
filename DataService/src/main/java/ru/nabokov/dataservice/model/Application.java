@@ -21,9 +21,9 @@ public class Application {
     private Address address;
     @Column(name = "work")
     private String work;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "object_data_id", referencedColumnName = "id")
-    private ObjectData objectData;
+    @ManyToOne
+    @JoinColumn(name = "object_id", referencedColumnName = "id")
+    private ObjectData object;
     @Column(name = "primary_data")
     private LocalDate primaryData;
     @Column(name = "repeat_data")
@@ -32,14 +32,8 @@ public class Application {
     private String note;
     @Column(name = "report")
     private Boolean report;
-    @Column(name = "visual")
-    private Boolean visual;
-    @Column(name = "ultrasonic")
-    private Boolean ultrasonic;
-    @Column(name = "geodesy")
-    private Boolean geodesy;
-    @Column(name = "hardness")
-    private Boolean hardness;
+    @Column(name = "protocol")
+    private Boolean protocol;
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "applications_employees",
