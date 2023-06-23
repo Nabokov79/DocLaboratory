@@ -1,7 +1,6 @@
 package ru.nabokov.docservice.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.nabokov.docservice.dto.NewReportDto;
 import ru.nabokov.docservice.dto.ReportDto;
 import ru.nabokov.docservice.service.ReportService;
-import javax.validation.constraints.Positive;
 
 @RestController
 @RequestMapping(
@@ -28,8 +26,7 @@ public class ReportController {
 
     @Operation(summary = "Добавление нового отчета")
     @PostMapping
-    public ResponseEntity<ReportDto> save(
-            @RequestBody @Validated @Parameter(description = "Входные данные отчета") NewReportDto reportDto) {
+    public ResponseEntity<ReportDto> save(@RequestBody NewReportDto reportDto) {
         return ResponseEntity.ok().body(service.save(reportDto));
     }
 
