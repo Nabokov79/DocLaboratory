@@ -19,12 +19,13 @@ public class PatternSectionSevenServiceImpl implements PatternSectionSevenServic
 
     private final PatternSectionSevenRepository repository;
     private final ReportPatternService reportPatternService;
+    private final ReportPatternForSectionsService sectionsService;
     private final DrawingService drawingService;
     private final HeaderService headerService;
 
     @Override
     public ReportPatternDto save(NewPatternSectionDto patternDto) {
-        ReportPattern pattern = reportPatternService.get(patternDto.getReportPatternId());
+        ReportPattern pattern = sectionsService.get(patternDto.getReportPatternId());
         PatternSectionSeven section = new PatternSectionSeven();
         section.setHeader(headerService.save(patternDto.getHeader()));
         pattern.setPatternSectionSeven(repository.save(section));
@@ -39,7 +40,7 @@ public class PatternSectionSevenServiceImpl implements PatternSectionSevenServic
                     String.format("pattern section seven witch id=%s not found for update", patternDto.getId())
             );
         }
-        ReportPattern pattern = reportPatternService.get(patternDto.getReportPatternId());
+        ReportPattern pattern = sectionsService.get(patternDto.getReportPatternId());
         PatternSectionSeven section = new PatternSectionSeven();
         section.setHeader(headerService.update(patternDto.getHeader()));
         pattern.setPatternSectionSeven(repository.save(section));

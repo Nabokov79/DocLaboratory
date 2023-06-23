@@ -21,12 +21,13 @@ public class PatternSectionFiveServiceImpl implements PatternSectionFiveService 
 
     private final PatternSectionFiveRepository repository;
     private final ReportPatternService reportPatternService;
+    private final ReportPatternForSectionsService sectionsService;
     private final SubheadingService subheadingService;
     private final HeaderService headerService;
 
     @Override
     public ReportPatternDto save(NewPatternSectionDto patternDto) {
-        ReportPattern pattern = reportPatternService.get(patternDto.getReportPatternId());
+        ReportPattern pattern = sectionsService.get(patternDto.getReportPatternId());
         PatternSectionFive section = new PatternSectionFive();
         section.setHeader(headerService.save(patternDto.getHeader()));
         section.setSubheadings(subheadingService.save(patternDto.getSubheadings()));
@@ -41,7 +42,7 @@ public class PatternSectionFiveServiceImpl implements PatternSectionFiveService 
                     String.format("pattern section five witch id=%s not found for update", patternDto.getId())
             );
         }
-        ReportPattern pattern = reportPatternService.get(patternDto.getReportPatternId());
+        ReportPattern pattern = sectionsService.get(patternDto.getReportPatternId());
         PatternSectionFive section = new PatternSectionFive();
         section.setHeader(headerService.update(patternDto.getHeader()));
         section.setSubheadings(subheadingService.update(patternDto.getSubheadings()));

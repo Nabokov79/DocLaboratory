@@ -20,9 +20,10 @@ public class ProtocolHeaderServiceImpl implements ProtocolHeaderService {
     public ProtocolHeader save(NewProtocolHeaderDto headerDto) {
         if (repository.existsByNumber(headerDto.getNumber())) {
             throw new NotFoundException(
-                    String.format("pattern header with protocol number=%s found", headerDto.getNumber()));
+                    String.format("Protocol header with number=%s found", headerDto.getNumber()));
         }
-        return repository.save(mapper.mapToNewProtocolHeader(headerDto));
+        ProtocolHeader header = mapper.mapToNewProtocolHeader(headerDto);
+        return repository.save(header);
     }
 
     @Override

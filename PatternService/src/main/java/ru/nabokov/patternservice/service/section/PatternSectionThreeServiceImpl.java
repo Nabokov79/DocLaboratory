@@ -19,12 +19,13 @@ public class PatternSectionThreeServiceImpl implements PatternSectionThreeServic
 
     private final PatternSectionThreeRepository repository;
     private final ReportPatternService reportPatternService;
+    private final ReportPatternForSectionsService sectionsService;
     private final HeaderService headerService;
     private final SubheadingService subheadingService;
 
     @Override
     public ReportPatternDto save(NewPatternSectionDto patternDto) {
-        ReportPattern pattern = reportPatternService.get(patternDto.getReportPatternId());
+        ReportPattern pattern = sectionsService.get(patternDto.getReportPatternId());
         PatternSectionThree section = new PatternSectionThree();
         section.setHeader(headerService.save(patternDto.getHeader()));
         section.setSubheadings(subheadingService.save(patternDto.getSubheadings()));
@@ -39,7 +40,7 @@ public class PatternSectionThreeServiceImpl implements PatternSectionThreeServic
                     String.format("pattern section three witch id=%s not found for update", patternDto.getId())
             );
         }
-        ReportPattern pattern = reportPatternService.get(patternDto.getReportPatternId());
+        ReportPattern pattern = sectionsService.get(patternDto.getReportPatternId());
         PatternSectionThree section = new PatternSectionThree();
         section.setHeader(headerService.update(patternDto.getHeader()));
         section.setSubheadings(subheadingService.update(patternDto.getSubheadings()));

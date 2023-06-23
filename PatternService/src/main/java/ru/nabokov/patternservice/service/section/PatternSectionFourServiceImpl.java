@@ -21,10 +21,11 @@ public class PatternSectionFourServiceImpl implements PatternSectionFourService 
     private final PatternSectionFourRepository repository;
     private final HeaderService headerService;
     private final ReportPatternService reportPatternService;
+    private final ReportPatternForSectionsService sectionsService;
 
     @Override
     public ReportPatternDto save(NewPatternSectionDto patternDto) {
-        ReportPattern pattern = reportPatternService.get(patternDto.getReportPatternId());
+        ReportPattern pattern = sectionsService.get(patternDto.getReportPatternId());
         PatternSectionFour section = new PatternSectionFour();
         section.setHeader(headerService.save(patternDto.getHeader()));
         pattern.setPatternSectionFour(repository.save(section));
@@ -37,7 +38,7 @@ public class PatternSectionFourServiceImpl implements PatternSectionFourService 
             throw new NotFoundException(
                             String.format("Pattern section four witch id=%s not found for update", patternDto.getId()));
         }
-        ReportPattern pattern = reportPatternService.get(patternDto.getReportPatternId());
+        ReportPattern pattern = sectionsService.get(patternDto.getReportPatternId());
         PatternSectionFour section = new PatternSectionFour();
         section.setHeader(headerService.update(patternDto.getHeader()));
         pattern.setPatternSectionFour(repository.save(section));
@@ -52,7 +53,7 @@ public class PatternSectionFourServiceImpl implements PatternSectionFourService 
 
     @Override
     public ReportPatternDto addProtocol(Long patternId, PatternSectionFour section) {
-        ReportPattern pattern = reportPatternService.get(patternId);
+        ReportPattern pattern = sectionsService.get(patternId);
         pattern.setPatternSectionFour(section);
         return reportPatternService.save(pattern);
     }

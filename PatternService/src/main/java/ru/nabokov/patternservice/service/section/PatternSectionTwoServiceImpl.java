@@ -19,12 +19,13 @@ public class PatternSectionTwoServiceImpl implements PatternSectionTwoService {
 
     private final PatternSectionTwoRepository repository;
     private final ReportPatternService reportPatternService;
+    private final ReportPatternForSectionsService sectionsService;
     private final SubheadingService subheadingService;
     private final HeaderService headerService;
 
     @Override
     public ReportPatternDto save(NewPatternSectionDto patternDto) {
-        ReportPattern pattern = reportPatternService.get(patternDto.getReportPatternId());
+        ReportPattern pattern = sectionsService.get(patternDto.getReportPatternId());
         PatternSectionTwo section = new PatternSectionTwo();
         section.setHeader(headerService.save(patternDto.getHeader()));
         section.setSubheadings(subheadingService.save(patternDto.getSubheadings()));
@@ -39,7 +40,7 @@ public class PatternSectionTwoServiceImpl implements PatternSectionTwoService {
                     String.format("pattern section two witch id=%s not found for update", patternDto.getId())
             );
         }
-        ReportPattern pattern = reportPatternService.get(patternDto.getReportPatternId());
+        ReportPattern pattern = sectionsService.get(patternDto.getReportPatternId());
         PatternSectionTwo section = new PatternSectionTwo();
         section.setHeader(headerService.update(patternDto.getHeader()));
         section.setSubheadings(subheadingService.update(patternDto.getSubheadings()));
