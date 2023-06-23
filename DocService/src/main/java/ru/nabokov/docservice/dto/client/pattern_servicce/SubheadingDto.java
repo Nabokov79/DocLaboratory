@@ -20,6 +20,8 @@ public class SubheadingDto {
     private Double number;
     @Schema(description = "Заголовок подраздела")
     private String heading;
+    @Schema(description = "Заключение")
+    private PatternConclusionDto conclusions;
     @Schema(description = "Рекомендации")
     private List<RecommendationDto> recommendations;
 }
