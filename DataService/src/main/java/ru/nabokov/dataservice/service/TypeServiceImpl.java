@@ -1,7 +1,6 @@
 package ru.nabokov.dataservice.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.nabokov.dataservice.dto.type.NewTypeDto;
 import ru.nabokov.dataservice.dto.type.TypeDto;
@@ -55,7 +54,11 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public List<TypeDto> getAll() {
+    public List<TypeDto> getAll(String ids) {
+        if (ids != null && ids.isBlank()){
+            return mapper.mapToTypesDto(
+                    repository.findAllById(Stream.of(ids.split(",")).map(Long::parseLong).toList()));
+        }
         return mapper.mapToTypesDto(repository.findAll());
     }
 

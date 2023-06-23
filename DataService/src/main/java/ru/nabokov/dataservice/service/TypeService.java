@@ -15,5 +15,5 @@ public interface TypeService {
 
     Type get(Long id);
 
-    List<TypeDto> getAll();
+    List<TypeDto> getAll(String ids);
 }
