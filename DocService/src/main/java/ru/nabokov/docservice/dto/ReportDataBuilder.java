@@ -16,7 +16,7 @@ public class ReportDataBuilder {
     private final TitlePatternDto titlePattern;
     private final PatternSectionOneDto pattern;
     private final List<EmployeeDto> employees;
-    private List<DocumentationDto> documentations;
+    private final List<DocumentationDto> documentations;
     private final String license;
 
     public ReportDataBuilder(DataBuilder builder) {
