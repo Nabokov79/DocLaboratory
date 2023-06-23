@@ -3,6 +3,7 @@ package ru.nabokov.patternservice.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.nabokov.patternservice.dto.subheading.NewSubheadingDto;
+import ru.nabokov.patternservice.dto.subheading.ShortSubheadingDto;
 import ru.nabokov.patternservice.dto.subheading.UpdateSubheadingDto;
 import ru.nabokov.patternservice.dto.recommendation.NewRecommendationDto;
 import ru.nabokov.patternservice.dto.recommendation.UpdateRecommendationDto;
@@ -66,6 +67,15 @@ public class SubheadingServiceImpl implements SubheadingService {
             }
         }
         return new ArrayList<>(subheadings.values());
+    }
+
+    @Override
+    public List<ShortSubheadingDto> getAll(List<Long> ids) {
+        List<Subheading> subheadings = repository.findAllById(ids);
+        if (subheadings.isEmpty()) {
+            throw new NotFoundException(String.format("subheadings with ids=%s not found", ids));
+        }
+        return mapper.mapToShortSubheadingDto(subheadings);
     }
 
     private void validateIds(List<Long> ids) {
