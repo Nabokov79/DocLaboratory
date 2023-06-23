@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -20,7 +19,7 @@ public class Repair {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "date")
-    private LocalDate date;
+    private String date;
     @Column(name = "description")
     private String description;
     @Column(name = "organization_id")
