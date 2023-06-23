@@ -40,8 +40,14 @@ public class ReportDataServiceImpl implements ReportDataService {
     public void create(LocalDate primaryData, ObjectData objectData) {
         ReportData report = new ReportData();
         report.setObjectData(objectData);
+        report.setPrimaryData(primaryData);
         report.setStatus(Status.WAITING);
-        report.setNumber(getMaxNumber() + 1);
+        Integer number = getMaxNumber();
+        if(number == null) {
+            report.setNumber(1);
+        } else {
+            report.setNumber(++number);
+        }
         repository.save(report);
     }
 
