@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.nabokov.docservice.dto.sixthSection.NewSubheadingsSixDto;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.List;
@@ -22,5 +24,9 @@ public class NewReportDto {
     private Long applicationId;
     @Schema(description = "Данные чертежей")
     @NotNull(message = "drawings should not be blank")
-    private List<NewDrawingDto> drawings;
+    private List<Long> drawingsIds;
+    @Schema(description = "Данные подразделов шестого раздела")
+    @NotNull(message = "subheadings section six should not be blank")
+    @NotEmpty(message = "subheadings section six should not be blank")
+    private List<NewSubheadingsSixDto> subheadingsSixDto;
 }
