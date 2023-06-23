@@ -14,12 +14,12 @@ import ru.nabokov.docservice.exceptions.NotFoundException;
 import ru.nabokov.docservice.mapper.SectionMapper;
 import ru.nabokov.docservice.model.Report;
 import ru.nabokov.docservice.repository.ReportRepository;
+import ru.nabokov.docservice.service.sections.*;
 import ru.nabokov.docservice.service.title.TitleService;
 
 @Service
 @RequiredArgsConstructor
 public class ReportServiceImpl implements ReportService {
-
 
     private final ReportRepository repository;
     private final SectionMapper mapper;
@@ -28,6 +28,7 @@ public class ReportServiceImpl implements ReportService {
     private final FirstSectionService firstSectionService;
     private final SecondSectionService secondSectionService;
     private final ThirdSectionService thirdSectionService;
+    private final SixthSectionService sixthSectionService;
     private final SeventhSectionService seventhSectionService;
 
     @Override
@@ -49,10 +50,17 @@ public class ReportServiceImpl implements ReportService {
                                                                                         .getType().getDocumentations())
                                                                    .license(report.getTitle().getLicense().getLicense())
                                                                    .build()));
-        report.setSecondSection(secondSectionService.save(pattern.getPatternSectionTwo().getHeader(),
+        report.setSecondSection(secondSectionService.save(pattern.getPatternSectionTwo(),
                                                                                     passport.getCharacteristics()));
         report.setThirdSection(thirdSectionService.save(pattern.getPatternSectionThree(), passport));
-        report.setSeventhSection(seventhSectionService.save(pattern.getPatternSectionSeven().getHeader(), reportDto.getDrawings()));
+        report.setSixthSection(sixthSectionService.save(application.getObjectData()
+                                                      , pattern.getPatternSectionSix()
+                                                      , reportDto.getSubheadingsSixDto()));
+        report.setSeventhSection(seventhSectionService.save(pattern.getPatternSectionSeven().getHeader()
+                                                        , pattern.getPatternSectionSeven().getDrawings()
+                                                         .stream()
+                                                         .filter(d -> reportDto.getDrawingsIds().contains(d.getId()))
+                                                         .toList()));
         return mapper.mapToReportDto(report);
     }
 
