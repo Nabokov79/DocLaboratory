@@ -1,6 +1,7 @@
 package ru.nabokov.passportservice.client;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.nabokov.passportservice.dto.client.ObjectDataDto;
@@ -9,10 +10,14 @@ import java.util.List;
 import java.util.Objects;
 
 @Component
-@AllArgsConstructor
 public class DataClient {
 
     private final WebClient webClient;
+
+    @Autowired
+    public DataClient(@Qualifier("webDataClient") WebClient webClient) {
+        this.webClient = webClient;
+    }
 
     public ObjectDataDto getObjectData(String uri) {
         return Objects.requireNonNull(webClient.get()
