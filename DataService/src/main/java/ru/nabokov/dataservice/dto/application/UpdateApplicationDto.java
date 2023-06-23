@@ -40,18 +40,9 @@ public class UpdateApplicationDto {
     @Schema(description = "Оформить отчет")
     @NotNull(message = "report should not be blank")
     private Boolean report;
-    @Schema(description = "Оформить протокол визуального и измерительного контроля")
+    @Schema(description = "Оформить протокол")
     @NotNull(message = "protocol should not be blank")
-    private Boolean visual;
-    @Schema(description = "Оформить протокол ультразвуковой толщинометрии")
-    @NotNull(message = "protocol should not be blank")
-    private Boolean ultrasonic;
-    @Schema(description = "Оформить протокол геодезической съемки")
-    @NotNull(message = "protocol should not be blank")
-    private Boolean geodesy;
-    @Schema(description = "Оформить протокол измерения твердости металла")
-    @NotNull(message = "protocol should not be blank")
-    private Boolean hardness;
+    private Boolean protocol;
     @Schema(description = "Примечание")
     private String note;
     @Schema(description = "Список индентификаторов сотрудников")
