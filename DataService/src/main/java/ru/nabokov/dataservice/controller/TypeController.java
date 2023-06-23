@@ -49,7 +49,8 @@ public class TypeController {
 
     @Operation(summary = "Получение данных типа объекта")
     @GetMapping
-    public ResponseEntity<List<TypeDto>> getAll() {
-        return ResponseEntity.ok().body(service.getAll());
+    public ResponseEntity<List<TypeDto>> getAll(
+            @RequestParam(required = false) @Parameter(description = "список индентификаторов") String ids) {
+        return ResponseEntity.ok().body(service.getAll(ids));
     }
 }
