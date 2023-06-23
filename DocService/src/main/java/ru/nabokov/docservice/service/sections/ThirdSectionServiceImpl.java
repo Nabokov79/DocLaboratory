@@ -1,4 +1,4 @@
-package ru.nabokov.docservice.service;
+package ru.nabokov.docservice.service.sections;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -8,6 +8,9 @@ import ru.nabokov.docservice.dto.client.pattern_servicce.SubheadingSectionThreeD
 import ru.nabokov.docservice.exceptions.BadRequestException;
 import ru.nabokov.docservice.model.thirdSection.ThirdSection;
 import ru.nabokov.docservice.repository.ThirdSectionRepository;
+import ru.nabokov.docservice.service.RepairsTableService;
+import ru.nabokov.docservice.service.StringBuilderServiceImpl;
+import ru.nabokov.docservice.service.SurveysTableService;
 
 import java.util.Map;
 import java.util.stream.Collectors;
