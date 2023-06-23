@@ -9,7 +9,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -27,7 +26,7 @@ public class UpdateRepairDto {
     private Long objectDataId;
     @Schema(description = "Дата ремонта")
     @NotNull(message = "date repair should not be blank")
-    private LocalDate date;
+    private String date;
     @Schema(description = "Описание ремонта")
     @NotBlank(message = "description repair should not be blank")
     @Min(3)

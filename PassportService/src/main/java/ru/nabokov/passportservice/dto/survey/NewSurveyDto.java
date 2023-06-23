@@ -8,7 +8,6 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -23,7 +22,7 @@ public class NewSurveyDto {
     private Long objectDataId;
     @Schema(description = "Дата обследования")
     @NotNull(message = "date repair should not be blank")
-    private LocalDate date;
+    private String date;
     @Schema(description = "Обследование")
     @NotBlank(message = "survey should not be blank")
     private String survey;
