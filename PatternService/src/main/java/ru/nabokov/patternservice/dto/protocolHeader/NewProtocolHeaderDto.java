@@ -39,4 +39,17 @@ public class NewProtocolHeaderDto {
     @Schema(description = "Текст указания погрешности измерения")
     @NotBlank(message = "document should not be blank")
     private String admissibility;
+
+    @Override
+    public String toString() {
+        return "NewProtocolHeaderDto{" +
+                "number=" + number +
+                ", document='" + document + '\'' +
+                ", name='" + name + '\'' +
+                ", text='" + text + '\'' +
+                ", headerMeasurements='" + headerMeasurements + '\'' +
+                ", location='" + location + '\'' +
+                ", admissibility='" + admissibility + '\'' +
+                '}';
+    }
 }

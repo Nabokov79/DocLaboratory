@@ -18,6 +18,10 @@ public class UpdateTitlePageDataDto {
     @NotNull(message = "id should not be blank")
     @Positive(message = "id can only be positive")
     private Long id;
+    @Schema(description = "Индентификатор шаблона отчета")
+    @NotNull(message = "pattern report id should not be blank")
+    @Positive(message = "pattern report id can only be positive")
+    private Long reportPatternId;
     @Schema(description = "Индентификатор типа объекта обследования")
     @NotNull(message = "type id should not be blank")
     @Positive(message = "type id can only be positive")
