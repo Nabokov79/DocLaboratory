@@ -32,4 +32,18 @@ public class ProtocolHeader {
     private String location;
     @Column(name = "admissibility")
     private String admissibility;
+
+    @Override
+    public String toString() {
+        return "ProtocolHeader{" +
+                "id=" + id +
+                ", number=" + number +
+                ", document='" + document + '\'' +
+                ", name='" + name + '\'' +
+                ", text='" + text + '\'' +
+                ", headerMeasurements='" + headerMeasurements + '\'' +
+                ", location='" + location + '\'' +
+                ", admissibility='" + admissibility + '\'' +
+                '}';
+    }
 }
