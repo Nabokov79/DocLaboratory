@@ -48,10 +48,11 @@ public class PassportServiceImpl implements PassportService {
         ObjectDataDto objectData = client.getObjectData(passportDto.getObjectDataId());
         passport.setTypeId(objectData.getType().getId());
         passport.setObjectDataId(objectData.getId());
-        characteristicService.save(passport, passportDto.getCharacteristics());
         passport.setRepairs(repairService.save(passportDto.getRepairs()));
         passport.setSurveys(surveyService.save(passportDto.getSurveys()));
-        return setValues(repository.save(passport), objectData);
+        Passport passportDb = repository.save(passport);
+        characteristicService.save(passportDb, passportDto.getCharacteristics());
+        return setValues(passportDb, objectData);
     }
 
     @Override
