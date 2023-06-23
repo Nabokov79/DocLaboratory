@@ -22,7 +22,7 @@ public class ApplicationDto {
     @Schema(description = "Проводимые работы")
     private String work;
     @Schema(description = "Объект обследования")
-    private ObjectData objectData;
+    private ObjectData object;
     @Schema(description = "Первичное обсдедование")
     private LocalDate primaryData;
     @Schema(description = "Повторное обследование")
