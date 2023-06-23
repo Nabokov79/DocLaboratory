@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import ru.nabokov.docservice.model.SecondSectionData;
+import ru.nabokov.docservice.model.Characteristic;
 import java.util.List;
 
 @Setter
@@ -16,5 +16,5 @@ public class SectionTwoDto {
     @Schema(description = "Данные заголовка")
     private String heading;
     @Schema(description = "Данные подразделов")
-    private List<SecondSectionData> secondSectionData;
+    private List<Characteristic> secondSectionData;
 }
