@@ -14,6 +14,7 @@ import ru.nabokov.dataservice.exceptions.NotFoundException;
 import ru.nabokov.dataservice.mapper.ApplicationMapper;
 import ru.nabokov.dataservice.mapper.ObjectDataMapper;
 import ru.nabokov.dataservice.model.Application;
+import ru.nabokov.dataservice.model.ObjectData;
 import ru.nabokov.dataservice.model.QApplication;
 import ru.nabokov.dataservice.model.Type;
 import ru.nabokov.dataservice.repository.ApplicationRepository;
@@ -31,32 +32,31 @@ public class ApplicationServiceImpl implements ApplicationService {
     private final ObjectDataService objectDataService;
     private final ObjectDataMapper objectDataMapper;
     private final TypeService typeService;
+    private final AddressService addressService;
 
     @Override
     public ApplicationDto save(NewApplicationDto applicationDto) {
-        validateBooleans(List.of(applicationDto.getReport(), applicationDto.getVisual(), applicationDto.getUltrasonic(),
-                                                            applicationDto.getGeodesy(), applicationDto.getHardness()));
+        validateBooleans(List.of(applicationDto.getReport(), applicationDto.getProtocol()));
+        ObjectData object = objectDataMapper.mapToObjectData(objectDataService.get(applicationDto.getObjectDataId()));
         Application application = mapper.mapToNewApplication(applicationDto);
-        application.setObjectData(
-                objectDataMapper.mapToObjectData(objectDataService.get(applicationDto.getObjectDataId()))
-        );
+        application.setAddress(addressService.get(applicationDto.getAddressId()));
+        application.setObject(object);
         repository.save(application);
-        reportDataService.create(applicationDto.getPrimaryData(), application.getObjectData());
+        reportDataService.create(applicationDto.getPrimaryData(), object);
         return mapper.mapToApplicationDto((application));
     }
 
     @Override
     public ApplicationDto update(UpdateApplicationDto applicationDto) {
-        validateBooleans(List.of(applicationDto.getReport(), applicationDto.getVisual(), applicationDto.getUltrasonic(),
-                applicationDto.getGeodesy(), applicationDto.getHardness()));
+        validateBooleans(List.of(applicationDto.getReport(), applicationDto.getProtocol()));
         if (!repository.existsById(applicationDto.getId())) {
             throw new NotFoundException(
-                                 String.format("application with id=%s not found for update", applicationDto.getId()));
+                    String.format("application with id=%s not found for update", applicationDto.getId()));
         }
         Application application = mapper.mapToUpdateApplication(applicationDto);
-        application.setObjectData(
-                objectDataMapper.mapToObjectData(objectDataService.get(applicationDto.getObjectDataId()))
-        );
+        application.setAddress(addressService.get(applicationDto.getAddressId()));
+        application.setObject(
+                objectDataMapper.mapToObjectData(objectDataService.get(applicationDto.getObjectDataId())));
         return mapper.mapToApplicationDto(repository.save(application));
     }
 
@@ -82,14 +82,11 @@ public class ApplicationServiceImpl implements ApplicationService {
             booleanBuilder.and(QApplication.application.report.eq(param.getReport()));
         }
         if(param.getProtocol() != null) {
-            booleanBuilder.and(QApplication.application.visual.eq(true));
-            booleanBuilder.and(QApplication.application.ultrasonic.eq(true));
-            booleanBuilder.and(QApplication.application.geodesy.eq(true));
-            booleanBuilder.and(QApplication.application.hardness.eq(true));
+            booleanBuilder.and(QApplication.application.protocol.eq(param.getProtocol()));
         }
         if(param.getTypeId() != null) {
             Type type = typeService.get(param.getTypeId());
-            booleanBuilder.and(QApplication.application.objectData.type.eq(type));
+            booleanBuilder.and(QApplication.application.object.type.eq(type));
         }
         QApplication application = QApplication.application;
         JPAQueryFactory qf = new JPAQueryFactory(entityManager);
