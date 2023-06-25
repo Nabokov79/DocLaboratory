@@ -29,4 +29,18 @@ public class ObjectDataDto {
     private String place;
     @Schema(description = "Данные о строении")
     private Building building;
+
+    @Override
+    public String toString() {
+        return "ObjectDataDto{" +
+                "id=" + id +
+                ", type=" + type +
+                ", model='" + model + '\'' +
+                ", number=" + number +
+                ", volume=" + volume +
+                ", orientation='" + orientation + '\'' +
+                ", place='" + place + '\'' +
+                ", building=" + building +
+                '}';
+    }
 }
