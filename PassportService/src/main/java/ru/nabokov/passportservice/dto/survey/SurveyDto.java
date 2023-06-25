@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.nabokov.passportservice.dto.client.ObjectDataDto;
 import ru.nabokov.passportservice.dto.client.OrganizationDto;
-import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -19,7 +18,7 @@ public class SurveyDto {
     @Schema(description = "Объект обследования")
     private ObjectDataDto objectData;
     @Schema(description = "Дата обследования")
-    private LocalDate date;
+    private String date;
     @Schema(description = "Обследование")
     private String survey;
     @Schema(description = "Номер отчета обследования")
