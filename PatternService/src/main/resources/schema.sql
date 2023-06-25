@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS SUBHEADINGS
     number  VARCHAR                                 NOT NULL,
     heading VARCHAR                                 NOT NULL,
     text    VARCHAR,
-    conclusion_id BIGINT NOT NULL,
+    conclusion_id BIGINT,
     CONSTRAINT pk_subheading PRIMARY KEY (id),
     CONSTRAINT FK_SUBHEADINGS_ON_PATTERN_CONCLUSIONS FOREIGN KEY (conclusion_id) REFERENCES  pattern_conclusions (id)
 );
