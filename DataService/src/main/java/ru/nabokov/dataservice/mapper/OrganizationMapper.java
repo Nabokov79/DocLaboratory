@@ -17,6 +17,4 @@ public interface OrganizationMapper {
     Organization mapToUpdateOrganization(UpdateOrganizationDto organizationDto);
 
     List<OrganizationDto> mapToOrganizationsDto(List<Organization> organization);
-
-    Organization mapToOrganization(OrganizationDto organizationDto);
 }
