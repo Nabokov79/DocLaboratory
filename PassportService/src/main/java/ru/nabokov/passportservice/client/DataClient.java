@@ -2,12 +2,13 @@ package ru.nabokov.passportservice.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 import ru.nabokov.passportservice.dto.client.ObjectDataDto;
 import ru.nabokov.passportservice.dto.client.OrganizationDto;
 import java.util.List;
-import java.util.Objects;
 
 @Component
 public class DataClient {
@@ -19,24 +20,20 @@ public class DataClient {
         this.webClient = webClient;
     }
 
-    public ObjectDataDto getObjectData(String uri) {
-        return Objects.requireNonNull(webClient.get()
+    public Mono<ObjectDataDto> getObjectData(String uri) {
+        return webClient.get()
                         .uri(uri)
                         .retrieve()
-                        .toEntity(ObjectDataDto.class)
-                        .block())
-                .getBody();
+                        .bodyToMono(ObjectDataDto.class);
     }
 
-    public List<OrganizationDto> getOrganizations(String path, String ids) {
-        return Objects.requireNonNull(webClient.get()
+    public Mono<ResponseEntity<List<OrganizationDto>>> getOrganizations(String path, String ids) {
+        return webClient.get()
                         .uri(uriBuilder -> uriBuilder
                                 .path(path)
                                 .queryParam("ids", ids)
                                 .build())
                         .retrieve()
-                        .toEntityList(OrganizationDto.class)
-                        .block())
-                .getBody();
+                        .toEntityList(OrganizationDto.class);
     }
 }
