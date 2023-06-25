@@ -55,8 +55,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         if (ids != null) {
             return  mapper.mapToOrganizationsDto(
                  new ArrayList<>(repository.findAllByIds(
-                      Arrays.stream(ids.split(",")).toList().stream().mapToLong(Long::parseLong).boxed().toList())
-                    )
+                         Arrays.stream(ids.split(",")).map(Long::parseLong).toList()))
             );
         }
         return mapper.mapToOrganizationsDto(repository.findAll());

@@ -102,8 +102,8 @@ public class PassportServiceImpl implements PassportService {
     private PassportDto setValues(Passport passport, ObjectDataDto objectData) {
         PassportDto passportDto = mapper.mapToPassportDto(repository.save(passport));
         Map<Long, OrganizationDto> organizations = client.getOrganizations(
-                String.join(",", String.valueOf(passport.getSurveys().stream().map(Survey::getOrganizationId).distinct()),
-                                         String.valueOf(passport.getRepairs().stream().map(Repair::getOrganizationId).distinct()))
+                String.join(",", String.join(",", passport.getSurveys().stream().map(Survey::getOrganizationId).distinct().map(String::valueOf).toList()),
+                        String.join(",", passport.getRepairs().stream().map(Repair::getOrganizationId).distinct().map(String::valueOf).toList()))
                 ).stream().collect(Collectors.toMap(OrganizationDto::getId, o -> o));
         if (organizations.isEmpty()) {
             throw new NotFoundException("organizations for surveys and repairs not found");

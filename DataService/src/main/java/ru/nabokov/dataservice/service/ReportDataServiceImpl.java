@@ -58,7 +58,7 @@ public class ReportDataServiceImpl implements ReportDataService {
         QReportData reportData = QReportData.reportData;
         return new JPAQueryFactory(entityManager).from(reportData)
                 .select(reportData.number.max())
-                .where(QReportData.reportData.primaryData.before(firstDay)
+                .where(QReportData.reportData.primaryData.after(firstDay)
                         .and(QReportData.reportData.primaryData.before(lastDay)))
                 .fetchOne();
     }
