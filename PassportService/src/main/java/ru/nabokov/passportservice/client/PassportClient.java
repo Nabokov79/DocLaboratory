@@ -1,7 +1,6 @@
 package ru.nabokov.passportservice.client;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.nabokov.passportservice.dto.client.ObjectDataDto;
 import ru.nabokov.passportservice.dto.client.OrganizationDto;
@@ -26,6 +25,6 @@ public class PassportClient {
     }
 
     public List<ShortSubheadingDto> getSubheadings(String ids) {
-        return patternClient.getSubheadings("/pattern/subheadings", ids);
+        return Objects.requireNonNull(patternClient.getSubheadings("/pattern/subheadings", ids).block()).getBody();
     }
 }
