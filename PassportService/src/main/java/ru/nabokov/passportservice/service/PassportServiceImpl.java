@@ -45,13 +45,13 @@ public class PassportServiceImpl implements PassportService {
                                                                                        passportDto.getObjectDataId())));
         }
         Passport passport = mapper.mapFromNewPassportDto(passportDto);
-        ObjectDataDto objectData = client.getObjectData(passportDto.getObjectDataId());
+        ObjectDataDto objectData = getObjectData(passportDto.getObjectDataId());
         passport.setTypeId(objectData.getType().getId());
         passport.setObjectDataId(objectData.getId());
         passport.setRepairs(repairService.save(passportDto.getRepairs()));
         passport.setSurveys(surveyService.save(passportDto.getSurveys()));
         Passport passportDb = repository.save(passport);
-        characteristicService.save(passportDb, passportDto.getCharacteristics());
+        passportDb.setCharacteristics(characteristicService.save(passportDb, passportDto.getCharacteristics()));
         return setValues(passportDb, objectData);
     }
 
@@ -61,10 +61,10 @@ public class PassportServiceImpl implements PassportService {
             throw new NotFoundException((String.format("Passport with id=%s not found for save", passportDto.getId())));
         }
         Passport passport = mapper.mapFromUpdatePassportDto(passportDto);
-        ObjectDataDto objectData = client.getObjectData(passportDto.getObjectDataId());
+        ObjectDataDto objectData = getObjectData(passportDto.getObjectDataId());
         passport.setTypeId(objectData.getType().getId());
         passport.setObjectDataId(objectData.getId());
-        characteristicService.update(passport, passportDto.getCharacteristics());
+        passport.setCharacteristics(characteristicService.update(passport, passportDto.getCharacteristics()));
         passport.setRepairs(repairService.update(passportDto.getRepairs()));
         passport.setSurveys(surveyService.update(passportDto.getSurveys()));
         return setValues(repository.save(passport), objectData);
@@ -72,8 +72,14 @@ public class PassportServiceImpl implements PassportService {
 
     @Override
     public PassportDto get(Long id) {
-        return mapper.mapToPassportDto(repository.findById(id)
-                .orElseThrow(() -> new NotFoundException(String.format("Passport with id=%s not found for save", id))));
+        Passport passport = repository.findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format("Passport with id=%s not found for save", id)));
+        PassportDto passportDto = mapper.mapToPassportDto(passport);
+        passportDto.setObjectData(getObjectData(passport.getObjectDataId()));
+        Map<Long, OrganizationDto> organizations = getOrganizations(passport);
+        passportDto.setRepairs(setOrganizationForRepair(passport, organizations));
+        passportDto.setSurveys(setOrganizationForSurvey(passport, organizations));
+        return passportDto;
     }
 
     @Override
@@ -101,28 +107,47 @@ public class PassportServiceImpl implements PassportService {
 
     private PassportDto setValues(Passport passport, ObjectDataDto objectData) {
         PassportDto passportDto = mapper.mapToPassportDto(repository.save(passport));
-        Map<Long, OrganizationDto> organizations = client.getOrganizations(
-                String.join(",", String.join(",", passport.getSurveys().stream().map(Survey::getOrganizationId).distinct().map(String::valueOf).toList()),
-                        String.join(",", passport.getRepairs().stream().map(Repair::getOrganizationId).distinct().map(String::valueOf).toList()))
-                ).stream().collect(Collectors.toMap(OrganizationDto::getId, o -> o));
-        if (organizations.isEmpty()) {
-            throw new NotFoundException("organizations for surveys and repairs not found");
-        }
-        List<RepairDto> repairsDto = new ArrayList<>();
+        Map<Long, OrganizationDto> organizations = getOrganizations(passport);
+        passportDto.setObjectData(objectData);
+        passportDto.setRepairs(setOrganizationForRepair(passport, organizations));
+        passportDto.setSurveys(setOrganizationForSurvey(passport, organizations));
+        return passportDto;
+    }
+
+    private List<RepairDto> setOrganizationForRepair(Passport passport, Map<Long, OrganizationDto> organizations) {
+        List<RepairDto> repairs = new ArrayList<>();
         for (Repair repair : passport.getRepairs()) {
             RepairDto repairDto = repairMapper.mapToRepairsDto(repair);
             repairDto.setOrganization(organizations.get(repair.getOrganizationId()));
-            repairsDto.add(repairDto);
+            repairs.add(repairDto);
         }
-        List<SurveyDto> surveysDto = new ArrayList<>();
+        return repairs;
+    }
+
+    private  List<SurveyDto> setOrganizationForSurvey(Passport passport, Map<Long, OrganizationDto> organizations) {
+        List<SurveyDto> surveys = new ArrayList<>();
         for (Survey survey : passport.getSurveys()) {
             SurveyDto surveyDto = surveyMapper.mapToSurveysDto(survey);
             surveyDto.setOrganization(organizations.get(survey.getOrganizationId()));
-            surveysDto.add(surveyDto);
+            surveys.add(surveyDto);
         }
-        passportDto.setRepairs(repairsDto);
-        passportDto.setSurveys(surveysDto);
-        passportDto.setObjectData(objectData);
-        return passportDto;
+        return surveys;
+    }
+
+    private Map<Long, OrganizationDto> getOrganizations(Passport passport) {
+        List<Long> ids = new ArrayList<>(passport.getSurveys().stream().map(Survey::getOrganizationId).toList());
+        ids.addAll(passport.getRepairs().stream().map(Repair::getOrganizationId).toList());
+        Map<Long, OrganizationDto> organizations = client.getOrganizations(
+                String.join(",", ids.stream().distinct().map(String::valueOf).toList()))
+                                             .stream()
+                                             .collect(Collectors.toMap(OrganizationDto::getId, o -> o));
+        if (organizations.isEmpty()) {
+            throw new NotFoundException("organizations for surveys and repairs not found");
+        }
+        return organizations;
+    }
+
+    private ObjectDataDto getObjectData(Long id) {
+        return client.getObjectData(id);
     }
 }
