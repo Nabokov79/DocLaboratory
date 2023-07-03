@@ -1,4 +1,4 @@
-package ru.nabokov.passportservice.service;
+package ru.nabokov.passportservice.service.passport;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -6,7 +6,8 @@ import ru.nabokov.passportservice.dto.belt.NewBeltDto;
 import ru.nabokov.passportservice.dto.belt.UpdateBeltDto;
 import ru.nabokov.passportservice.exceptions.NotFoundException;
 import ru.nabokov.passportservice.mapper.BeltMapper;
-import ru.nabokov.passportservice.model.Belt;
+import ru.nabokov.passportservice.model.passport.Belt;
+import ru.nabokov.passportservice.dto.belt.BeltDto;
 import ru.nabokov.passportservice.repository.BeltRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,33 +22,29 @@ public class BeltServiceImpl implements BeltService {
     private final BeltMapper mapper;
 
     @Override
-    public List<Belt> save(Long typeId, List<NewBeltDto> beltsDto) {
-        List<Belt> belts = mapper.mapToNewBelts(beltsDto);
-        for (Belt belt : belts) {
-            belt.setTypeId(typeId);
-        }
-        return repository.saveAll(belts);
+    public List<BeltDto> save(List<NewBeltDto> beltsDto) {
+        return mapper.mapToBeltsDto(repository.saveAll(mapper.mapToNewBelts(beltsDto)));
     }
 
     @Override
-    public List<Belt> update(Long typeId, List<UpdateBeltDto> beltsDto) {
-        validateIds( beltsDto.stream().map(UpdateBeltDto::getId).toList());
-        List<Belt> belts = mapper.mapToUpdateBelts(beltsDto);
-        for (Belt belt : belts) {
-            belt.setTypeId(typeId);
-        }
-        return repository.saveAll(belts);
+    public List<BeltDto> update(List<UpdateBeltDto> beltsDto) {
+        validateIds(beltsDto.stream().map(UpdateBeltDto::getId).toList());
+        return mapper.mapToBeltsDto(repository.saveAll(mapper.mapToUpdateBelts(beltsDto)));
     }
 
     @Override
-    public List<Belt> getAll(Integer volume, Long typeId) {
-        List<Belt> belts;
-        if (volume != null) {
-            belts = repository.findAllByVolumeAndTypeId(volume, typeId);
+    public List<BeltDto> getAll(Integer number) {
+        if (number != null) {
+            return mapper.mapToBeltsDto(repository.findAllByNumber(number));
         } else {
-            belts = repository.findAllBottoms();
+           return mapper.mapToBeltsDto(repository.findAll());
         }
-        return belts;
+    }
+
+    @Override
+    public List<Belt> getAllById(List<Long> ids) {
+        validateIds(ids);
+        return repository.findAllById(ids);
     }
 
     private void validateIds(List<Long> ids) {

@@ -1,14 +1,14 @@
-package ru.nabokov.passportservice.service;
+package ru.nabokov.passportservice.service.passport;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.nabokov.passportservice.client.PassportClient;
 import ru.nabokov.passportservice.dto.client.ObjectDataDto;
 import ru.nabokov.passportservice.dto.client.OrganizationDto;
-import ru.nabokov.passportservice.dto.passport.NewPassportDto;
+import ru.nabokov.passportservice.dto.passport.tank.NewTankPassportDto;
 import ru.nabokov.passportservice.dto.passport.ShortPassportDto;
-import ru.nabokov.passportservice.dto.passport.PassportDto;
-import ru.nabokov.passportservice.dto.passport.UpdatePassportDto;
+import ru.nabokov.passportservice.dto.passport.tank.TankPassportDto;
+import ru.nabokov.passportservice.dto.passport.tank.UpdateTankPassportDto;
 import ru.nabokov.passportservice.dto.repair.RepairDto;
 import ru.nabokov.passportservice.dto.survey.SurveyDto;
 import ru.nabokov.passportservice.exceptions.BadRequestException;
@@ -16,9 +16,9 @@ import ru.nabokov.passportservice.exceptions.NotFoundException;
 import ru.nabokov.passportservice.mapper.PassportMapper;
 import ru.nabokov.passportservice.mapper.RepairMapper;
 import ru.nabokov.passportservice.mapper.SurveyMapper;
-import ru.nabokov.passportservice.model.Passport;
-import ru.nabokov.passportservice.model.Repair;
-import ru.nabokov.passportservice.model.Survey;
+import ru.nabokov.passportservice.model.passport.Passport;
+import ru.nabokov.passportservice.model.passport.Repair;
+import ru.nabokov.passportservice.model.passport.Survey;
 import ru.nabokov.passportservice.repository.PassportRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,54 +27,63 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class PassportServiceImpl implements PassportService {
+public class TankPassportServiceImpl implements TankPassportService {
 
     private final PassportRepository repository;
     private final PassportMapper mapper;
     private final SurveyMapper surveyMapper;
     private final RepairMapper repairMapper;
     private final PassportClient client;
-    private final CharacteristicService characteristicService;
+    private final ObjectCharacteristicsService characteristicService;
     private final SurveyService surveyService;
     private final RepairService repairService;
+    private final BeltService beltService;
+    private final BottomService bottomService;
 
     @Override
-    public PassportDto save(NewPassportDto passportDto) {
+    public TankPassportDto save(NewTankPassportDto passportDto) {
         if (repository.existsByObjectDataId(passportDto.getObjectDataId())) {
             throw new BadRequestException((String.format("Passport for object data with id=%s found",
                                                                                        passportDto.getObjectDataId())));
         }
         Passport passport = mapper.mapFromNewPassportDto(passportDto);
         ObjectDataDto objectData = getObjectData(passportDto.getObjectDataId());
-        passport.setTypeId(objectData.getType().getId());
         passport.setObjectDataId(objectData.getId());
         passport.setRepairs(repairService.save(passportDto.getRepairs()));
         passport.setSurveys(surveyService.save(passportDto.getSurveys()));
-        Passport passportDb = repository.save(passport);
-        passportDb.setCharacteristics(characteristicService.save(passportDb, passportDto.getCharacteristics()));
-        return setValues(passportDb, objectData);
+        passport.setBelts(beltService.getAllById(passportDto.getBeltsIds()));
+        passport.setBottoms(bottomService.getAllById(passportDto.getBottomsIds()));
+        passport = repository.save(passport);
+        passport.setCharacteristics(characteristicService.save(passport, passportDto.getCharacteristics()));
+        TankPassportDto tankPassport =  mapper.mapToTankPassportDto(passport);
+        tankPassport.setObjectData(objectData);
+        return tankPassport;
     }
 
     @Override
-    public PassportDto update(UpdatePassportDto passportDto) {
+    public TankPassportDto update(UpdateTankPassportDto passportDto) {
         if (repository.existsById(passportDto.getId())) {
             throw new NotFoundException((String.format("Passport with id=%s not found for save", passportDto.getId())));
         }
         Passport passport = mapper.mapFromUpdatePassportDto(passportDto);
         ObjectDataDto objectData = getObjectData(passportDto.getObjectDataId());
-        passport.setTypeId(objectData.getType().getId());
         passport.setObjectDataId(objectData.getId());
-        passport.setCharacteristics(characteristicService.update(passport, passportDto.getCharacteristics()));
         passport.setRepairs(repairService.update(passportDto.getRepairs()));
         passport.setSurveys(surveyService.update(passportDto.getSurveys()));
-        return setValues(repository.save(passport), objectData);
+        passport.setBelts(beltService.getAllById(passportDto.getBeltsIds()));
+        passport.setBottoms(bottomService.getAllById(passportDto.getBottomsIds()));
+        passport = repository.save(passport);
+        passport.setCharacteristics(characteristicService.update(passport, passportDto.getCharacteristics()));
+        TankPassportDto tankPassport =  mapper.mapToTankPassportDto(passport);
+        tankPassport.setObjectData(objectData);
+        return tankPassport;
     }
 
     @Override
-    public PassportDto get(Long id) {
+    public TankPassportDto get(Long id) {
         Passport passport = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Passport with id=%s not found for save", id)));
-        PassportDto passportDto = mapper.mapToPassportDto(passport);
+        TankPassportDto passportDto = mapper.mapToTankPassportDto(passport);
         passportDto.setObjectData(getObjectData(passport.getObjectDataId()));
         Map<Long, OrganizationDto> organizations = getOrganizations(passport);
         passportDto.setRepairs(setOrganizationForRepair(passport, organizations));
@@ -83,17 +92,8 @@ public class PassportServiceImpl implements PassportService {
     }
 
     @Override
-    public List<ShortPassportDto> getAll(Long typeId) {
-        List<Passport> passports;
-        if (typeId != null) {
-            passports = new ArrayList<>(repository.findAllByTypeId(typeId));
-        } else {
-            passports = repository.findAll();
-        }
-        if (passports.isEmpty()) {
-            throw new NotFoundException(String.format("Passports not found, passports=%s", passports));
-        }
-        return mapper.mapToShortPassportDto(passports);
+    public List<ShortPassportDto> getAll() {
+        return mapper.mapToShortPassportDto(repository.findAll());
     }
 
     @Override
@@ -103,15 +103,6 @@ public class PassportServiceImpl implements PassportService {
             return;
         }
         throw new NotFoundException(String.format("Passports with id=%s not found for delete", id));
-    }
-
-    private PassportDto setValues(Passport passport, ObjectDataDto objectData) {
-        PassportDto passportDto = mapper.mapToPassportDto(repository.save(passport));
-        Map<Long, OrganizationDto> organizations = getOrganizations(passport);
-        passportDto.setObjectData(objectData);
-        passportDto.setRepairs(setOrganizationForRepair(passport, organizations));
-        passportDto.setSurveys(setOrganizationForSurvey(passport, organizations));
-        return passportDto;
     }
 
     private List<RepairDto> setOrganizationForRepair(Passport passport, Map<Long, OrganizationDto> organizations) {

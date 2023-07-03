@@ -1,12 +1,13 @@
-package ru.nabokov.passportservice.service;
+package ru.nabokov.passportservice.service.passport;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.nabokov.passportservice.dto.bottom.NewBottomDto;
+import ru.nabokov.passportservice.dto.bottom.BottomDto;
 import ru.nabokov.passportservice.dto.bottom.UpdateBottomDto;
 import ru.nabokov.passportservice.exceptions.NotFoundException;
 import ru.nabokov.passportservice.mapper.BottomMapper;
-import ru.nabokov.passportservice.model.Bottom;
+import ru.nabokov.passportservice.model.passport.Bottom;
 import ru.nabokov.passportservice.repository.BottomRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,33 +22,29 @@ public class BottomServiceImpl implements BottomService {
     private final BottomMapper mapper;
 
     @Override
-    public List<Bottom> save(Long typeId, List<NewBottomDto> bottomsDto) {
-        List<Bottom> bottoms = mapper.mapToNewBottoms(bottomsDto);
-        for (Bottom bottom : bottoms) {
-            bottom.setTypeId(typeId);
-        }
-        return repository.saveAll(bottoms);
+    public List<BottomDto> save(List<NewBottomDto> bottomsDto) {
+        return mapper.mapToBottomsDto(repository.saveAll(mapper.mapToNewBottoms(bottomsDto)));
     }
 
     @Override
-    public List<Bottom> update(Long typeId, List<UpdateBottomDto> bottomsDto) {
+    public List<BottomDto> update(List<UpdateBottomDto> bottomsDto) {
         validateIds(bottomsDto.stream().map(UpdateBottomDto::getId).toList());
-        List<Bottom> bottoms = mapper.mapToUpdateBottoms(bottomsDto);
-        for (Bottom bottom : bottoms) {
-            bottom.setTypeId(typeId);
-        }
-        return repository.saveAll(bottoms);
+        return mapper.mapToBottomsDto(repository.saveAll(mapper.mapToUpdateBottoms(bottomsDto)));
     }
 
     @Override
-    public List<Bottom> getAll(Integer volume, Long typeId) {
-        List<Bottom> bottoms;
-        if (volume != null) {
-             bottoms = repository.findAllByVolumeAndTypeId(volume, typeId);
+    public List<BottomDto> getAll(String name) {
+        if (name != null) {
+             return mapper.mapToBottomsDto(repository.findAllByName(name));
         } else {
-            bottoms = repository.findAllBottoms();
+           return mapper.mapToBottomsDto(repository.findAll());
         }
-        return bottoms;
+    }
+
+    @Override
+    public List<Bottom> getAllById(List<Long> ids) {
+        validateIds(ids);
+        return repository.findAllById(ids);
     }
 
     private void validateIds(List<Long> ids) {

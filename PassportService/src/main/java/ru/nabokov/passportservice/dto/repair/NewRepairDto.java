@@ -18,7 +18,7 @@ import javax.validation.constraints.Positive;
 @Schema(description = "Данные нового ремонта")
 public class NewRepairDto {
 
-    @Schema(description = "Индентификатор объекта обследования ")
+    @Schema(description = "Индентификатор объекта обследования")
     @NotNull(message = "id object data should not be blank")
     @Positive(message = "id object data can only be positive")
     private Long objectDataId;

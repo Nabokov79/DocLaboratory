@@ -9,7 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.nabokov.passportservice.dto.passport.*;
-import ru.nabokov.passportservice.service.PassportService;
+import ru.nabokov.passportservice.dto.passport.tank.NewTankPassportDto;
+import ru.nabokov.passportservice.dto.passport.tank.TankPassportDto;
+import ru.nabokov.passportservice.dto.passport.tank.UpdateTankPassportDto;
+import ru.nabokov.passportservice.service.passport.TankPassportService;
 
 import java.util.List;
 
@@ -22,35 +25,34 @@ import java.util.List;
 @Validated
 @Tag(name="Паспорт объекта обследования",
         description="API для работы с данными паспорта")
-public class PassportController {
+public class TankPassportController {
 
-    private final PassportService service;
+    private final TankPassportService service;
 
     @Operation(summary = "Добавление новых данных паспорта")
     @PostMapping
-    public ResponseEntity<PassportDto> save(@RequestBody
-                                            @Parameter(description = "Данные паспорта") NewPassportDto passportDto) {
+    public ResponseEntity<TankPassportDto> save(@RequestBody
+                                            @Parameter(description = "Данные паспорта") NewTankPassportDto passportDto) {
         return ResponseEntity.ok().body(service.save(passportDto));
     }
 
     @Operation(summary = "Изменение данных паспорта")
     @PatchMapping
-    public ResponseEntity<PassportDto> update(@RequestBody
-                                            @Parameter(description = "Данные паспорта") UpdatePassportDto passportDto) {
+    public ResponseEntity<TankPassportDto> update(@RequestBody
+                                            @Parameter(description = "Данные паспорта") UpdateTankPassportDto passportDto) {
         return ResponseEntity.ok().body(service.update(passportDto));
     }
 
     @Operation(summary = "Получить паспорт бака")
     @GetMapping("/{id}")
-    public ResponseEntity<PassportDto> get(@PathVariable @Parameter(description = "Индентификатор") Long id) {
+    public ResponseEntity<TankPassportDto> get(@PathVariable @Parameter(description = "Индентификатор") Long id) {
         return ResponseEntity.ok().body(service.get(id));
     }
 
     @Operation(summary = "Получение данные паспортов")
     @GetMapping
-    public ResponseEntity<List<ShortPassportDto>> getAll(@RequestParam(required = false)
-                                                  @Parameter(description = "Индентификатор типа объекта") Long typeId) {
-        return ResponseEntity.ok().body(service.getAll(typeId));
+    public ResponseEntity<List<ShortPassportDto>> getAll() {
+        return ResponseEntity.ok().body(service.getAll());
     }
 
     @Operation(summary = "Удаление данные паспорта")

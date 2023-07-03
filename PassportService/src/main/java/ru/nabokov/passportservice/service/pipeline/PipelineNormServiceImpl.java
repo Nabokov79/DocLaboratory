@@ -1,12 +1,13 @@
-package ru.nabokov.passportservice.service;
+package ru.nabokov.passportservice.service.pipeline;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.nabokov.passportservice.dto.pipelinenorm.NewPipelineNormDto;
-import ru.nabokov.passportservice.dto.pipelinenorm.UpdatePipelineNormDto;
+import ru.nabokov.passportservice.dto.norms.pipline.NewPipelineNormDto;
+import ru.nabokov.passportservice.dto.norms.pipline.PipelineNormDto;
+import ru.nabokov.passportservice.dto.norms.pipline.UpdatePipelineNormDto;
 import ru.nabokov.passportservice.exceptions.NotFoundException;
 import ru.nabokov.passportservice.mapper.PipelineNormMapper;
-import ru.nabokov.passportservice.model.PipelineNorm;
+import ru.nabokov.passportservice.model.pipeline.PipelineNorm;
 import ru.nabokov.passportservice.repository.PipelineNormRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,27 +22,14 @@ public class PipelineNormServiceImpl implements PipelineNormService {
     private final PipelineNormMapper mapper;
 
     @Override
-    public List<PipelineNorm> save(Long typeId, List<NewPipelineNormDto> pipesDto) {
-        List<PipelineNorm> pipelineNorms = mapper.mapToNewPipelineNorm(pipesDto);
-        for (PipelineNorm norm : pipelineNorms) {
-            norm.setTypeId(typeId);
-        }
-        return repository.saveAll(pipelineNorms);
+    public List<PipelineNormDto> save(List<NewPipelineNormDto> pipesDto) {
+        return mapper.mapToPipelineNormsDto(repository.saveAll(mapper.mapToNewPipelineNormsDto(pipesDto)));
     }
 
     @Override
-    public List<PipelineNorm> update(Long typeId, List<UpdatePipelineNormDto> pipesDto) {
+    public List<PipelineNormDto> update(List<UpdatePipelineNormDto> pipesDto) {
         validateIds(pipesDto.stream().map(UpdatePipelineNormDto:: getId).toList());
-        List<PipelineNorm> pipelineNorms = mapper.mapToUpdatePipelineNorm(pipesDto);
-        for (PipelineNorm norm : pipelineNorms) {
-            norm.setTypeId(typeId);
-        }
-        return repository.saveAll(pipelineNorms);
-    }
-
-    @Override
-    public List<PipelineNorm> getAll(Long typeId) {
-        return repository.findAllByTypeId(typeId);
+        return mapper.mapToPipelineNormsDto(repository.saveAll(mapper.mapToUpdatePipelineNormsDto(pipesDto)));
     }
 
     private void validateIds(List<Long> ids) {

@@ -1,16 +1,19 @@
 package ru.nabokov.passportservice.mapper;
 
 import org.mapstruct.Mapper;
-import ru.nabokov.passportservice.dto.pipelinenorm.NewPipelineNormDto;
-import ru.nabokov.passportservice.dto.pipelinenorm.UpdatePipelineNormDto;
-import ru.nabokov.passportservice.model.PipelineNorm;
+import ru.nabokov.passportservice.dto.norms.pipline.NewPipelineNormDto;
+import ru.nabokov.passportservice.dto.norms.pipline.PipelineNormDto;
+import ru.nabokov.passportservice.dto.norms.pipline.UpdatePipelineNormDto;
+import ru.nabokov.passportservice.model.pipeline.PipelineNorm;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface PipelineNormMapper {
 
-    List<PipelineNorm> mapToNewPipelineNorm(List<NewPipelineNormDto> pipelineNormsDto);
+    List<PipelineNormDto> mapToPipelineNormsDto(List<PipelineNorm> norm);
 
-    List<PipelineNorm> mapToUpdatePipelineNorm(List<UpdatePipelineNormDto> pipelineNormsDto);
+    List<PipelineNorm> mapToUpdatePipelineNormsDto(List<UpdatePipelineNormDto> normsDto);
+
+    List<PipelineNorm> mapToNewPipelineNormsDto(List<NewPipelineNormDto> normsDto);
 }

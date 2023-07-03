@@ -7,13 +7,13 @@ import lombok.Setter;
 import ru.nabokov.passportservice.dto.belt.BeltDto;
 import ru.nabokov.passportservice.dto.bottom.BottomDto;
 import ru.nabokov.passportservice.dto.client.ObjectDataDto;
-import ru.nabokov.passportservice.dto.pipelinenorm.PipelineNormDto;
+import ru.nabokov.passportservice.dto.norms.pipline.PipelineNormDto;
 import java.util.List;
 
 @Setter
 @Getter
 @AllArgsConstructor
-public class NormsDto {
+public class TanksNormsDto {
 
     @Schema(description = "Индентификатор")
     private Long id;

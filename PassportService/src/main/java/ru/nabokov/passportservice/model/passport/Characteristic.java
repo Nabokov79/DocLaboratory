@@ -1,6 +1,6 @@
-package ru.nabokov.passportservice.model;
+package ru.nabokov.passportservice.model.passport;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,12 +20,6 @@ public class Characteristic {
     private long id;
     @Column(name = "number")
     private Double number;
-    @Column(name = "heading")
-    private String heading;
-    @Column(name = "meaning")
-    private String meaning;
-    @ManyToOne
-    @JoinColumn(name = "passport_id")
-    @JsonIgnore
-    private Passport passport;
+    @Column(name = "name")
+    private String name;
 }

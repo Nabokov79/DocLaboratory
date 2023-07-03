@@ -1,4 +1,4 @@
-package ru.nabokov.passportservice.dto.pipelinenorm;
+package ru.nabokov.passportservice.dto.norms.pipline;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

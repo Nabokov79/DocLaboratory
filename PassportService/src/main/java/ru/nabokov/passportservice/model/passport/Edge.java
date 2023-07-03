@@ -1,9 +1,10 @@
-package ru.nabokov.passportservice.model;
+package ru.nabokov.passportservice.model.passport;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.persistence.*;
 
 @Setter
@@ -11,18 +12,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "belts")
-public class Belt {
+@Table(name = "edges")
+public class Edge {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "type_id")
-    private Long typeId;
-    @Column(name = "volume")
-    private Integer volume;
-    @Column(name = "number")
-    private Integer number;
     @Column(name = "thickness")
     private Integer thickness;
     @Column(name = "min")

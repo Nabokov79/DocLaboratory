@@ -1,13 +1,13 @@
-package ru.nabokov.passportservice.dto.passport;
+package ru.nabokov.passportservice.dto.passport.pipeline;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.nabokov.passportservice.dto.repair.NewRepairDto;
-import ru.nabokov.passportservice.dto.survey.NewSurveyDto;
-import ru.nabokov.passportservice.dto.сharacteristic.NewCharacteristicDto;
+import ru.nabokov.passportservice.dto.objectCharacteristics.UpdateObjectCharacteristicsDto;
+import ru.nabokov.passportservice.dto.repair.UpdateRepairDto;
+import ru.nabokov.passportservice.dto.survey.UpdateSurveyDto;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -16,9 +16,13 @@ import java.util.List;
 @Setter
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
-public class NewPassportDto {
+@Schema(description = "Паспортные данные для изменения информации в паспорте объекта типа трубопровод")
+public class UpdatePipelinePassportDto {
 
+    @Schema(description = "Индентификатор")
+    @NotNull(message = " id standard and norm pipe should not be blank")
+    @Positive(message = "id standard and norm pipe can only be positive")
+    private Long id;
     @Schema(description = "Индентификатор объекта обследования")
     @NotNull(message = "id object data should not be blank")
     @Positive(message = "id object data can only be positive")
@@ -26,13 +30,17 @@ public class NewPassportDto {
     @Schema(description = "Характеристики объекта обследования")
     @NotNull(message = "characteristics should not be blank")
     @NotEmpty(message = "characteristics should not be empty")
-    private List<NewCharacteristicDto> characteristics;
+    private List<UpdateObjectCharacteristicsDto> characteristics;
+    @Schema(description = "Индентификаторы данных типоразмеров трубы")
+    @NotNull(message = "standard size pipe should not be blank")
+    @NotEmpty(message = "standard size pipe should not be empty")
+    private List<Long> standardSizePipeIds;
     @Schema(description = "Характеристики объекта обследования")
     @NotNull(message = "characteristics should not be blank")
     @NotEmpty(message = "characteristics should not be empty")
-    private List<NewRepairDto> repairs;
+    private List<UpdateRepairDto> repairs;
     @Schema(description = "Характеристики объекта обследования")
     @NotNull(message = "characteristics should not be blank")
     @NotEmpty(message = "characteristics should not be empty")
-    private List<NewSurveyDto> surveys;
+    private List<UpdateSurveyDto> surveys;
 }

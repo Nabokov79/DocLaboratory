@@ -8,11 +8,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.nabokov.passportservice.dto.client.ObjectDataDto;
-import ru.nabokov.passportservice.dto.norms.NewNormsDto;
-import ru.nabokov.passportservice.dto.norms.NormsDto;
-import ru.nabokov.passportservice.dto.norms.UpdateNormsDto;
-import ru.nabokov.passportservice.service.NormsService;
+import ru.nabokov.passportservice.dto.norms.NewTanksNormsDto;
+import ru.nabokov.passportservice.dto.norms.TanksNormsDto;
+import ru.nabokov.passportservice.dto.norms.UpdateTanksNormsDto;
+import ru.nabokov.passportservice.dto.norms.pipline.NewPipelineNormDto;
+import ru.nabokov.passportservice.dto.norms.pipline.PipelineNormDto;
+import ru.nabokov.passportservice.dto.norms.pipline.UpdatePipelineNormDto;
+import ru.nabokov.passportservice.service.pipeline.PipelineNormService;
+import ru.nabokov.passportservice.service.tank.TankNormsService;
 
 import java.util.List;
 
@@ -27,25 +30,30 @@ import java.util.List;
         description="API для работы с нормами выявления брака в объекте обследования")
 public class NormController {
 
-    private final NormsService service;
-
+    private final TankNormsService service;
+    private final PipelineNormService pipelineNormsService;
 
     @Operation(summary = "Добавление новых норм")
-    @PostMapping
-    public ResponseEntity<NormsDto> save(@RequestBody @Parameter(description = "Нормы") NewNormsDto normsDto) {
+    @PostMapping("/tanks")
+    public ResponseEntity<TanksNormsDto> saveTanksNorms(@RequestBody @Parameter(description = "Нормы") NewTanksNormsDto normsDto) {
         return ResponseEntity.ok().body(service.save(normsDto));
     }
 
     @Operation(summary = "Изменение данных норм")
-    @PatchMapping
-    public ResponseEntity<NormsDto> update(@RequestBody @Parameter(description = "Нормы") UpdateNormsDto normsDto) {
+    @PatchMapping("/tanks")
+    public ResponseEntity<TanksNormsDto> updateTanksNorms(@RequestBody @Parameter(description = "Нормы") UpdateTanksNormsDto normsDto) {
         return ResponseEntity.ok().body(service.update(normsDto));
     }
 
-    @Operation(summary = "Получение норм")
-    @GetMapping
-    public ResponseEntity<List<ObjectDataDto>> getAll(@RequestParam(required = false)
-                                               @Parameter(description = "Индентификатор типа объекта") Long typeId) {
-        return ResponseEntity.ok().body(service.getAll(typeId));
+    @Operation(summary = "Добавление новых норм")
+    @PostMapping("/pipeline")
+    public ResponseEntity<List<PipelineNormDto>> savePipelineNorms(@RequestBody @Parameter(description = "Нормы") List<NewPipelineNormDto> normsDto) {
+        return ResponseEntity.ok().body(pipelineNormsService.save(normsDto));
+    }
+
+    @Operation(summary = "Изменение данных норм")
+    @PatchMapping("/pipeline")
+    public ResponseEntity<List<PipelineNormDto>> updatePipelineNorms(@RequestBody @Parameter(description = "Нормы") List<UpdatePipelineNormDto> normsDto) {
+        return ResponseEntity.ok().body(pipelineNormsService.update(normsDto));
     }
 }

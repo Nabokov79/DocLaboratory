@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import ru.nabokov.passportservice.dto.repair.NewRepairDto;
 import ru.nabokov.passportservice.dto.repair.RepairDto;
 import ru.nabokov.passportservice.dto.repair.UpdateRepairDto;
-import ru.nabokov.passportservice.model.Repair;
+import ru.nabokov.passportservice.model.passport.Repair;
 import java.util.List;
 
 @Mapper(componentModel = "spring")

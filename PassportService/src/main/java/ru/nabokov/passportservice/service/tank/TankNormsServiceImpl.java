@@ -1,40 +1,41 @@
-package ru.nabokov.passportservice.service;
+package ru.nabokov.passportservice.service.tank;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.nabokov.passportservice.client.PassportClient;
 import ru.nabokov.passportservice.dto.client.ObjectDataDto;
-import ru.nabokov.passportservice.dto.norms.NewNormsDto;
-import ru.nabokov.passportservice.dto.norms.NormsDto;
-import ru.nabokov.passportservice.dto.norms.UpdateNormsDto;
+import ru.nabokov.passportservice.dto.norms.NewTanksNormsDto;
+import ru.nabokov.passportservice.dto.norms.TanksNormsDto;
+import ru.nabokov.passportservice.dto.norms.UpdateTanksNormsDto;
 import ru.nabokov.passportservice.exceptions.BadRequestException;
-import ru.nabokov.passportservice.mapper.NormsMapper;
-import ru.nabokov.passportservice.model.Belt;
-import ru.nabokov.passportservice.model.Bottom;
-import ru.nabokov.passportservice.model.Norm;
-import ru.nabokov.passportservice.model.PipelineNorm;
+import ru.nabokov.passportservice.mapper.TankNormsMapper;
+import ru.nabokov.passportservice.model.passport.Belt;
+import ru.nabokov.passportservice.model.passport.Bottom;
+import ru.nabokov.passportservice.model.norms.TankNorm;
 import ru.nabokov.passportservice.repository.NormsRepository;
+import ru.nabokov.passportservice.service.passport.BeltService;
+import ru.nabokov.passportservice.service.passport.BottomService;
+import ru.nabokov.passportservice.service.pipeline.PipelineNormService;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class NormsServiceImpl implements NormsService {
+public class TankNormsServiceImpl implements TankNormsService {
 
     private final NormsRepository repository;
-    private final NormsMapper mapper;
+    private final TankNormsMapper mapper;
     private final PassportClient client;
     private final BeltService beltService;
     private final BottomService bottomService;
     private final PipelineNormService pipelineNormService;
 
     @Override
-    public NormsDto save(NewNormsDto normsDto) {
+    public TanksNormsDto save(NewTanksNormsDto normsDto) {
         ObjectDataDto objectData = client.getObjectData(normsDto.getObjectDataId());
-        Norm norms = setValues(new Norm(), objectData);
+        TankNorm norms = setValues(new TankNorm(), objectData);
         List<Belt> belts;
         List<Bottom> bottoms;
-        List<PipelineNorm> pipelineNorms;
         if (normsDto.getBelts() != null && normsDto.getBottoms() != null) {
             belts = beltService.save(objectData.getType().getId(), normsDto.getBelts());
             bottoms = bottomService.save(objectData.getType().getId(), normsDto.getBottoms());
@@ -42,21 +43,15 @@ public class NormsServiceImpl implements NormsService {
             belts = beltService.getAll(objectData.getVolume(), objectData.getType().getId());
             bottoms = bottomService.getAll(objectData.getVolume(), objectData.getType().getId());
         }
-        if (normsDto.getPipelineNorms() != null) {
-            pipelineNorms = pipelineNormService.save(objectData.getType().getId(), normsDto.getPipelineNorms());
-        } else {
-            pipelineNorms = pipelineNormService.getAll(objectData.getType().getId());
-        }
-        return mapper.mapToNormsDto(repository.save(setNorm(norms,belts, bottoms, pipelineNorms)));
+        return mapper.mapToNormsDto(repository.save(setNorm(norms,belts, bottoms)));
     }
 
     @Override
-    public NormsDto update(UpdateNormsDto normsDto) {
+    public TanksNormsDto update(UpdateTanksNormsDto normsDto) {
         ObjectDataDto objectData = client.getObjectData(normsDto.getObjectDataId());
-        Norm norms = setValues(mapper.mapToUpdateNormsDto(normsDto), objectData);
+        TankNorm norms = setValues(mapper.mapToUpdateNormsDto(normsDto), objectData);
         List<Belt> belts;
         List<Bottom> bottoms;
-        List<PipelineNorm> pipelineNorms;
         if (normsDto.getBelts() != null && normsDto.getBottoms() != null) {
             belts = beltService.update(objectData.getType().getId(), normsDto.getBelts());
             bottoms = bottomService.update(objectData.getType().getId(), normsDto.getBottoms());
@@ -64,35 +59,22 @@ public class NormsServiceImpl implements NormsService {
             belts = beltService.getAll(objectData.getVolume(), objectData.getType().getId());
             bottoms = bottomService.getAll(objectData.getVolume(), objectData.getType().getId());
         }
-        if (normsDto.getPipelineNorms() != null) {
-            pipelineNorms = pipelineNormService.update(objectData.getType().getId(), normsDto.getPipelineNorms());
-        } else {
-            pipelineNorms = pipelineNormService.getAll(objectData.getType().getId());
-        }
-        return mapper.mapToNormsDto(repository.save(setNorm(norms,belts, bottoms, pipelineNorms)));
+        return mapper.mapToNormsDto(repository.save(setNorm(norms,belts, bottoms)));
     }
 
-    @Override
-    public List<ObjectDataDto> getAll(Long typeId) {
-        return null;
-    }
-
-    private Norm setValues(Norm norms, ObjectDataDto objectData) {
+    private TankNorm setValues(TankNorm norms, ObjectDataDto objectData) {
         norms.setObjectDataId(objectData.getId());
         norms.setTypeId(objectData.getType().getId());
         return norms;
     }
 
-    private Norm setNorm(Norm norms, List<Belt> belts, List<Bottom> bottoms, List<PipelineNorm> pipelineNorms) {
-        if ((belts.isEmpty() && bottoms.isEmpty()) || pipelineNorms.isEmpty()) {
+    private TankNorm setNorm(TankNorm norms, List<Belt> belts, List<Bottom> bottoms) {
+        if ((belts.isEmpty() && bottoms.isEmpty())) {
             throw new BadRequestException(String.format("Norms for type with id=%s not found", norms.getTypeId()));
         } else {
             if (!belts.isEmpty() && !bottoms.isEmpty()) {
                 norms.setBelts(belts);
                 norms.setBottoms(bottoms);
-            }
-            if (!pipelineNorms.isEmpty()) {
-                norms.setPipelineNorms(pipelineNorms);
             }
         }
         return norms;
