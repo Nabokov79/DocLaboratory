@@ -1,4 +1,4 @@
-package ru.nabokov.patternservice.dto.defect;
+package ru.nabokov.dataservice.dto.defect;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

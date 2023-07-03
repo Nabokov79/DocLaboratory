@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 @Setter
 @Getter
@@ -36,4 +38,8 @@ public class UpdateObjectDataDto {
     @NotNull(message = "building id should not be blank")
     @Positive(message = "building id can only be positive")
     private Long buildingId;
+    @Schema(description = "Индентификатор элементов объекта")
+    @NotNull(message = "element ids should not be blank")
+    @NotEmpty(message = "element ids can only be positive")
+    private List<Long> elementIds;
 }

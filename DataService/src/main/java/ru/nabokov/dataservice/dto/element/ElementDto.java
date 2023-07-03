@@ -1,11 +1,11 @@
-package ru.nabokov.patternservice.dto.element;
+package ru.nabokov.dataservice.dto.element;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import ru.nabokov.patternservice.dto.defect.DefectDto;
-import ru.nabokov.patternservice.dto.place.PlaceDto;
+import ru.nabokov.dataservice.dto.defect.DefectDto;
+import ru.nabokov.dataservice.dto.place.PlaceDto;
 import java.util.List;
 
 @Setter
@@ -16,8 +16,6 @@ public class ElementDto {
 
     @Schema(description = "Индентификатор")
     private Long id;
-    @Schema(description = "Номер строки с элементом")
-    private Integer item;
     @Schema(description = "Название элемента")
     private String name;
     @Schema(description = "Место замера на элементе")

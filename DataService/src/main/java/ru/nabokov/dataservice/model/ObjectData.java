@@ -1,11 +1,9 @@
 package ru.nabokov.dataservice.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Setter
 @Getter
@@ -34,4 +32,11 @@ public class ObjectData {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "building_id", referencedColumnName = "id")
     private Building building;
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "object_data_elements",
+            joinColumns = {@JoinColumn(name = "object_data_id")},
+            inverseJoinColumns = {@JoinColumn(name = "element_id")})
+    @ToString.Exclude
+    private List<Element> element;
 }

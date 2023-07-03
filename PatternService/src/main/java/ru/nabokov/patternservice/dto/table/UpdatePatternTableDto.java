@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.nabokov.patternservice.dto.columnHeader.UpdateColumnHeaderDto;
 import ru.nabokov.patternservice.dto.combinedColumns.UpdateCombinedColumnsDto;
-import ru.nabokov.patternservice.dto.element.UpdateElementDto;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.List;
@@ -29,6 +27,4 @@ public class UpdatePatternTableDto {
     private List<UpdateColumnHeaderDto> columnHeaders;
     @Schema(description = "Данные объедененной колонки")
     private UpdateCombinedColumnsDto combinedColumn;
-    @Schema(description = "Элементы, содержащиеся в таблице")
-    private List<UpdateElementDto> elements;
 }

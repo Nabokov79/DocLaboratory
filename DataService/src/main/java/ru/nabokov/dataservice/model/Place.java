@@ -1,4 +1,4 @@
-package ru.nabokov.patternservice.model;
+package ru.nabokov.dataservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -21,17 +21,12 @@ public class Place {
     private long id;
     @Column(name = "place")
     private String place;
-    @ManyToOne
-    @JoinColumn(name = "element_id")
-    @JsonIgnore
-    private Element element;
 
     @Override
     public String toString() {
         return "Place{" +
                 "id=" + id +
                 ", place='" + place + '\'' +
-                ", element=" + element +
                 '}';
     }
 }
