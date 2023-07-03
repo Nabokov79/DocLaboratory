@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.nabokov.patternservice.dto.columnHeader.ColumnHeaderDto;
 import ru.nabokov.patternservice.dto.combinedColumns.CombinedColumnsDto;
-import ru.nabokov.patternservice.dto.element.ElementDto;
 import java.util.List;
 
 @Setter
@@ -23,8 +22,6 @@ public class PatternTableDto {
     private List<ColumnHeaderDto> columnHeaders;
     @Schema(description = "Данные объедененной колоноки таблицы")
     private CombinedColumnsDto combinedColumn;
-    @Schema(description = "Данные элементов, входящих в таблицу")
-    private List<ElementDto> elements;
 
     @Override
     public String toString() {
@@ -33,7 +30,6 @@ public class PatternTableDto {
                 ", name='" + name + '\'' +
                 ", columnHeaders=" + columnHeaders +
                 ", combinedColumn=" + combinedColumn +
-                ", elements=" + elements +
                 '}';
     }
 }

@@ -1,7 +1,7 @@
-package ru.nabokov.patternservice.repository;
+package ru.nabokov.dataservice.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.nabokov.patternservice.model.Element;
+import ru.nabokov.dataservice.model.Element;
 
 public interface ElementRepository extends JpaRepository<Element, Long> {
 }

@@ -30,8 +30,6 @@ public class PatternTable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "combined_column_id", referencedColumnName = "id")
     private CombinedColumns combinedColumn;
-    @OneToMany(mappedBy = "patternTable", fetch = FetchType.LAZY)
-    private List<Element> elements;
     @ManyToOne
     @JoinColumn(name = "geodesy_protocol_pattern_id")
     @JsonIgnore
