@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import ru.nabokov.passportservice.dto.standardSizePipeDto.NewStandardSizePipeDto;
 import ru.nabokov.passportservice.dto.standardSizePipeDto.StandardSizePipeDto;
 import ru.nabokov.passportservice.dto.standardSizePipeDto.UpdateStandardSizePipeDto;
-import ru.nabokov.passportservice.model.passport.StandardSizePipe;
+import ru.nabokov.passportservice.model.StandardSizePipe;
 
 import java.util.List;
 
