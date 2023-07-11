@@ -9,10 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.nabokov.passportservice.dto.passport.*;
-import ru.nabokov.passportservice.dto.passport.tank.NewTankPassportDto;
-import ru.nabokov.passportservice.dto.passport.tank.TankPassportDto;
-import ru.nabokov.passportservice.dto.passport.tank.UpdateTankPassportDto;
-import ru.nabokov.passportservice.service.passport.TankPassportService;
+import ru.nabokov.passportservice.dto.passport.NewPassportDto;
+import ru.nabokov.passportservice.dto.passport.PassportDto;
+import ru.nabokov.passportservice.dto.passport.UpdatePassportDto;
+import ru.nabokov.passportservice.service.PassportService;
 
 import java.util.List;
 
@@ -25,27 +25,27 @@ import java.util.List;
 @Validated
 @Tag(name="Паспорт объекта обследования",
         description="API для работы с данными паспорта")
-public class TankPassportController {
+public class PassportController {
 
-    private final TankPassportService service;
+    private final PassportService service;
 
     @Operation(summary = "Добавление новых данных паспорта")
     @PostMapping
-    public ResponseEntity<TankPassportDto> save(@RequestBody
-                                            @Parameter(description = "Данные паспорта") NewTankPassportDto passportDto) {
+    public ResponseEntity<PassportDto> save(@RequestBody
+                                            @Parameter(description = "Данные паспорта") NewPassportDto passportDto) {
         return ResponseEntity.ok().body(service.save(passportDto));
     }
 
     @Operation(summary = "Изменение данных паспорта")
     @PatchMapping
-    public ResponseEntity<TankPassportDto> update(@RequestBody
-                                            @Parameter(description = "Данные паспорта") UpdateTankPassportDto passportDto) {
+    public ResponseEntity<PassportDto> update(@RequestBody
+                                            @Parameter(description = "Данные паспорта") UpdatePassportDto passportDto) {
         return ResponseEntity.ok().body(service.update(passportDto));
     }
 
     @Operation(summary = "Получить паспорт бака")
     @GetMapping("/{id}")
-    public ResponseEntity<TankPassportDto> get(@PathVariable @Parameter(description = "Индентификатор") Long id) {
+    public ResponseEntity<PassportDto> get(@PathVariable @Parameter(description = "Индентификатор") Long id) {
         return ResponseEntity.ok().body(service.get(id));
     }
 
