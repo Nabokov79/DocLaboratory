@@ -1,4 +1,4 @@
-package ru.nabokov.passportservice.dto.passport.tank;
+package ru.nabokov.passportservice.dto.passport;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @Schema(description = "Паспортные данные для изменения информации в паспорте объекта типа емкость")
-public class UpdateTankPassportDto {
+public class UpdatePassportDto {
 
     @Schema(description = "Индентификатор")
     @NotNull(message = " id standard and norm pipe should not be blank")
