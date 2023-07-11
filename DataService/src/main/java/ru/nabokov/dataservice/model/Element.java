@@ -17,8 +17,6 @@ public class Element {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "item")
-    private Integer item;
     @Column(name = "name")
     private String name;
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
