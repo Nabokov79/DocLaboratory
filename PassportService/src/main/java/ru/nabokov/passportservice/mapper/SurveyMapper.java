@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import ru.nabokov.passportservice.dto.survey.NewSurveyDto;
 import ru.nabokov.passportservice.dto.survey.SurveyDto;
 import ru.nabokov.passportservice.dto.survey.UpdateSurveyDto;
-import ru.nabokov.passportservice.model.passport.Survey;
+import ru.nabokov.passportservice.model.Survey;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package ru.nabokov.passportservice.dto.passport.tank;
+package ru.nabokov.passportservice.dto.passport;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @Schema(description = "Паспортные данные объекта типа емкость")
-public class TankPassportDto {
+public class PassportDto {
 
     @Schema(description = "Индентификатор")
     private Long id;

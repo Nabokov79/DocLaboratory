@@ -2,20 +2,20 @@ package ru.nabokov.passportservice.mapper;
 
 import org.mapstruct.Mapper;
 import ru.nabokov.passportservice.dto.passport.*;
-import ru.nabokov.passportservice.dto.passport.tank.NewTankPassportDto;
-import ru.nabokov.passportservice.dto.passport.tank.TankPassportDto;
-import ru.nabokov.passportservice.dto.passport.tank.UpdateTankPassportDto;
-import ru.nabokov.passportservice.model.passport.Passport;
+import ru.nabokov.passportservice.dto.passport.NewPassportDto;
+import ru.nabokov.passportservice.dto.passport.PassportDto;
+import ru.nabokov.passportservice.dto.passport.UpdatePassportDto;
+import ru.nabokov.passportservice.model.Passport;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface PassportMapper {
 
-    Passport mapFromNewPassportDto(NewTankPassportDto passportDto);
+    Passport mapFromNewPassportDto(NewPassportDto passportDto);
 
-    Passport mapFromUpdatePassportDto(UpdateTankPassportDto passportDto);
+    Passport mapFromUpdatePassportDto(UpdatePassportDto passportDto);
 
-    TankPassportDto mapToTankPassportDto(Passport passport);
+    PassportDto mapToTankPassportDto(Passport passport);
 
     List<ShortPassportDto> mapToShortPassportDto(List<Passport> passports);
 }

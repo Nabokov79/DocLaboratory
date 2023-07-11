@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.nabokov.passportservice.model.passport.Characteristic;
+import ru.nabokov.passportservice.model.Characteristic;
 
 @Setter
 @Getter

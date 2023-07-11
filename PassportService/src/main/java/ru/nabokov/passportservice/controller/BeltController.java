@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.nabokov.passportservice.dto.belt.BeltDto;
 import ru.nabokov.passportservice.dto.belt.NewBeltDto;
 import ru.nabokov.passportservice.dto.belt.UpdateBeltDto;
-import ru.nabokov.passportservice.service.passport.BeltService;
+import ru.nabokov.passportservice.service.BeltService;
 
 import java.util.List;
 

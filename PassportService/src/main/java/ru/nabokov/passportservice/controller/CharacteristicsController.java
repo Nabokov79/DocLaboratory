@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.nabokov.passportservice.dto.сharacteristic.CharacteristicDto;
 import ru.nabokov.passportservice.dto.сharacteristic.NewCharacteristicDto;
 import ru.nabokov.passportservice.dto.сharacteristic.UpdateCharacteristicDto;
-import ru.nabokov.passportservice.service.passport.CharacteristicService;
+import ru.nabokov.passportservice.service.CharacteristicService;
 
 import java.util.List;
 

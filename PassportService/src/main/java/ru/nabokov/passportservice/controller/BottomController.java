@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.nabokov.passportservice.dto.bottom.BottomDto;
 import ru.nabokov.passportservice.dto.bottom.NewBottomDto;
 import ru.nabokov.passportservice.dto.bottom.UpdateBottomDto;
-import ru.nabokov.passportservice.service.passport.BottomService;
+import ru.nabokov.passportservice.service.BottomService;
 
 import java.util.List;
 
