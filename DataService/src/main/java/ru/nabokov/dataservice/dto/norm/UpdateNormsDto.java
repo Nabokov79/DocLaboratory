@@ -1,11 +1,10 @@
-package ru.nabokov.passportservice.dto.norms;
+package ru.nabokov.dataservice.dto.norm;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import ru.nabokov.passportservice.dto.belt.UpdateBeltDto;
-import ru.nabokov.passportservice.dto.bottom.UpdateBottomDto;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @Schema(description = "Данные для изменения норм брака объекта обследования")
-public class UpdateTanksNormsDto {
+public class UpdateNormsDto {
 
     @Schema(description = "Индентификатор")
     @NotNull(message = "id should not be blank")
@@ -25,7 +24,7 @@ public class UpdateTanksNormsDto {
     @Positive(message = "id object data can only be positive")
     private Long typeId;
     @Schema(description = "Нормы брака днищ емкостей")
-    private List<UpdateBottomDto> bottoms;
-    @Schema(description = "Нормы брака поясов(корпусов) емкостей")
-    private List<UpdateBeltDto> belts;
+    @NotNull(message = "bottoms norms should not be blank")
+    @NotEmpty(message = "bottoms norms should not be empty")
+    private List<UpdateNormDataDto> normData;
 }

@@ -1,4 +1,4 @@
-package ru.nabokov.passportservice.model.passport;
+package ru.nabokov.passportservice.model;
 
 import lombok.*;
 

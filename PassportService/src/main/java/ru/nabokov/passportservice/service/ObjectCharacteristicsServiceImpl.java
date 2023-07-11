@@ -1,4 +1,4 @@
-package ru.nabokov.passportservice.service.passport;
+package ru.nabokov.passportservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -6,9 +6,9 @@ import ru.nabokov.passportservice.dto.objectCharacteristics.NewObjectCharacteris
 import ru.nabokov.passportservice.dto.objectCharacteristics.UpdateObjectCharacteristicsDto;
 import ru.nabokov.passportservice.exceptions.NotFoundException;
 import ru.nabokov.passportservice.mapper.ObjectCharacteristicsMapper;
-import ru.nabokov.passportservice.model.passport.Characteristic;
-import ru.nabokov.passportservice.model.passport.ObjectCharacteristics;
-import ru.nabokov.passportservice.model.passport.Passport;
+import ru.nabokov.passportservice.model.Characteristic;
+import ru.nabokov.passportservice.model.ObjectCharacteristics;
+import ru.nabokov.passportservice.model.Passport;
 import ru.nabokov.passportservice.repository.ObjectCharacteristicsRepository;
 
 import java.util.ArrayList;

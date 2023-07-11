@@ -1,9 +1,9 @@
-package ru.nabokov.passportservice.service.passport;
+package ru.nabokov.passportservice.service;
 
 import ru.nabokov.passportservice.dto.objectCharacteristics.NewObjectCharacteristicsDto;
 import ru.nabokov.passportservice.dto.objectCharacteristics.UpdateObjectCharacteristicsDto;
-import ru.nabokov.passportservice.model.passport.ObjectCharacteristics;
-import ru.nabokov.passportservice.model.passport.Passport;
+import ru.nabokov.passportservice.model.ObjectCharacteristics;
+import ru.nabokov.passportservice.model.Passport;
 
 import java.util.List;
 

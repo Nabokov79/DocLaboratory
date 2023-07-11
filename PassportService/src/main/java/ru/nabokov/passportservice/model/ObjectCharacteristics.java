@@ -1,4 +1,4 @@
-package ru.nabokov.passportservice.model.passport;
+package ru.nabokov.passportservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

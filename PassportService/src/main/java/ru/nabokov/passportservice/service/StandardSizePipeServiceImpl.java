@@ -1,4 +1,4 @@
-package ru.nabokov.passportservice.service.passport;
+package ru.nabokov.passportservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -7,7 +7,7 @@ import ru.nabokov.passportservice.dto.standardSizePipeDto.StandardSizePipeDto;
 import ru.nabokov.passportservice.dto.standardSizePipeDto.UpdateStandardSizePipeDto;
 import ru.nabokov.passportservice.exceptions.NotFoundException;
 import ru.nabokov.passportservice.mapper.StandardSizePipeMapper;
-import ru.nabokov.passportservice.model.passport.StandardSizePipe;
+import ru.nabokov.passportservice.model.StandardSizePipe;
 import ru.nabokov.passportservice.repository.StandardSizePipeRepository;
 
 import java.util.ArrayList;

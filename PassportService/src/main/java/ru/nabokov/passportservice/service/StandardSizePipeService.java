@@ -1,4 +1,4 @@
-package ru.nabokov.passportservice.service.passport;
+package ru.nabokov.passportservice.service;
 
 import ru.nabokov.passportservice.dto.standardSizePipeDto.NewStandardSizePipeDto;
 import ru.nabokov.passportservice.dto.standardSizePipeDto.StandardSizePipeDto;

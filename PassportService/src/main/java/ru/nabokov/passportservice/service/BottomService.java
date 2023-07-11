@@ -1,9 +1,9 @@
-package ru.nabokov.passportservice.service.passport;
+package ru.nabokov.passportservice.service;
 
 import ru.nabokov.passportservice.dto.bottom.BottomDto;
 import ru.nabokov.passportservice.dto.bottom.NewBottomDto;
 import ru.nabokov.passportservice.dto.bottom.UpdateBottomDto;
-import ru.nabokov.passportservice.model.passport.Bottom;
+import ru.nabokov.passportservice.model.Bottom;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package ru.nabokov.passportservice.service.passport;
+package ru.nabokov.passportservice.service;
 
 import ru.nabokov.passportservice.dto.repair.NewRepairDto;
 import ru.nabokov.passportservice.dto.repair.UpdateRepairDto;
-import ru.nabokov.passportservice.model.passport.Repair;
+import ru.nabokov.passportservice.model.Repair;
 
 import java.util.List;
 

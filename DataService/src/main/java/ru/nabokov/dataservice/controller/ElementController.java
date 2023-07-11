@@ -28,14 +28,14 @@ public class ElementController {
 
     private final ElementService service;
 
-    @Operation(summary = "Добавление нового нормативного документа")
+    @Operation(summary = "Добавление новоых элементов объекта")
     @PostMapping
     public ResponseEntity<List<ElementDto>> save(
             @RequestBody @Parameter(description = "Список элементов") List<NewElementDto> elementsDto) {
         return ResponseEntity.ok().body(service.save(elementsDto));
     }
 
-    @Operation(summary = "Изменение данных нормативного документа")
+    @Operation(summary = "Изменение данных элементов объекта")
     @PatchMapping
     public ResponseEntity<List<ElementDto>> update(
             @RequestBody @Parameter(description = "Список элементов") List<UpdateElementDto> elementsDto) {

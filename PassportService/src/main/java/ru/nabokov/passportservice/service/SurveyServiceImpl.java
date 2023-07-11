@@ -1,4 +1,4 @@
-package ru.nabokov.passportservice.service.passport;
+package ru.nabokov.passportservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -6,7 +6,7 @@ import ru.nabokov.passportservice.dto.survey.NewSurveyDto;
 import ru.nabokov.passportservice.dto.survey.UpdateSurveyDto;
 import ru.nabokov.passportservice.exceptions.NotFoundException;
 import ru.nabokov.passportservice.mapper.SurveyMapper;
-import ru.nabokov.passportservice.model.passport.Survey;
+import ru.nabokov.passportservice.model.Survey;
 import ru.nabokov.passportservice.repository.SurveyRepository;
 import java.util.ArrayList;
 import java.util.List;

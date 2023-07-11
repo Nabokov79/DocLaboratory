@@ -1,4 +1,4 @@
-package ru.nabokov.passportservice.model.passport;
+package ru.nabokov.passportservice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,16 +12,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "repairs")
-public class Repair {
+@Table(name = "edges")
+public class Edge {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "date")
-    private String date;
-    @Column(name = "description")
-    private String description;
-    @Column(name = "organization_id")
-    private Long organizationId;
+    @Column(name = "thickness")
+    private Integer thickness;
+    @Column(name = "min")
+    private Float min;
 }

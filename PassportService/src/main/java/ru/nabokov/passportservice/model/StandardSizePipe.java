@@ -1,10 +1,10 @@
-package ru.nabokov.passportservice.model.passport;
-
+package ru.nabokov.passportservice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.persistence.*;
 
 @Setter
@@ -12,14 +12,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "characteristics")
-public class Characteristic {
+@Table(name = "standard_size_pipes")
+public class StandardSizePipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "number")
-    private Double number;
-    @Column(name = "name")
-    private String name;
+    @Column(name = "diameter")
+    private Integer diameter;
+    @Column(name = "thickness")
+    private Float thickness;
 }

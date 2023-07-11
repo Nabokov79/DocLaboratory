@@ -1,9 +1,9 @@
-package ru.nabokov.passportservice.service.passport;
+package ru.nabokov.passportservice.service;
 
 import ru.nabokov.passportservice.dto.сharacteristic.CharacteristicDto;
 import ru.nabokov.passportservice.dto.сharacteristic.NewCharacteristicDto;
 import ru.nabokov.passportservice.dto.сharacteristic.UpdateCharacteristicDto;
-import ru.nabokov.passportservice.model.passport.Characteristic;
+import ru.nabokov.passportservice.model.Characteristic;
 import java.util.List;
 
 public interface CharacteristicService {

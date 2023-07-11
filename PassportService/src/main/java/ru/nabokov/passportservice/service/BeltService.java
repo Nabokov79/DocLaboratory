@@ -1,9 +1,9 @@
-package ru.nabokov.passportservice.service.passport;
+package ru.nabokov.passportservice.service;
 
 import ru.nabokov.passportservice.dto.belt.BeltDto;
 import ru.nabokov.passportservice.dto.belt.NewBeltDto;
 import ru.nabokov.passportservice.dto.belt.UpdateBeltDto;
-import ru.nabokov.passportservice.model.passport.Belt;
+import ru.nabokov.passportservice.model.Belt;
 
 import java.util.List;
 

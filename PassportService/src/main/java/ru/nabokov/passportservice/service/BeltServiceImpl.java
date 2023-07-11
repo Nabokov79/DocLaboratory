@@ -1,4 +1,4 @@
-package ru.nabokov.passportservice.service.passport;
+package ru.nabokov.passportservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -6,7 +6,7 @@ import ru.nabokov.passportservice.dto.belt.NewBeltDto;
 import ru.nabokov.passportservice.dto.belt.UpdateBeltDto;
 import ru.nabokov.passportservice.exceptions.NotFoundException;
 import ru.nabokov.passportservice.mapper.BeltMapper;
-import ru.nabokov.passportservice.model.passport.Belt;
+import ru.nabokov.passportservice.model.Belt;
 import ru.nabokov.passportservice.dto.belt.BeltDto;
 import ru.nabokov.passportservice.repository.BeltRepository;
 import java.util.ArrayList;
