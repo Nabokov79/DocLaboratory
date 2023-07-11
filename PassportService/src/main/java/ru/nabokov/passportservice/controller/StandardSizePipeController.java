@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.nabokov.passportservice.dto.standardSizePipeDto.NewStandardSizePipeDto;
 import ru.nabokov.passportservice.dto.standardSizePipeDto.StandardSizePipeDto;
 import ru.nabokov.passportservice.dto.standardSizePipeDto.UpdateStandardSizePipeDto;
-import ru.nabokov.passportservice.service.passport.StandardSizePipeService;
+import ru.nabokov.passportservice.service.StandardSizePipeService;
 
 import java.util.List;
 
