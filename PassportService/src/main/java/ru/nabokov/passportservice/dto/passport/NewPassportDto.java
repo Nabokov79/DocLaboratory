@@ -1,4 +1,4 @@
-package ru.nabokov.passportservice.dto.passport.tank;
+package ru.nabokov.passportservice.dto.passport;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Schema(description = "Новые паспортные данные объекта типа емкость")
-public class NewTankPassportDto {
+public class NewPassportDto {
 
     @Schema(description = "Индентификатор объекта обследования")
     @NotNull(message = "id object data should not be blank")
